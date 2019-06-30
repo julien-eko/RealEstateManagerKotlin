@@ -3,18 +3,17 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              tools:context=".PropertyListFragment"
+              tools:context=".controller.fragment.PropertyListFragment"
               android:orientation="vertical">
 
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_property"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-    <Button android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:text="testbutton"
-            android:id="@+id/test_button"/>
-
+    <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:id="@+id/test_add_button"
+            android:text="add"/>
 
 </LinearLayout>

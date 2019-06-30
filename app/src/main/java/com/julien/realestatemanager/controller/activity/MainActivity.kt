@@ -1,13 +1,12 @@
-package com.julien.realestatemanager
+package com.julien.realestatemanager.controller.activity
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentTransaction
-import android.support.v7.widget.LinearLayoutManager
-import com.openclassrooms.realestatemanager.views.PropertyAdaptater
-import kotlinx.android.synthetic.main.activity_property_detail.*
-import kotlinx.android.synthetic.main.fragment_property_list.*
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import com.julien.realestatemanager.R
+import com.julien.realestatemanager.controller.fragment.PropertyDetailFragment
+import com.julien.realestatemanager.controller.fragment.PropertyListFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,9 +22,9 @@ class MainActivity : AppCompatActivity() {
        // propertyList =  supportFragmentManager.findFragmentById(R.id.frame_layout_main)
         supportFragmentManager.inTransaction {
             add(R.id.frame_layout_property_list, propertyList)
-            if(frame_layout_property_detail != null){
-
-                add(R.id.frame_layout_property_detail,propertyDetail)
+            val isTablet: Boolean = resources.getBoolean(R.bool.isTablet)
+            if (isTablet) {
+                    add(R.id.frame_layout_property_detail,propertyDetail)
 
             }
         }
@@ -33,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> Unit) {
+    inline fun androidx.fragment.app.FragmentManager.inTransaction(func: androidx.fragment.app.FragmentTransaction.() -> Unit) {
         val fragmentTransaction = beginTransaction()
         fragmentTransaction.func()
         fragmentTransaction.commit()

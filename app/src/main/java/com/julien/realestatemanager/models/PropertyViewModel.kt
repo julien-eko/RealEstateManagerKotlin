@@ -20,4 +20,6 @@ class PropertyViewModel(application: Application) : AndroidViewModel(application
     fun insert(property: Property) = viewModelScope.launch(Dispatchers.IO) {
         repository.insert(property)
     }
+
+    fun getProperty(uid:Int):LiveData<Property> = repository.getProperties(uid)
 }

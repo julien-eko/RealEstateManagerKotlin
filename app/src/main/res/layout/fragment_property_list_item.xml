@@ -15,20 +15,17 @@
                   android:id="@+id/property_type_text_view"
                   android:textSize="20dp"
                   android:textStyle="bold"
-                  android:textColor="@android:color/black"
-                  android:text="test"/>
+                  android:textColor="@android:color/black"/>
 
         <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                  android:id="@+id/city_property_tewt_view"
+                  android:id="@+id/property_city_text_view"
                   android:textSize="15dp"
-                  android:textStyle="bold"
-                  android:text="test2"/>
+                  android:textStyle="bold"/>
 
         <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                   android:id="@+id/price_text_view"
                   android:textSize="25dp"
-                  android:textColor="@color/pink"
-                  android:text="$ 100,000"/>
+                  android:textColor="@color/pink"/>
 
     </LinearLayout>
 

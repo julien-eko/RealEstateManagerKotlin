@@ -11,11 +11,13 @@ class PropertyViewHolder(itemView: View): androidx.recyclerview.widget.RecyclerV
 
 
     val propertyType = itemView.findViewById<TextView>(R.id.property_type_text_view)
-    val propertyCity = itemView.findViewById<TextView>(R.id.city_property_tewt_view)
+    val propertyCity = itemView.findViewById<TextView>(R.id.property_city_text_view)
+    val propertyPrice = itemView.findViewById<TextView>(R.id.price_text_view)
 
 
-    fun update(test: Property){
-        propertyType.text = test.uid.toString()
-        propertyCity.text = test.type
+    fun update(property: Property){
+        propertyType.text = property.type
+        propertyCity.text = property.city
+        propertyPrice.text = property.price
     }
 }

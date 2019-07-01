@@ -26,6 +26,7 @@ class NewPropertyActivity : AppCompatActivity() {
             if (TextUtils.isEmpty(edit_type.text)) {
                 setResult(Activity.RESULT_CANCELED, replyIntent)
             } else {
+                val city = edit_city.text.toString()
                 val type = edit_type.text.toString()
                 val price = edit_price.text.toString()
                 val area = edit_area.text.toString()
@@ -39,6 +40,7 @@ class NewPropertyActivity : AppCompatActivity() {
                 val realEstateAgent = edit_real_estate_agent.text.toString()
                 val photo = edit_photo.text.toString()
 
+                replyIntent.putExtra("city", city)
                 replyIntent.putExtra("type", type)
                 replyIntent.putExtra("price", price)
                 replyIntent.putExtra("area", area)

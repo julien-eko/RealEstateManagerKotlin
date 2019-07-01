@@ -79,12 +79,14 @@ class PropertyListFragment : androidx.fragment.app.Fragment() {
             val intent = Intent(context, NewPropertyActivity::class.java)
             startActivityForResult(intent, newWordActivityRequestCode)
         }
+
         listener()
 
     }
 
+    //click
     fun listener(){
-        adapter.listener = { pos ->
+        adapter.listener = { uid ->
             // do something here
 
             val isTablet: Boolean = resources.getBoolean(R.bool.isTablet)
@@ -94,12 +96,12 @@ class PropertyListFragment : androidx.fragment.app.Fragment() {
                 propertyList = PropertyListFragment()
                 activity?.supportFragmentManager?.inTransaction {
                     replace(R.id.frame_layout_property_list, propertyList)
-                    replace(R.id.frame_layout_property_detail, propertyDetail, pos.toString())
+                    replace(R.id.frame_layout_property_detail, propertyDetail, uid.toString())
                 }
 
             }else{
                 val intent = Intent(context, PropertyDetailActivity::class.java)
-                intent.putExtra("test", pos)
+                intent.putExtra("uid", uid)
                 // start your next activity
                 startActivity(intent)
                 //Toast.makeText(context, pos.toString(), Toast.LENGTH_SHORT).show()
@@ -124,7 +126,7 @@ class PropertyListFragment : androidx.fragment.app.Fragment() {
         if (requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
             data?.let {
                 //val property = Property(it.getStringExtra(NewPropertyActivity.EXTRA_REPLY))
-                var property = Property(0,it.getStringExtra("type"),it.getStringExtra("price"),it.getStringExtra("area"),it.getStringExtra("numberOfRomms"),it.getStringExtra("description"),it.getStringExtra("adress"),it.getStringExtra("placeNearby"),it.getStringExtra("status"),it.getStringExtra("createdDate"),it.getStringExtra("dateOfSale"),it.getStringExtra("realEstateAgent"),it.getStringExtra("photo"))
+                var property = Property(0,it.getStringExtra("city"),it.getStringExtra("type"),it.getStringExtra("price"),it.getStringExtra("area"),it.getStringExtra("numberOfRooms"),it.getStringExtra("description"),it.getStringExtra("adress"),it.getStringExtra("placeNearby"),it.getStringExtra("status"),it.getStringExtra("createdDate"),it.getStringExtra("dateOfSale"),it.getStringExtra("realEstateAgent"),it.getStringExtra("photo"))
                 propertyViewModel.insert(property)
             }
         } else {

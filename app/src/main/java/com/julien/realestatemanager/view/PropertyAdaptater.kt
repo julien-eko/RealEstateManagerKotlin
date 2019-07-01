@@ -20,7 +20,7 @@ class PropertyAdaptater(var propertyList: List<Property>): androidx.recyclerview
         return PropertyViewHolder(v).listen { pos, type ->
             //val item = items.get(pos)
             //Toast.makeText(parent.context, pos.toString(), Toast.LENGTH_SHORT).show()
-            listener?.invoke(pos)
+            listener?.invoke(propertyList.get(pos).uid)
             //TODO do other stuff here
         }
 

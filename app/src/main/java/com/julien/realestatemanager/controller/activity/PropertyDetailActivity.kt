@@ -20,7 +20,7 @@ class PropertyDetailActivity : AppCompatActivity() {
 
         // propertyList =  supportFragmentManager.findFragmentById(R.id.frame_layout_main)
         supportFragmentManager.inTransaction {
-            add(R.id.frame_layout_property_detail, propertyDetail,intent.getIntExtra("test",8).toString())
+            add(R.id.frame_layout_property_detail, propertyDetail,intent.getIntExtra("uid",0).toString())
         }
 
     }

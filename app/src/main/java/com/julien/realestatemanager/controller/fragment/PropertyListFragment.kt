@@ -3,7 +3,11 @@ package com.julien.realestatemanager.controller.fragment
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -25,6 +29,7 @@ import com.julien.realestatemanager.models.RealEstateManagerDatabase
 import com.openclassrooms.realestatemanager.views.PropertyAdaptater
 import com.openclassrooms.realestatemanager.views.PropertyViewHolder
 import kotlinx.android.synthetic.main.fragment_property_list.*
+import java.io.ByteArrayOutputStream
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -45,6 +50,8 @@ class PropertyListFragment : androidx.fragment.app.Fragment() {
     private lateinit var propertyList: PropertyListFragment
 
     private lateinit var propertyViewModel: PropertyViewModel
+
+    //private lateinit var photo:ByteArray
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -79,6 +86,7 @@ class PropertyListFragment : androidx.fragment.app.Fragment() {
             val intent = Intent(context, NewPropertyActivity::class.java)
             startActivityForResult(intent, newWordActivityRequestCode)
         }
+
 
         listener()
 
@@ -126,7 +134,11 @@ class PropertyListFragment : androidx.fragment.app.Fragment() {
         if (requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
             data?.let {
                 //val property = Property(it.getStringExtra(NewPropertyActivity.EXTRA_REPLY))
-                var property = Property(0,it.getStringExtra("city"),it.getStringExtra("type"),it.getStringExtra("price"),it.getStringExtra("area"),it.getStringExtra("numberOfRooms"),it.getStringExtra("description"),it.getStringExtra("adress"),it.getStringExtra("placeNearby"),it.getStringExtra("status"),it.getStringExtra("createdDate"),it.getStringExtra("dateOfSale"),it.getStringExtra("realEstateAgent"),it.getStringExtra("photo"))
+                //Log.e("test2", it.getStringArrayListExtra("photo")[1])
+                //var bitmap: Bitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, Uri.parse(it.getStringExtra("photo")))
+                //insertImg(bitmap)
+                //var list = convertArrayListStringToByteArray(it.getStringArrayListExtra("photo"))
+                var property = Property(0,it.getStringExtra("city"),it.getStringExtra("type"),it.getStringExtra("price"),it.getStringExtra("area"),it.getStringExtra("numberOfRooms"),it.getStringExtra("description"),it.getStringExtra("adress"),it.getStringExtra("placeNearby"),it.getStringExtra("status"),it.getStringExtra("createdDate"),it.getStringExtra("dateOfSale"),it.getStringExtra("realEstateAgent"),convertArrayStringToByteArray(it.getStringExtra("photo")))
                 propertyViewModel.insert(property)
             }
         } else {
@@ -135,6 +147,37 @@ class PropertyListFragment : androidx.fragment.app.Fragment() {
                "erreur",
                 Toast.LENGTH_LONG).show()
         }
+    }
+
+    fun convertArrayStringToByteArray(photo: String): ByteArray? {
+
+        var bitmap: Bitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, Uri.parse(photo))
+
+           return getBitmapAsByteArray(bitmap)
+
+    }
+
+/*
+    fun convertArrayListStringToByteArray(list: ArrayList<String>): Array<ByteArray?> {
+        var listPhoto = arrayOfNulls<ByteArray>(7)
+
+        for(i in list.indices){
+
+            var bitmap: Bitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, Uri.parse(list[i]))
+            //Log.e("ok ?",getBitmapAsByteArray(bitmap).toString())
+            listPhoto[i]=getBitmapAsByteArray(bitmap)
+            //listPhoto.add(getBitmapAsByteArray(bitmap))
+        }
+
+        return listPhoto
+
+
+    }
+*/
+    fun getBitmapAsByteArray(bitmap: Bitmap): ByteArray {
+        val outputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+        return outputStream.toByteArray()
     }
 
 

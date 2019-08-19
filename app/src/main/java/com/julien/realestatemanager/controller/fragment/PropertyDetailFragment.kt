@@ -12,6 +12,14 @@ import com.julien.realestatemanager.R
 import com.julien.realestatemanager.models.Property
 import com.julien.realestatemanager.models.PropertyViewModel
 import kotlinx.android.synthetic.main.fragment_property_detail.*
+import android.graphics.BitmapFactory
+import android.graphics.Bitmap
+import android.util.Log
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import java.io.ByteArrayOutputStream
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -48,8 +56,25 @@ class PropertyDetailFragment : androidx.fragment.app.Fragment() {
                 property?.let {
                     //adapter.setWords(it)
                     //adapter.setProperties(property)
+                    //Log.e("test", property.photo[0].toString())
+                    //var list: List<String> = Arrays.asList(property.photo.split("\\s*,\\s*"))
 
-                    photo.text = property.photo
+                    //var result: List<String> = property.photo.split(",").map { it.trim() }
+                    //Log.e("test", result[0].toByteArray().toString())
+/*
+                    if(property.photo != null){
+
+                        val bitmap:Bitmap = BitmapFactory.decodeByteArray(property.photo, 0, property.photo.size)
+                        //photo.text = property.photo
+
+                    Glide.with(this) //SHOWING PREVIEW OF IMAGE
+                        .load(bitmap)
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(image_test)
+
+                    }
+*/
+
                     description_text_view.text = property.description
                     area_text_view.text = property.area
                     number_of_rooms_text_view.text = property.numberOfRooms
@@ -59,7 +84,11 @@ class PropertyDetailFragment : androidx.fragment.app.Fragment() {
 
             })
         }
-
+        fun getBitmapAsByteArray(bitmap: Bitmap): ByteArray {
+            val outputStream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream)
+            return outputStream.toByteArray()
+        }
     }
 
 

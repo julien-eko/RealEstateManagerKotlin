@@ -4,6 +4,7 @@
               android:layout_height="wrap_content">
 
     <ImageView android:layout_width="100dp" android:layout_height="100dp"
+               android:id="@+id/fragment_property_list_photo"
                android:src="@drawable/property"
     android:layout_weight="1"/>
 

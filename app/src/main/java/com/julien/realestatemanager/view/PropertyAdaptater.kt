@@ -13,9 +13,11 @@ import com.julien.realestatemanager.models.Property
 class PropertyAdaptater(var propertyList: List<Property>): androidx.recyclerview.widget.RecyclerView.Adapter<PropertyViewHolder>() {
 
     var listener: ((Int)->Unit)? = null
+    private lateinit var context: Context
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PropertyViewHolder {
+        context = parent?.context
         val v = LayoutInflater.from(parent?.context).inflate(R.layout.fragment_property_list_item, parent, false)
         return PropertyViewHolder(v).listen { pos, type ->
             //val item = items.get(pos)
@@ -27,7 +29,7 @@ class PropertyAdaptater(var propertyList: List<Property>): androidx.recyclerview
     }
 
     override fun onBindViewHolder(holder: PropertyViewHolder, position: Int) {
-        holder.update(propertyList.get(position))
+        holder.update(propertyList.get(position),context)
     }
 
     internal fun setProperties(properties: List<Property>) {

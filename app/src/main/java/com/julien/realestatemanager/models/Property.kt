@@ -19,5 +19,8 @@ data class Property(
         @ColumnInfo(name = "creation_date") val creationDate: String?,
         @ColumnInfo(name = "date_of_sale") val dateOfSale: String?,
         @ColumnInfo(name = "real_estate_agent") val realEstateAgent: String?,
-        @ColumnInfo(name = "photo") val photo: String?
+        @ColumnInfo(name = "photo") val photo: ByteArray?
+
+
+
 )

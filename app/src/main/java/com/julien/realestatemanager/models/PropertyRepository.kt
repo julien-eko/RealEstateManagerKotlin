@@ -9,6 +9,8 @@ class PropertyRepository(private val propertyDao: PropertyDao) {
     //fun getProperties(propertyId: Int): LiveData<Property> {return propertyDao.getPropertyId(propertyId)}
     fun getProperties(propertyId: Int) = propertyDao.getPropertyId(propertyId)
 
+
+
     //Create
     //fun createProperty(property: Property) = propertyDao.insertProperty(property)
 

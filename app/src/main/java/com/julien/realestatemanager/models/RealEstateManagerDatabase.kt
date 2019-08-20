@@ -10,9 +10,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@Database(entities = arrayOf(Property::class), version = 1)
+@Database(entities = arrayOf(Property::class,Media::class), version = 1)
 abstract class RealEstateManagerDatabase: RoomDatabase() {
     abstract fun propertyDao(): PropertyDao
+    abstract fun mediaDao(): MediaDao
 
     companion object {
         @Volatile

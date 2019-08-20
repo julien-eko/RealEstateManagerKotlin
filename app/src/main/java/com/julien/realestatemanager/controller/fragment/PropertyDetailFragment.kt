@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.fragment_property_detail.*
 import android.graphics.BitmapFactory
 import android.graphics.Bitmap
 import android.util.Log
+import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import java.io.ByteArrayOutputStream
@@ -49,11 +50,11 @@ class PropertyDetailFragment : androidx.fragment.app.Fragment() {
         super.onActivityCreated(savedInstanceState)
 
 
-        if(tag != null){
+        if (tag != null) {
             propertyViewModel = ViewModelProviders.of(this).get(PropertyViewModel::class.java)
             propertyViewModel.getProperty(tag!!.toInt()).observe(this, Observer { property ->
-                // Update the cached copy of the words in the adapter.
-                property?.let {
+                    // Update the cached copy of the words in the adapter.
+                    property?.let {
                     //adapter.setWords(it)
                     //adapter.setProperties(property)
                     //Log.e("test", property.photo[0].toString())
@@ -83,13 +84,60 @@ class PropertyDetailFragment : androidx.fragment.app.Fragment() {
 
 
             })
-        }
-        fun getBitmapAsByteArray(bitmap: Bitmap): ByteArray {
-            val outputStream = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream)
-            return outputStream.toByteArray()
-        }
-    }
+
+            propertyViewModel.getMedia(tag!!.toInt()).observe(this, Observer { media ->
+                // Update the cached copy of the words in the adapter.
+                media?.let {
+                    //Log.e("size media", media.size.toString())
+
+                    for (photo in media){
+                        var bitmap: Bitmap = BitmapFactory.decodeByteArray(photo.photo, 0, photo.photo!!.size)
+                        var image = ImageView(context)
+
+                        //fragment_property_detail_media.addView(image)
+
+                        Glide.with(this) //SHOWING PREVIEW OF IMAGE
+                            .load(bitmap)
+                            .apply(RequestOptions.circleCropTransform())
+                            .into(image)
+
+                        fragment_property_detail_media.addView(image)
+
+                    }
+                    //Log.e("size" , media.size.toString())
+/*
+                    if (media[0].photo != null) {
+                        val bitmap1: Bitmap = BitmapFactory.decodeByteArray(media[0].photo, 0, media[0].photo!!.size)
+                        //photo.text = property.photo
+
+                        Glide.with(this) //SHOWING PREVIEW OF IMAGE
+                            .load(bitmap1)
+                            .apply(RequestOptions.circleCropTransform())
+                            .into(image_test)
+                    }
+
+                    if (media[1].photo != null) {
+                        val bitmap2: Bitmap = BitmapFactory.decodeByteArray(media[1].photo, 0, media[1].photo!!.size)
+                        //photo.text = property.photo
+
+                        Glide.with(this) //SHOWING PREVIEW OF IMAGE
+                            .load(bitmap2)
+                            .apply(RequestOptions.circleCropTransform())
+                            .into(image_test2)
+                    }
+
+*/
+                }
 
 
-}
+            }
+            )
+            fun getBitmapAsByteArray(bitmap: Bitmap): ByteArray {
+                val outputStream = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream)
+                return outputStream.toByteArray()
+            }
+        }
+
+
+    }}

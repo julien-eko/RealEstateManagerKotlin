@@ -19,11 +19,18 @@ import android.provider.MediaStore
 
 
 import android.graphics.Bitmap.CompressFormat
+import android.util.Log
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import com.julien.realestatemanager.models.Media
+import com.julien.realestatemanager.models.Property
+import com.julien.realestatemanager.models.PropertyViewModel
 
 import java.io.ByteArrayOutputStream
 
 
 private const val PERMS = android.Manifest.permission.READ_EXTERNAL_STORAGE
+
     private const val RC_IMAGE_PERMS = 100
 
     private  const val RC_CHOOSE_PHOTO = 200
@@ -40,9 +47,15 @@ class NewPropertyActivity : AppCompatActivity() {
     //private var uriImage5: Uri
     //private var uriImage6: Uri
 
-    private var uriList:ArrayList<String> = ArrayList<String>()
+    private var uriList:ArrayList<Uri> = ArrayList()
 
     private lateinit var uri: Uri
+
+    private var choice:Int = 0
+
+    private lateinit var propertyViewModel: PropertyViewModel
+
+
 
     //private lateinit var bitmap: Bitmap
     //private lateinit var photo:ByteArray
@@ -54,12 +67,12 @@ class NewPropertyActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_property)
         //editWordView = findViewById(R.id.edit_word)
-
+        propertyViewModel = ViewModelProviders.of(this).get(PropertyViewModel::class.java)
         //val button = findViewById<Button>(R.id.button_save)
         button_save.setOnClickListener {
-            val replyIntent = Intent()
+            //val replyIntent = Intent()
             if (TextUtils.isEmpty(edit_type.text)) {
-                setResult(Activity.RESULT_CANCELED, replyIntent)
+                //setResult(Activity.RESULT_CANCELED, replyIntent)
             } else {
                 val city = edit_city.text.toString()
                 val type = edit_type.text.toString()
@@ -74,30 +87,37 @@ class NewPropertyActivity : AppCompatActivity() {
                 val dateOfSale = edit_date_of_sale.text.toString()
                 val realEstateAgent = edit_real_estate_agent.text.toString()
 
+                val newProperty = Property(0,city,type,price,area,numberOfRooms,description,adress,placeNearby,status,createdDate,dateOfSale,realEstateAgent,convertStringToByte(uri.toString()))
+                propertyViewModel.insert(newProperty)
 
+                propertyViewModel.allProperties.observe(this, Observer { property ->
+                    // Update the cached copy of the words in the adapter.
+                    property?.let {
 
-                replyIntent.putExtra("city", city)
-                replyIntent.putExtra("type", type)
-                replyIntent.putExtra("price", price)
-                replyIntent.putExtra("area", area)
-                replyIntent.putExtra("numberOfRooms", numberOfRooms)
-                replyIntent.putExtra("description", description)
-                replyIntent.putExtra("adress", adress)
-                replyIntent.putExtra("placeNearby", placeNearby)
-                replyIntent.putExtra("status", status)
-                replyIntent.putExtra("createdDate", createdDate)
-                replyIntent.putExtra("dateOfSale", dateOfSale)
-                replyIntent.putExtra("realEstateAgent", realEstateAgent)
-                replyIntent.putExtra("photo", uri.toString())
+                        for( i in uriList ){
+                            Log.e("test id: " ,property.size.toString())
+                            val media = Media(0,"test",convertStringToByte(i.toString()),property[property.size -1].id)
+                            propertyViewModel.insertMedia(media)
+                           // Log.e("id property: " ,property[property.size - 1].id.toString())
+                        }
 
-                setResult(Activity.RESULT_OK, replyIntent)
+                        uriList = ArrayList()
+                    }
+                }
+                    )
             }
             finish()
         }
 
         button_photo.setOnClickListener {
+            choice = 1
             onClickAddFile()
             //val photo = edit_photo.text.toString()
+        }
+
+        button_album.setOnClickListener {
+            choice = 2
+           onClickAddFile()
         }
     }
 
@@ -144,11 +164,29 @@ class NewPropertyActivity : AppCompatActivity() {
         if (requestCode == RC_CHOOSE_PHOTO) {
             if (resultCode == Activity.RESULT_OK) { //SUCCESS
                 //uriImage = data!!.data
-                uri = data!!.data
+                if ( choice == 1){
+                    uri = data!!.data
+                }else{
+                    uriList.add(data!!.data)
+                }
+
             } else {
                 Toast.makeText(this, "pas d'image choisie", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
+    fun convertStringToByte(photo: String): ByteArray? {
+
+        var bitmap: Bitmap = MediaStore.Images.Media.getBitmap(this?.contentResolver, Uri.parse(photo))
+
+        return getBitmapAsByteArray(bitmap)
+
+    }
+
+    fun getBitmapAsByteArray(bitmap: Bitmap): ByteArray {
+        val outputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+        return outputStream.toByteArray()
+    }
 }

@@ -12,10 +12,11 @@ interface PropertyDao {
     @Query("SELECT * FROM property")
     fun getAll(): LiveData<List<Property>>
 
-    @Query("SELECT * FROM property WHERE uid = :propertyId")
+    @Query("SELECT * FROM property WHERE id = :propertyId")
     fun getPropertyId(propertyId: Int): LiveData<Property>
 
-    @Query("SELECT * FROM property WHERE uid IN (:propertyIds)")
+
+    @Query("SELECT * FROM property WHERE id IN (:propertyIds)")
     fun loadAllByIds(propertyIds: IntArray): List<Property>
 
     //@Query("SELECT * FROM user WHERE first_name LIKE :first AND " +
@@ -30,6 +31,7 @@ interface PropertyDao {
 
     @Insert
     fun insert(property: Property)
+
 
     @Delete
     fun delete(property: Property)

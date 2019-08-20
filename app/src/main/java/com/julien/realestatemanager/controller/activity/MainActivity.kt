@@ -1,5 +1,6 @@
 package com.julien.realestatemanager.controller.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
@@ -67,11 +68,17 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         var itemid = item?.itemId
 
-        when(itemid){
-            R.id.action_add -> Toast.makeText(this, "add", Toast.LENGTH_SHORT).show()
-            R.id.action_edit -> Toast.makeText(this, "edit", Toast.LENGTH_SHORT).show()
-            R.id.action_search -> Toast.makeText(this, "search", Toast.LENGTH_SHORT).show()
+        if (itemid == R.id.action_add){
+            val intent = Intent(this, NewPropertyActivity::class.java)
+            startActivity(intent)
         }
+        if (itemid == R.id.action_edit){
+            Toast.makeText(this, "edit", Toast.LENGTH_SHORT).show()
+        }
+        if (itemid == R.id.action_search){
+            Toast.makeText(this, "search", Toast.LENGTH_SHORT).show()
+        }
+
         return super.onOptionsItemSelected(item)
     }
     override fun onNavigationItemSelected(p0: MenuItem): Boolean {

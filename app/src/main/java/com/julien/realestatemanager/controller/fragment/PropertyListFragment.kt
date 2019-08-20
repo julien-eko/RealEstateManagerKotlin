@@ -22,10 +22,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.julien.realestatemanager.R
 import com.julien.realestatemanager.controller.activity.NewPropertyActivity
 import com.julien.realestatemanager.controller.activity.PropertyDetailActivity
-import com.julien.realestatemanager.models.Property
-import com.julien.realestatemanager.models.PropertyDao
-import com.julien.realestatemanager.models.PropertyViewModel
-import com.julien.realestatemanager.models.RealEstateManagerDatabase
+import com.julien.realestatemanager.models.*
 import com.openclassrooms.realestatemanager.views.PropertyAdaptater
 import com.openclassrooms.realestatemanager.views.PropertyViewHolder
 import kotlinx.android.synthetic.main.fragment_property_list.*
@@ -82,20 +79,16 @@ class PropertyListFragment : androidx.fragment.app.Fragment() {
         })
 
 
-        test_add_button.setOnClickListener {
-            val intent = Intent(context, NewPropertyActivity::class.java)
-            startActivityForResult(intent, newWordActivityRequestCode)
-        }
-
-
         listener()
 
     }
 
     //click
     fun listener(){
-        adapter.listener = { uid ->
+        adapter.listener = { id ->
             // do something here
+
+            Toast.makeText(context, id.toString(), Toast.LENGTH_SHORT).show()
 
             val isTablet: Boolean = resources.getBoolean(R.bool.isTablet)
             if (isTablet) {
@@ -104,12 +97,12 @@ class PropertyListFragment : androidx.fragment.app.Fragment() {
                 propertyList = PropertyListFragment()
                 activity?.supportFragmentManager?.inTransaction {
                     replace(R.id.frame_layout_property_list, propertyList)
-                    replace(R.id.frame_layout_property_detail, propertyDetail, uid.toString())
+                    replace(R.id.frame_layout_property_detail, propertyDetail, id.toString())
                 }
 
             }else{
                 val intent = Intent(context, PropertyDetailActivity::class.java)
-                intent.putExtra("uid", uid)
+                intent.putExtra("id", id)
                 // start your next activity
                 startActivity(intent)
                 //Toast.makeText(context, pos.toString(), Toast.LENGTH_SHORT).show()
@@ -124,61 +117,14 @@ class PropertyListFragment : androidx.fragment.app.Fragment() {
         fragmentTransaction.commit()
     }
 
-    companion object {
-        const val newWordActivityRequestCode = 1
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
-            data?.let {
-                //val property = Property(it.getStringExtra(NewPropertyActivity.EXTRA_REPLY))
-                //Log.e("test2", it.getStringArrayListExtra("photo")[1])
-                //var bitmap: Bitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, Uri.parse(it.getStringExtra("photo")))
-                //insertImg(bitmap)
-                //var list = convertArrayListStringToByteArray(it.getStringArrayListExtra("photo"))
-                var property = Property(0,it.getStringExtra("city"),it.getStringExtra("type"),it.getStringExtra("price"),it.getStringExtra("area"),it.getStringExtra("numberOfRooms"),it.getStringExtra("description"),it.getStringExtra("adress"),it.getStringExtra("placeNearby"),it.getStringExtra("status"),it.getStringExtra("createdDate"),it.getStringExtra("dateOfSale"),it.getStringExtra("realEstateAgent"),convertArrayStringToByteArray(it.getStringExtra("photo")))
-                propertyViewModel.insert(property)
-            }
-        } else {
-            Toast.makeText(
-                context,
-               "erreur",
-                Toast.LENGTH_LONG).show()
-        }
-    }
-
-    fun convertArrayStringToByteArray(photo: String): ByteArray? {
-
-        var bitmap: Bitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, Uri.parse(photo))
-
-           return getBitmapAsByteArray(bitmap)
-
-    }
-
-/*
-    fun convertArrayListStringToByteArray(list: ArrayList<String>): Array<ByteArray?> {
-        var listPhoto = arrayOfNulls<ByteArray>(7)
-
-        for(i in list.indices){
-
-            var bitmap: Bitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, Uri.parse(list[i]))
-            //Log.e("ok ?",getBitmapAsByteArray(bitmap).toString())
-            listPhoto[i]=getBitmapAsByteArray(bitmap)
-            //listPhoto.add(getBitmapAsByteArray(bitmap))
-        }
-
-        return listPhoto
 
 
-    }
-*/
-    fun getBitmapAsByteArray(bitmap: Bitmap): ByteArray {
-        val outputStream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
-        return outputStream.toByteArray()
-    }
+
+
+
+
+
+
 
 
 }

@@ -120,14 +120,19 @@
               android:text="Photo"/>
 
         <Button
-                android:id="@+id/button_photo"
+            android:id="@+id/button_photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:text="add"/>
+
+
+        <Button
+                android:id="@+id/button_album"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary"
-                android:text="add"/>
-
-
-
+                android:text="album"/>
 
     <Button
             android:id="@+id/button_save"

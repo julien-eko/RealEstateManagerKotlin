@@ -16,11 +16,22 @@ import android.graphics.BitmapFactory
 import android.graphics.Bitmap
 import android.util.Log
 import android.widget.ImageView
+import android.widget.Toast
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.gms.maps.*
 import java.io.ByteArrayOutputStream
 import java.util.*
 import kotlin.collections.ArrayList
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
+
+import com.google.android.gms.maps.MapView
+
+
+
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -32,29 +43,42 @@ private const val ARG_PARAM2 = "param2"
  * A simple [Fragment] subclass.
  *
  */
-class PropertyDetailFragment : androidx.fragment.app.Fragment() {
+class PropertyDetailFragment : androidx.fragment.app.Fragment(),OnMapReadyCallback {
 
 
     private lateinit var propertyViewModel: PropertyViewModel
+    private lateinit var mMap: GoogleMap
+    private lateinit var mMapView: MapView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
 
-        return inflater.inflate(R.layout.fragment_property_detail, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_property_detail, container, false)
+        mMapView = rootView.findViewById(R.id.mapView) as MapView
+        mMapView.onCreate(savedInstanceState)
+        mMapView.onResume()
+        //mapView = childFragmentManager.findFragmentById(R.id.mapView)
+
+        mMapView.getMapAsync(this)
+
+        return rootView
     }
+
+
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
 
+
         if (tag != null) {
             propertyViewModel = ViewModelProviders.of(this).get(PropertyViewModel::class.java)
             propertyViewModel.getProperty(tag!!.toInt()).observe(this, Observer { property ->
-                    // Update the cached copy of the words in the adapter.
-                    property?.let {
+                // Update the cached copy of the words in the adapter.
+                property?.let {
                     //adapter.setWords(it)
                     //adapter.setProperties(property)
                     //Log.e("test", property.photo[0].toString())
@@ -90,7 +114,7 @@ class PropertyDetailFragment : androidx.fragment.app.Fragment() {
                 media?.let {
                     //Log.e("size media", media.size.toString())
 
-                    for (photo in media){
+                    for (photo in media) {
                         var bitmap: Bitmap = BitmapFactory.decodeByteArray(photo.photo, 0, photo.photo!!.size)
                         var image = ImageView(context)
 
@@ -104,40 +128,24 @@ class PropertyDetailFragment : androidx.fragment.app.Fragment() {
                         fragment_property_detail_media.addView(image)
 
                     }
-                    //Log.e("size" , media.size.toString())
-/*
-                    if (media[0].photo != null) {
-                        val bitmap1: Bitmap = BitmapFactory.decodeByteArray(media[0].photo, 0, media[0].photo!!.size)
-                        //photo.text = property.photo
 
-                        Glide.with(this) //SHOWING PREVIEW OF IMAGE
-                            .load(bitmap1)
-                            .apply(RequestOptions.circleCropTransform())
-                            .into(image_test)
-                    }
-
-                    if (media[1].photo != null) {
-                        val bitmap2: Bitmap = BitmapFactory.decodeByteArray(media[1].photo, 0, media[1].photo!!.size)
-                        //photo.text = property.photo
-
-                        Glide.with(this) //SHOWING PREVIEW OF IMAGE
-                            .load(bitmap2)
-                            .apply(RequestOptions.circleCropTransform())
-                            .into(image_test2)
-                    }
-
-*/
                 }
 
 
             }
             )
-            fun getBitmapAsByteArray(bitmap: Bitmap): ByteArray {
-                val outputStream = ByteArrayOutputStream()
-                bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream)
-                return outputStream.toByteArray()
-            }
+
         }
 
 
-    }}
+    }
+    override fun onMapReady(googleMap: GoogleMap?) {
+        Toast.makeText(context, "edit", Toast.LENGTH_SHORT).show()
+        mMap = googleMap!!
+        // Add a marker in Sydney and move the camera
+        val sydney = LatLng(-34.0, 151.0)
+        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+    }
+
+}

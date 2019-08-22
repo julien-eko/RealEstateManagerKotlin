@@ -11,11 +11,14 @@ class PropertyDetailActivity : AppCompatActivity() {
 
     private lateinit var propertyDetail: PropertyDetailFragment
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_property_detail)
 
         propertyDetail = PropertyDetailFragment()
+
+
 
 
         // propertyList =  supportFragmentManager.findFragmentById(R.id.frame_layout_main)

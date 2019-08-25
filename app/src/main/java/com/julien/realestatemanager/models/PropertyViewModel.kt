@@ -32,7 +32,7 @@ class PropertyViewModel(application: Application) : AndroidViewModel(application
 
     }
 
-    fun getProperty(id:Int):LiveData<Property> = propertyRepository.getProperties(id)
+    fun getProperty(id:String):LiveData<Property> = propertyRepository.getProperties(id)
 
     fun getAllProperty(): LiveData<List<Property>> = propertyRepository.allProperties
 
@@ -46,5 +46,5 @@ class PropertyViewModel(application: Application) : AndroidViewModel(application
         mediaRepository.insert(media)
     }
 
-    fun getMedia(id:Int):LiveData<List<Media>> = mediaRepository.getMedia(id)
+    fun getMedia(id:String):LiveData<List<Media>> = mediaRepository.getMedia(id)
 }

@@ -12,7 +12,7 @@ import com.julien.realestatemanager.models.Property
 
 class PropertyAdaptater(var propertyList: List<Property>): androidx.recyclerview.widget.RecyclerView.Adapter<PropertyViewHolder>() {
 
-    var listener: ((Int)->Unit)? = null
+    var listener: ((String)->Unit)? = null
     private lateinit var context: Context
 
 

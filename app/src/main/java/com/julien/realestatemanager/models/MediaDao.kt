@@ -10,7 +10,7 @@ import androidx.room.Query
 interface MediaDao {
 
     @Query("SELECT * FROM media WHERE property_id = :propertyId")
-    fun getALLPhotoPropertyId(propertyId: Int): LiveData<List<Media>>
+    fun getALLPhotoPropertyId(propertyId: String): LiveData<List<Media>>
 
     @Insert
     fun insert(media: Media)

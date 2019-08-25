@@ -17,7 +17,7 @@ data class Media(
     @PrimaryKey(autoGenerate = true) val id: Int,
     @ColumnInfo(name = "description") val description: String,
     @ColumnInfo(name = "photo") val photo: ByteArray?,
-    @ColumnInfo(name = "property_id") val propertyId: Int
+    @ColumnInfo(name = "property_id") val propertyId: String
 
 
 )

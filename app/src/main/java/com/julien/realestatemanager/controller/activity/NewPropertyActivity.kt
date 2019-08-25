@@ -27,6 +27,8 @@ import com.julien.realestatemanager.models.Property
 import com.julien.realestatemanager.models.PropertyViewModel
 
 import java.io.ByteArrayOutputStream
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 private const val PERMS = android.Manifest.permission.READ_EXTERNAL_STORAGE
@@ -87,24 +89,18 @@ class NewPropertyActivity : AppCompatActivity() {
                 val dateOfSale = edit_date_of_sale.text.toString()
                 val realEstateAgent = edit_real_estate_agent.text.toString()
 
-                val newProperty = Property(0,city,type,price,area,numberOfRooms,description,adress,placeNearby,status,createdDate,dateOfSale,realEstateAgent,convertStringToByte(uri.toString()))
+                val newId = UUID.randomUUID().toString()
+                val newProperty = Property(newId,city,type,price,area,numberOfRooms,description,adress,placeNearby,status,createdDate,dateOfSale,realEstateAgent,convertStringToByte(uri.toString()))
                 propertyViewModel.insert(newProperty)
 
-                propertyViewModel.allProperties.observe(this, Observer { property ->
-                    // Update the cached copy of the words in the adapter.
-                    property?.let {
-
-                        for( i in uriList ){
-                            Log.e("test id: " ,property.size.toString())
-                            val media = Media(0,"test",convertStringToByte(i.toString()),property[property.size -1].id)
-                            propertyViewModel.insertMedia(media)
-                           // Log.e("id property: " ,property[property.size - 1].id.toString())
-                        }
-
-                        uriList = ArrayList()
-                    }
+                for( i in uriList ){
+                    //Log.e("test id: " ,property.size.toString())
+                    val media = Media(0,"test",convertStringToByte(i.toString()),newProperty.id)
+                    propertyViewModel.insertMedia(media)
+                    // Log.e("id property: " ,property[property.size - 1].id.toString())
                 }
-                    )
+
+                uriList = ArrayList()
             }
             finish()
         }

@@ -13,7 +13,7 @@ interface PropertyDao {
     fun getAll(): LiveData<List<Property>>
 
     @Query("SELECT * FROM property WHERE id = :propertyId")
-    fun getPropertyId(propertyId: Int): LiveData<Property>
+    fun getPropertyId(propertyId: String): LiveData<Property>
 
 
     @Query("SELECT * FROM property WHERE id IN (:propertyIds)")

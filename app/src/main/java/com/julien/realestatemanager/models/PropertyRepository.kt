@@ -7,7 +7,7 @@ class PropertyRepository(private val propertyDao: PropertyDao) {
 
     //get property
     //fun getProperties(propertyId: Int): LiveData<Property> {return propertyDao.getPropertyId(propertyId)}
-    fun getProperties(propertyId: Int) = propertyDao.getPropertyId(propertyId)
+    fun getProperties(propertyId: String) = propertyDao.getPropertyId(propertyId)
 
 
 

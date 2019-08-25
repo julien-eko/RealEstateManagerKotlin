@@ -72,11 +72,11 @@ class PropertyDetailFragment : androidx.fragment.app.Fragment(),OnMapReadyCallba
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-
+        Log.e("tag " , tag)
 
         if (tag != null) {
             propertyViewModel = ViewModelProviders.of(this).get(PropertyViewModel::class.java)
-            propertyViewModel.getProperty(tag!!.toInt()).observe(this, Observer { property ->
+            propertyViewModel.getProperty(tag!!.toString()).observe(this, Observer { property ->
                 // Update the cached copy of the words in the adapter.
                 property?.let {
                     //adapter.setWords(it)
@@ -109,7 +109,7 @@ class PropertyDetailFragment : androidx.fragment.app.Fragment(),OnMapReadyCallba
 
             })
 
-            propertyViewModel.getMedia(tag!!.toInt()).observe(this, Observer { media ->
+            propertyViewModel.getMedia(tag!!.toString()).observe(this, Observer { media ->
                 // Update the cached copy of the words in the adapter.
                 media?.let {
                     //Log.e("size media", media.size.toString())

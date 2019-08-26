@@ -58,9 +58,8 @@ dependencies {
     implementation 'com.google.android.libraries.places:places:2.0.0'
 
 
-    //glide
-    implementation 'com.github.bumptech.glide:glide:4.9.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    //picasso test
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
     // Room components
     implementation "androidx.room:room-runtime:$rootProject.roomVersion"

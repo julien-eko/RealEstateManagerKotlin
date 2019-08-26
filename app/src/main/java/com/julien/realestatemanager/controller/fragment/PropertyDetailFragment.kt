@@ -1,6 +1,7 @@
 package com.julien.realestatemanager.controller.fragment
 
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,13 +15,13 @@ import com.julien.realestatemanager.models.PropertyViewModel
 import kotlinx.android.synthetic.main.fragment_property_detail.*
 import android.graphics.BitmapFactory
 import android.graphics.Bitmap
+import android.net.Uri
+import android.provider.MediaStore
 import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.google.android.gms.maps.*
 import java.io.ByteArrayOutputStream
 import java.util.*
@@ -29,9 +30,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
 import com.google.android.gms.maps.MapView
-
-
-
+import com.squareup.picasso.Picasso
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -71,34 +70,17 @@ class PropertyDetailFragment : androidx.fragment.app.Fragment(),OnMapReadyCallba
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        propertyViewModel = ViewModelProviders.of(this).get(PropertyViewModel::class.java)
 
-        Log.e("tag " , tag)
 
         if (tag != null) {
-            propertyViewModel = ViewModelProviders.of(this).get(PropertyViewModel::class.java)
+
+
+
+
             propertyViewModel.getProperty(tag!!.toString()).observe(this, Observer { property ->
                 // Update the cached copy of the words in the adapter.
                 property?.let {
-                    //adapter.setWords(it)
-                    //adapter.setProperties(property)
-                    //Log.e("test", property.photo[0].toString())
-                    //var list: List<String> = Arrays.asList(property.photo.split("\\s*,\\s*"))
-
-                    //var result: List<String> = property.photo.split(",").map { it.trim() }
-                    //Log.e("test", result[0].toByteArray().toString())
-/*
-                    if(property.photo != null){
-
-                        val bitmap:Bitmap = BitmapFactory.decodeByteArray(property.photo, 0, property.photo.size)
-                        //photo.text = property.photo
-
-                    Glide.with(this) //SHOWING PREVIEW OF IMAGE
-                        .load(bitmap)
-                        .apply(RequestOptions.circleCropTransform())
-                        .into(image_test)
-
-                    }
-*/
 
                     description_text_view.text = property.description
                     area_text_view.text = property.area
@@ -115,18 +97,11 @@ class PropertyDetailFragment : androidx.fragment.app.Fragment(),OnMapReadyCallba
                     //Log.e("size media", media.size.toString())
 
                     for (photo in media) {
-                        var bitmap: Bitmap = BitmapFactory.decodeByteArray(photo.photo, 0, photo.photo!!.size)
+
+
                         var image = ImageView(context)
-
-                        //fragment_property_detail_media.addView(image)
-
-                        Glide.with(this) //SHOWING PREVIEW OF IMAGE
-                            .load(bitmap)
-                            .apply(RequestOptions.circleCropTransform())
-                            .into(image)
-
+                        Picasso.get().load(Uri.parse(photo.photo)).into(image)
                         fragment_property_detail_media.addView(image)
-
                     }
 
                 }
@@ -135,12 +110,12 @@ class PropertyDetailFragment : androidx.fragment.app.Fragment(),OnMapReadyCallba
             }
             )
 
+
         }
 
 
     }
     override fun onMapReady(googleMap: GoogleMap?) {
-        Toast.makeText(context, "edit", Toast.LENGTH_SHORT).show()
         mMap = googleMap!!
         // Add a marker in Sydney and move the camera
         val sydney = LatLng(-34.0, 151.0)
@@ -148,4 +123,13 @@ class PropertyDetailFragment : androidx.fragment.app.Fragment(),OnMapReadyCallba
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
     }
 
+    fun convertStringToByte(photo: String?,context: Context?): ByteArray? {
+
+        var bitmap: Bitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, Uri.parse(photo))
+
+        val outputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+        return outputStream.toByteArray()
+
+    }
 }

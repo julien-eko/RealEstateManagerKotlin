@@ -20,13 +20,17 @@ import android.provider.MediaStore
 
 import android.graphics.Bitmap.CompressFormat
 import android.util.Log
+import android.widget.ImageView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.julien.realestatemanager.models.Media
 import com.julien.realestatemanager.models.Property
 import com.julien.realestatemanager.models.PropertyViewModel
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_property_detail.*
 
 import java.io.ByteArrayOutputStream
+import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -39,15 +43,7 @@ private const val PERMS = android.Manifest.permission.READ_EXTERNAL_STORAGE
 
 class NewPropertyActivity : AppCompatActivity() {
 
-    //private lateinit var editWordView: EditText
 
-    //private var uriImage: Uri
-    //private var uriImage1: Uri
-    //private var uriImage2: Uri
-    //private var uriImage3: Uri
-    //private var uriImage4: Uri
-    //private var uriImage5: Uri
-    //private var uriImage6: Uri
 
     private var uriList:ArrayList<Uri> = ArrayList()
 
@@ -56,12 +52,6 @@ class NewPropertyActivity : AppCompatActivity() {
     private var choice:Int = 0
 
     private lateinit var propertyViewModel: PropertyViewModel
-
-
-
-    //private lateinit var bitmap: Bitmap
-    //private lateinit var photo:ByteArray
-
 
 
 
@@ -90,17 +80,18 @@ class NewPropertyActivity : AppCompatActivity() {
                 val realEstateAgent = edit_real_estate_agent.text.toString()
 
                 val newId = UUID.randomUUID().toString()
-                val newProperty = Property(newId,city,type,price,area,numberOfRooms,description,adress,placeNearby,status,createdDate,dateOfSale,realEstateAgent,convertStringToByte(uri.toString()))
+                val newProperty = Property(newId,city,type,price,area,numberOfRooms,description,adress,placeNearby,status,createdDate,dateOfSale,realEstateAgent,uri.toString())
                 propertyViewModel.insert(newProperty)
 
+
+                Log.e("urilist",uriList.toString())
                 for( i in uriList ){
-                    //Log.e("test id: " ,property.size.toString())
-                    val media = Media(0,"test",convertStringToByte(i.toString()),newProperty.id)
+                    val idMedia = UUID.randomUUID().toString()
+                    val media = Media(idMedia,"test",i.toString(),newProperty.id)
+
                     propertyViewModel.insertMedia(media)
-                    // Log.e("id property: " ,property[property.size - 1].id.toString())
                 }
 
-                uriList = ArrayList()
             }
             finish()
         }
@@ -108,7 +99,6 @@ class NewPropertyActivity : AppCompatActivity() {
         button_photo.setOnClickListener {
             choice = 1
             onClickAddFile()
-            //val photo = edit_photo.text.toString()
         }
 
         button_album.setOnClickListener {
@@ -164,6 +154,7 @@ class NewPropertyActivity : AppCompatActivity() {
                     uri = data!!.data
                 }else{
                     uriList.add(data!!.data)
+                    test(data!!.data.toString())
                 }
 
             } else {
@@ -172,17 +163,10 @@ class NewPropertyActivity : AppCompatActivity() {
         }
     }
 
-    fun convertStringToByte(photo: String): ByteArray? {
 
-        var bitmap: Bitmap = MediaStore.Images.Media.getBitmap(this?.contentResolver, Uri.parse(photo))
-
-        return getBitmapAsByteArray(bitmap)
-
-    }
-
-    fun getBitmapAsByteArray(bitmap: Bitmap): ByteArray {
-        val outputStream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
-        return outputStream.toByteArray()
+    fun test(phototest:String){
+        var image = ImageView(this)
+        Picasso.get().load(Uri.parse(phototest)).into(image)
+        new_property_activity_main_layout.addView(image)
     }
 }

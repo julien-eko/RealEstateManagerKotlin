@@ -3,15 +3,21 @@ package com.openclassrooms.realestatemanager.views
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
+import android.provider.MediaStore
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
+import androidx.lifecycle.ViewModelProviders
 import com.julien.realestatemanager.R
 import com.julien.realestatemanager.models.Property
+import com.julien.realestatemanager.models.PropertyViewModel
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_property_list_item.view.*
+import java.io.ByteArrayOutputStream
+import java.io.File
 import kotlin.coroutines.coroutineContext
 
 class PropertyViewHolder(itemView: View): androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
@@ -29,16 +35,35 @@ class PropertyViewHolder(itemView: View): androidx.recyclerview.widget.RecyclerV
         propertyPrice.text = property.price
 
 
-        if(property.photo != null){
 
-            val bitmap: Bitmap = BitmapFactory.decodeByteArray(property.photo, 0, property.photo.size)
+
+
+
+            //val bitmap: Bitmap = BitmapFactory.decodeByteArray(convertStringToByte(property.photo,context), 0, convertStringToByte(property.photo,context)!!.size)
             //photo.text = property.photo
 
+        //var file:File = File(Uri.parse(property.photo).path)
+
+        Picasso.get().load(Uri.parse(property.photo)).into(propertyPhoto)
+
+        /*
             Glide.with(context) //SHOWING PREVIEW OF IMAGE
-                .load(bitmap)
+                .load(File(Uri.parse(property.photo).path))
                 .apply(RequestOptions.centerCropTransform())
                 .into(propertyPhoto)
+*/
 
-        }
     }
+
+    fun convertStringToByte(photo: String?, context: Context): ByteArray? {
+
+        var bitmap: Bitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, Uri.parse(photo))
+
+        val outputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+        return outputStream.toByteArray()
+
+    }
+
+
 }

@@ -88,7 +88,7 @@ class PropertyListFragment : androidx.fragment.app.Fragment() {
         adapter.listener = { id ->
             // do something here
 
-            Toast.makeText(context, id.toString(), Toast.LENGTH_SHORT).show()
+
 
             val isTablet: Boolean = resources.getBoolean(R.bool.isTablet)
             if (isTablet) {

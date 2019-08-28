@@ -11,5 +11,11 @@
     <!-- Used in NavigationDrawer -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="statut_prompt">Choose a statut</string>
 
+    <string-array name="statut_arrays">
+        <item>----</item>
+        <item>Dispo</item>
+        <item>Vendu</item>
+    </string-array>
 </resources>

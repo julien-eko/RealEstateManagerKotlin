@@ -85,7 +85,14 @@ class PropertyDetailFragment : androidx.fragment.app.Fragment(),OnMapReadyCallba
                     description_text_view.text = property.description
                     area_text_view.text = property.area
                     number_of_rooms_text_view.text = property.numberOfRooms
+                    bedrooms_text_view.text = property.numberOfBedrooms
+                    bathrooms_text_view.text = property.numberOfBathrooms
                     adress_text_view.text = property.adress
+                    additional_adress_text_view.text = property.additionalAdress
+                    city_text_view.text = property.city
+                    postal_code_text_view.text = property.postalCode
+                    country_text_view.text = property.country
+
                 }
 
 
@@ -98,9 +105,9 @@ class PropertyDetailFragment : androidx.fragment.app.Fragment(),OnMapReadyCallba
 
                     for (photo in media) {
 
-
                         var image = ImageView(context)
-                        Picasso.get().load(Uri.parse(photo.photo)).into(image)
+                        Picasso.get().load(Uri.parse(photo.photo)).resize(200,200).into(image)
+                        Log.e("photo", photo.photo)
                         fragment_property_detail_media.addView(image)
                     }
 

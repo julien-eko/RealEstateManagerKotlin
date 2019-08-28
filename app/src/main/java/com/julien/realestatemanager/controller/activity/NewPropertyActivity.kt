@@ -2,25 +2,25 @@ package com.julien.realestatemanager.controller.activity
 
 import android.app.Activity
 import android.content.Intent
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
-import android.widget.Button
-import android.widget.EditText
 import com.julien.realestatemanager.R
 import kotlinx.android.synthetic.main.activity_new_property.*
 import pub.devrel.easypermissions.AfterPermissionGranted
 import java.util.jar.Manifest
 import pub.devrel.easypermissions.EasyPermissions
-import android.widget.Toast
 import android.provider.MediaStore
 
 
 import android.graphics.Bitmap.CompressFormat
+import android.opengl.Visibility
 import android.util.Log
-import android.widget.ImageView
+import android.view.View
+import android.widget.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.julien.realestatemanager.models.Media
@@ -46,12 +46,18 @@ class NewPropertyActivity : AppCompatActivity() {
 
 
     private var uriList:ArrayList<Uri> = ArrayList()
+    private var editTextList:ArrayList<EditText> = ArrayList()
 
     private lateinit var uri: Uri
 
     private var choice:Int = 0
 
     private lateinit var propertyViewModel: PropertyViewModel
+
+    private lateinit var datePickerSale: DatePicker
+
+
+
 
 
 
@@ -60,6 +66,8 @@ class NewPropertyActivity : AppCompatActivity() {
         setContentView(R.layout.activity_new_property)
         //editWordView = findViewById(R.id.edit_word)
         propertyViewModel = ViewModelProviders.of(this).get(PropertyViewModel::class.java)
+
+        //DatePicker_date_of_sale.visibility = View.INVISIBLE
         //val button = findViewById<Button>(R.id.button_save)
         button_save.setOnClickListener {
             //val replyIntent = Intent()
@@ -74,24 +82,40 @@ class NewPropertyActivity : AppCompatActivity() {
                 val description = edit_description.text.toString()
                 val adress = edit_adress.text.toString()
                 val placeNearby = edit_place_nearby.text.toString()
-                val status = edit_status.text.toString()
-                val createdDate = edit_created_date.text.toString()
-                val dateOfSale = edit_date_of_sale.text.toString()
+                val status = spinner_status.selectedItem.toString()
+                val createdDate = datePicker(DatePicker_created_date)
                 val realEstateAgent = edit_real_estate_agent.text.toString()
+                val numberOfBathrooms = edit_number_of_batthrooms.text.toString()
+                val numberOfBedrooms = edit_number_of_bedrooms.text.toString()
+                val additionAdress = edit_additional_adress.text.toString()
+                val postalCode = edit_postal_code.text.toString()
+                val country = edit_country.text.toString()
+                var dateOfSale = ""
+                if (status.equals("Vendu")){
+                    dateOfSale = datePicker(datePickerSale)
+                }
+
+
 
                 val newId = UUID.randomUUID().toString()
-                val newProperty = Property(newId,city,type,price,area,numberOfRooms,description,adress,placeNearby,status,createdDate,dateOfSale,realEstateAgent,uri.toString())
+                val newProperty = Property(newId,city,type,price,area,numberOfRooms,description,adress,placeNearby,status,createdDate,dateOfSale,realEstateAgent,uri.toString(),numberOfBathrooms,numberOfBedrooms,additionAdress,postalCode,country)
                 propertyViewModel.insert(newProperty)
 
 
-                Log.e("urilist",uriList.toString())
+                //Log.e("urilist",uriList.toString())
+                for (i in 0 until uriList.size){
+                    val idMedia = UUID.randomUUID().toString()
+                    val media = Media(idMedia,editTextList[i].text.toString(),uriList[i].toString(),newProperty.id)
+                    propertyViewModel.insertMedia(media)
+                }
+                /*
                 for( i in uriList ){
                     val idMedia = UUID.randomUUID().toString()
                     val media = Media(idMedia,"test",i.toString(),newProperty.id)
 
                     propertyViewModel.insertMedia(media)
                 }
-
+*/
             }
             finish()
         }
@@ -105,6 +129,24 @@ class NewPropertyActivity : AppCompatActivity() {
             choice = 2
            onClickAddFile()
         }
+
+        spinner_status.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                datePickerSale = DatePicker(baseContext)
+
+                if(position == 2){
+                    activity_new_property_layout_date.addView(datePickerSale)
+                }else{
+                    activity_new_property_layout_date.removeAllViews()
+                }
+            }
+
+        }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -153,8 +195,8 @@ class NewPropertyActivity : AppCompatActivity() {
                 if ( choice == 1){
                     uri = data!!.data
                 }else{
+                    editTextList.add( addPhoto(data!!.data.toString()))
                     uriList.add(data!!.data)
-                    test(data!!.data.toString())
                 }
 
             } else {
@@ -164,9 +206,28 @@ class NewPropertyActivity : AppCompatActivity() {
     }
 
 
-    fun test(phototest:String){
+    fun addPhoto(phototest:String):EditText{
         var image = ImageView(this)
-        Picasso.get().load(Uri.parse(phototest)).into(image)
-        new_property_activity_main_layout.addView(image)
+        var editText = EditText(this)
+        var linearLayout = LinearLayout(this)
+        linearLayout.orientation=LinearLayout.HORIZONTAL
+
+        Picasso.get().load(Uri.parse(phototest)).resize(200,200).into(image)
+
+        linearLayout.addView(image)
+        linearLayout.addView(editText)
+        new_property_activity_album_photo.addView(linearLayout)
+
+        return editText
+
+    }
+
+
+    fun datePicker(datePicker:DatePicker):String{
+        val year = datePicker.year
+        val month = datePicker.month + 1
+        val day = datePicker.dayOfMonth
+
+        return day.toString() + "/" + month.toString() + "/" + year.toString()
     }
 }

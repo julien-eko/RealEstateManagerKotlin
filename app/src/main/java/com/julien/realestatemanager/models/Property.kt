@@ -19,7 +19,13 @@ data class Property(
         @ColumnInfo(name = "creation_date") val creationDate: String?,
         @ColumnInfo(name = "date_of_sale") val dateOfSale: String?,
         @ColumnInfo(name = "real_estate_agent") val realEstateAgent: String?,
-        @ColumnInfo(name = "photo") val photo: String?
+        @ColumnInfo(name = "photo") val photo: String?,
+        @ColumnInfo(name= "number_of_bathrooms") val numberOfBathrooms: String?,
+        @ColumnInfo(name = "number_of_bedrooms") val numberOfBedrooms: String?,
+        @ColumnInfo(name = "additional_adress") val additionalAdress: String?,
+        @ColumnInfo(name = "postal_code") val postalCode:String?,
+        @ColumnInfo(name = "country") val country:String?
+
 
 
 

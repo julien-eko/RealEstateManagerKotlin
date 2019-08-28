@@ -47,10 +47,44 @@
                   android:id="@+id/number_of_rooms_text_view"/>
 
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  android:id="@+id/adress_text_view"/>
+                android:text="Number of bedrooms :"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:id="@+id/bedrooms_text_view"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Number of bathrooms :"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:id="@+id/bathrooms_text_view"/>
 
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:text="je suis la carte"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:id="@+id/adress_text_view"
+                android:layout_gravity="center"
+                android:text="5 rue du test"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:id="@+id/additional_adress_text_view"
+                android:layout_gravity="center"
+                android:text="App 4"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:id="@+id/city_text_view"
+                android:layout_gravity="center"
+                android:text="Paris"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:id="@+id/postal_code_text_view"
+                android:layout_gravity="center"
+                android:text="75000"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:id="@+id/country_text_view"
+                android:layout_gravity="center"
+                android:text="France"/>
 
         <com.google.android.gms.maps.MapView
                 android:id="@+id/mapView"

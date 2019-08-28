@@ -15,6 +15,8 @@ import com.julien.realestatemanager.models.PropertyViewModel
 import kotlinx.android.synthetic.main.fragment_property_detail.*
 import android.graphics.BitmapFactory
 import android.graphics.Bitmap
+import android.location.Address
+import android.location.Geocoder
 import android.net.Uri
 import android.provider.MediaStore
 import android.util.Log
@@ -48,6 +50,7 @@ class PropertyDetailFragment : androidx.fragment.app.Fragment(),OnMapReadyCallba
     private lateinit var propertyViewModel: PropertyViewModel
     private lateinit var mMap: GoogleMap
     private lateinit var mMapView: MapView
+    private var adress ="France"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -93,6 +96,7 @@ class PropertyDetailFragment : androidx.fragment.app.Fragment(),OnMapReadyCallba
                     postal_code_text_view.text = property.postalCode
                     country_text_view.text = property.country
 
+                    updateMap(property.latitude,property.longitude)
                 }
 
 
@@ -125,18 +129,22 @@ class PropertyDetailFragment : androidx.fragment.app.Fragment(),OnMapReadyCallba
     override fun onMapReady(googleMap: GoogleMap?) {
         mMap = googleMap!!
         // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
-    }
 
-    fun convertStringToByte(photo: String?,context: Context?): ByteArray? {
-
-        var bitmap: Bitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, Uri.parse(photo))
-
-        val outputStream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
-        return outputStream.toByteArray()
 
     }
+
+    fun updateMap(latitude:Double,longitude:Double){
+
+        if (latitude == 0.0 && longitude == 0.0){
+            Toast.makeText(context,"pas d'adresse valide",Toast.LENGTH_SHORT).show()
+        }else{
+            val location = LatLng(latitude,longitude)
+            mMap.addMarker(MarkerOptions().position(location).title("Marker"))
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(location))
+        }
+
+
+    }
+
+
 }

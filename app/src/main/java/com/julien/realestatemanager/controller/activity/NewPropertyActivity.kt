@@ -1,6 +1,7 @@
 package com.julien.realestatemanager.controller.activity
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Bitmap
@@ -17,6 +18,8 @@ import android.provider.MediaStore
 
 
 import android.graphics.Bitmap.CompressFormat
+import android.location.Address
+import android.location.Geocoder
 import android.opengl.Visibility
 import android.util.Log
 import android.view.View
@@ -37,27 +40,43 @@ import kotlin.collections.ArrayList
 
 private const val PERMS = android.Manifest.permission.READ_EXTERNAL_STORAGE
 
-    private const val RC_IMAGE_PERMS = 100
+private const val RC_IMAGE_PERMS = 100
 
-    private  const val RC_CHOOSE_PHOTO = 200
+private const val RC_CHOOSE_PHOTO = 200
 
 class NewPropertyActivity : AppCompatActivity() {
 
 
-
-    private var uriList:ArrayList<Uri> = ArrayList()
-    private var editTextList:ArrayList<EditText> = ArrayList()
+    private var uriList: ArrayList<Uri> = ArrayList()
+    private var editTextList: ArrayList<EditText> = ArrayList()
 
     private lateinit var uri: Uri
 
-    private var choice:Int = 0
+    private var choice: Int = 0
 
     private lateinit var propertyViewModel: PropertyViewModel
 
     private lateinit var datePickerSale: DatePicker
 
-
-
+    private lateinit var city:String
+    private lateinit var type:String
+    private lateinit var price:String
+    private lateinit var area:String
+    private lateinit var numberOfRooms:String
+    private lateinit var description:String
+    private lateinit var adress:String
+    private lateinit var placeNearby:String
+    private lateinit var status:String
+    private lateinit var createdDate:String
+    private lateinit var realEstateAgent:String
+    private lateinit var numberOfBathrooms:String
+    private lateinit var numberOfBedrooms:String
+    private lateinit var additionAdress:String
+    private lateinit var postalCode:String
+    private lateinit var country:String
+    private lateinit var dateOfSale:String
+    private var latitude = 0.0
+    private var longitude = 0.0
 
 
 
@@ -74,50 +93,55 @@ class NewPropertyActivity : AppCompatActivity() {
             if (TextUtils.isEmpty(edit_type.text)) {
                 //setResult(Activity.RESULT_CANCELED, replyIntent)
             } else {
-                val city = edit_city.text.toString()
-                val type = edit_type.text.toString()
-                val price = edit_price.text.toString()
-                val area = edit_area.text.toString()
-                val numberOfRooms = edit_number_of_romms.text.toString()
-                val description = edit_description.text.toString()
-                val adress = edit_adress.text.toString()
-                val placeNearby = edit_place_nearby.text.toString()
-                val status = spinner_status.selectedItem.toString()
-                val createdDate = datePicker(DatePicker_created_date)
-                val realEstateAgent = edit_real_estate_agent.text.toString()
-                val numberOfBathrooms = edit_number_of_batthrooms.text.toString()
-                val numberOfBedrooms = edit_number_of_bedrooms.text.toString()
-                val additionAdress = edit_additional_adress.text.toString()
-                val postalCode = edit_postal_code.text.toString()
-                val country = edit_country.text.toString()
-                var dateOfSale = ""
-                if (status.equals("Vendu")){
-                    dateOfSale = datePicker(datePickerSale)
+                city = edit_city.text.toString()
+                type = edit_type.text.toString()
+                price = edit_price.text.toString()
+                area = edit_area.text.toString()
+                numberOfRooms = edit_number_of_romms.text.toString()
+                description = edit_description.text.toString()
+                adress = edit_adress.text.toString()
+                placeNearby = edit_place_nearby.text.toString()
+                status = spinner_status.selectedItem.toString()
+                createdDate = datePicker(DatePicker_created_date)
+                realEstateAgent = edit_real_estate_agent.text.toString()
+                numberOfBathrooms = edit_number_of_batthrooms.text.toString()
+                numberOfBedrooms = edit_number_of_bedrooms.text.toString()
+                additionAdress = edit_additional_adress.text.toString()
+                postalCode = edit_postal_code.text.toString()
+                country = edit_country.text.toString()
+
+                dateOfSale = if (status.equals("Vendu")) {
+                    datePicker(datePickerSale)
+                }else{
+                    ""
                 }
 
+                val fullAdress = "$adress $additionAdress $postalCode $city $country"
+
+                var geocoder= Geocoder(this)
+               // Log.e("test map", adress)
+                var listAdress:List<Address> = geocoder.getFromLocationName(adress,1)
+
+                 if (listAdress.size>0) {
+                     latitude = listAdress[0].latitude
+                     longitude = listAdress[0].longitude
+                     insertInDatabase()
+                     finish()
+
+                 }else{
+                     latitude = 0.0
+                     longitude = 0.0
+                     alertDialogWrongAdress()
+
+                 }
 
 
-                val newId = UUID.randomUUID().toString()
-                val newProperty = Property(newId,city,type,price,area,numberOfRooms,description,adress,placeNearby,status,createdDate,dateOfSale,realEstateAgent,uri.toString(),numberOfBathrooms,numberOfBedrooms,additionAdress,postalCode,country)
-                propertyViewModel.insert(newProperty)
 
 
-                //Log.e("urilist",uriList.toString())
-                for (i in 0 until uriList.size){
-                    val idMedia = UUID.randomUUID().toString()
-                    val media = Media(idMedia,editTextList[i].text.toString(),uriList[i].toString(),newProperty.id)
-                    propertyViewModel.insertMedia(media)
-                }
-                /*
-                for( i in uriList ){
-                    val idMedia = UUID.randomUUID().toString()
-                    val media = Media(idMedia,"test",i.toString(),newProperty.id)
-
-                    propertyViewModel.insertMedia(media)
-                }
-*/
             }
-            finish()
+
+
+
         }
 
         button_photo.setOnClickListener {
@@ -127,20 +151,25 @@ class NewPropertyActivity : AppCompatActivity() {
 
         button_album.setOnClickListener {
             choice = 2
-           onClickAddFile()
+            onClickAddFile()
         }
 
-        spinner_status.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        spinner_status.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
 
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 datePickerSale = DatePicker(baseContext)
 
-                if(position == 2){
+                if (position == 2) {
                     activity_new_property_layout_date.addView(datePickerSale)
-                }else{
+                } else {
                     activity_new_property_layout_date.removeAllViews()
                 }
             }
@@ -154,14 +183,21 @@ class NewPropertyActivity : AppCompatActivity() {
         // 6 - Calling the appropriate method after activity result
         handleResponse(requestCode, resultCode, data)
     }
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         // 2 - Forward results to EasyPermissions
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
 
     @AfterPermissionGranted(RC_IMAGE_PERMS)
-    fun onClickAddFile() { chooseImageFromPhone()}
+    fun onClickAddFile() {
+        chooseImageFromPhone()
+    }
 
 
     companion object {
@@ -192,10 +228,10 @@ class NewPropertyActivity : AppCompatActivity() {
         if (requestCode == RC_CHOOSE_PHOTO) {
             if (resultCode == Activity.RESULT_OK) { //SUCCESS
                 //uriImage = data!!.data
-                if ( choice == 1){
+                if (choice == 1) {
                     uri = data!!.data
-                }else{
-                    editTextList.add( addPhoto(data!!.data.toString()))
+                } else {
+                    editTextList.add(addPhoto(data!!.data.toString()))
                     uriList.add(data!!.data)
                 }
 
@@ -206,13 +242,13 @@ class NewPropertyActivity : AppCompatActivity() {
     }
 
 
-    fun addPhoto(phototest:String):EditText{
+    fun addPhoto(phototest: String): EditText {
         var image = ImageView(this)
         var editText = EditText(this)
         var linearLayout = LinearLayout(this)
-        linearLayout.orientation=LinearLayout.HORIZONTAL
+        linearLayout.orientation = LinearLayout.HORIZONTAL
 
-        Picasso.get().load(Uri.parse(phototest)).resize(200,200).into(image)
+        Picasso.get().load(Uri.parse(phototest)).resize(200, 200).into(image)
 
         linearLayout.addView(image)
         linearLayout.addView(editText)
@@ -223,11 +259,74 @@ class NewPropertyActivity : AppCompatActivity() {
     }
 
 
-    fun datePicker(datePicker:DatePicker):String{
+    fun datePicker(datePicker: DatePicker): String {
         val year = datePicker.year
         val month = datePicker.month + 1
         val day = datePicker.dayOfMonth
 
         return day.toString() + "/" + month.toString() + "/" + year.toString()
     }
+
+    fun insertInDatabase(){
+        val newId = UUID.randomUUID().toString()
+        val newProperty = Property(
+            newId,
+            city,
+            type,
+            price,
+            area,
+            numberOfRooms,
+            description,
+            adress,
+            placeNearby,
+            status,
+            createdDate,
+            dateOfSale,
+            realEstateAgent,
+            uri.toString(),
+            numberOfBathrooms,
+            numberOfBedrooms,
+            additionAdress,
+            postalCode,
+            country,
+            latitude,
+            longitude
+        )
+        propertyViewModel.insert(newProperty)
+
+
+        for (i in 0 until uriList.size) {
+            val idMedia = UUID.randomUUID().toString()
+            val media = Media(
+                idMedia,
+                editTextList[i].text.toString(),
+                uriList[i].toString(),
+                newProperty.id
+            )
+            propertyViewModel.insertMedia(media)
+        }
+    }
+
+    fun alertDialogWrongAdress(){
+        val builder = AlertDialog.Builder(this)
+
+        builder.setTitle("Adresse non trouvé")
+
+        builder.setMessage("Votre adresse ne peut pas être localisée voulez-vous la modifier ?")
+
+        builder.setPositiveButton("YES"){dialog, which ->
+
+        }
+
+        builder.setNegativeButton("No"){dialog,which ->
+            insertInDatabase()
+            finish()
+        }
+
+        val dialog: AlertDialog = builder.create()
+
+        dialog.show()
+    }
+
+
 }

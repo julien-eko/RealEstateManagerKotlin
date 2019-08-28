@@ -24,7 +24,9 @@ data class Property(
         @ColumnInfo(name = "number_of_bedrooms") val numberOfBedrooms: String?,
         @ColumnInfo(name = "additional_adress") val additionalAdress: String?,
         @ColumnInfo(name = "postal_code") val postalCode:String?,
-        @ColumnInfo(name = "country") val country:String?
+        @ColumnInfo(name = "country") val country:String?,
+        @ColumnInfo(name = "latitude") val latitude:Double,
+        @ColumnInfo(name = "longitude")val longitude:Double
 
 
 

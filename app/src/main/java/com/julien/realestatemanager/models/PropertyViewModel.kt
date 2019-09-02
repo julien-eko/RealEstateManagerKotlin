@@ -47,4 +47,6 @@ class PropertyViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun getMedia(id:String):LiveData<List<Media>> = mediaRepository.getMedia(id)
+
+    fun getMediaId(id:String):LiveData<Media> = mediaRepository.getMediaId(id)
 }

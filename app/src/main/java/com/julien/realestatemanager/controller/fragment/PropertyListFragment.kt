@@ -41,7 +41,7 @@ private const val ARG_PARAM2 = "param2"
 class PropertyListFragment : androidx.fragment.app.Fragment() {
 
 
-    private lateinit var linearLayoutManager: androidx.recyclerview.widget.LinearLayoutManager
+    private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var adapter: PropertyAdaptater
     private lateinit var propertyDetail: PropertyDetailFragment
     private lateinit var propertyList: PropertyListFragment
@@ -62,10 +62,17 @@ class PropertyListFragment : androidx.fragment.app.Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        linearLayoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
+        linearLayoutManager = LinearLayoutManager(context)
         recycler_view_property.layoutManager = linearLayoutManager
+        var id:String
+        if (tag != null){
+            id = tag!!
+        }else{
+            id = "1"
+        }
 
-        adapter = PropertyAdaptater(listOf())
+
+        adapter = PropertyAdaptater(listOf(),id)
             recycler_view_property.adapter = adapter
 
         propertyViewModel = ViewModelProviders.of(this).get(PropertyViewModel::class.java)
@@ -96,8 +103,9 @@ class PropertyListFragment : androidx.fragment.app.Fragment() {
                 propertyDetail = PropertyDetailFragment()
                 propertyList = PropertyListFragment()
                 activity?.supportFragmentManager?.inTransaction {
-                    replace(R.id.frame_layout_property_list, propertyList)
-                    replace(R.id.frame_layout_property_detail, propertyDetail, id.toString())
+                    replace(R.id.frame_layout_property_list, propertyList, id)
+                    replace(R.id.frame_layout_property_detail, propertyDetail, id)
+
                 }
 
             }else{

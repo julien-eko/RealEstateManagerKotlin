@@ -2,6 +2,7 @@ package com.julien.realestatemanager.controller.fragment
 
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -24,6 +25,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.maps.*
 import java.io.ByteArrayOutputStream
 import java.util.*
@@ -32,7 +34,12 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
 import com.google.android.gms.maps.MapView
+import com.julien.realestatemanager.controller.activity.FullScreenActivity
+import com.julien.realestatemanager.controller.activity.PropertyDetailActivity
+import com.julien.realestatemanager.view.MediaAdaptater
+import com.openclassrooms.realestatemanager.views.PropertyAdaptater
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_property_list.*
 import java.io.File
 
 
@@ -51,6 +58,8 @@ class PropertyDetailFragment : androidx.fragment.app.Fragment(),OnMapReadyCallba
     private lateinit var propertyViewModel: PropertyViewModel
     private lateinit var mMap: GoogleMap
     private lateinit var mMapView: MapView
+    private lateinit var adapter: MediaAdaptater
+    private lateinit var linearLayoutManager: LinearLayoutManager
     private var adress ="France"
 
     override fun onCreateView(
@@ -74,9 +83,15 @@ class PropertyDetailFragment : androidx.fragment.app.Fragment(),OnMapReadyCallba
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        linearLayoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL, false)
+        recycler_view_media.layoutManager = linearLayoutManager
+
+        adapter = MediaAdaptater(listOf())
+        recycler_view_media.adapter = adapter
         propertyViewModel = ViewModelProviders.of(this).get(PropertyViewModel::class.java)
 
-
+        listener()
         if (tag != null) {
 
 
@@ -107,15 +122,9 @@ class PropertyDetailFragment : androidx.fragment.app.Fragment(),OnMapReadyCallba
                 // Update the cached copy of the words in the adapter.
                 media?.let {
                     //Log.e("size media", media.size.toString())
+                    adapter.setMedia(media)
 
-                    for (photo in media) {
 
-                        var image = ImageView(context)
-                        val file = File(photo.photo)
-                        Picasso.get().load(file).into(image)
-                        Log.e("photo", photo.photo)
-                        fragment_property_detail_media.addView(image)
-                    }
 
                 }
 
@@ -147,6 +156,27 @@ class PropertyDetailFragment : androidx.fragment.app.Fragment(),OnMapReadyCallba
 
 
     }
+    //click
+    fun listener(){
+        adapter.listener = { id ->
+            // do something here
+            propertyViewModel.getMediaId(id).observe(this, Observer { media ->
+                // Update the cached copy of the words in the adapter.
+                media?.let {
 
+                    val intent = Intent(context, FullScreenActivity::class.java)
+                    intent.putExtra("photo", media.photo)
+                    // start your next activity
+                    startActivity(intent)
+                    //Toast.makeText(context,media.description,Toast.LENGTH_SHORT).show()
+                }
+
+
+            })
+
+
+
+        }
+    }
 
 }

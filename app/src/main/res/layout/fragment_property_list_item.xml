@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="horizontal" android:layout_width="wrap_content"
+              android:orientation="horizontal" android:layout_width="match_parent"
               android:layout_height="wrap_content">
 
     <ImageView android:layout_width="100dp" android:layout_height="100dp"
                android:id="@+id/fragment_property_list_photo"
-               android:src="@drawable/property"
-    android:layout_weight="1"/>
+               android:src="@drawable/property"/>
 
-    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+    <LinearLayout android:layout_width="match_parent" android:layout_height="100dp"
                   android:orientation="vertical"
-                  android:layout_weight="1">
+            android:id="@+id/property_linear_layout">
 
         <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                   android:id="@+id/property_type_text_view"
@@ -26,7 +25,7 @@
         <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                   android:id="@+id/price_text_view"
                   android:textSize="25dp"
-                  android:textColor="@color/pink"/>
+                  android:textColor="@color/pinkLight"/>
 
     </LinearLayout>
 

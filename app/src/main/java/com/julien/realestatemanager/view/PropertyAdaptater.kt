@@ -10,7 +10,7 @@ import com.julien.realestatemanager.R
 import com.julien.realestatemanager.extensions.listen
 import com.julien.realestatemanager.models.Property
 
-class PropertyAdaptater(var propertyList: List<Property>): androidx.recyclerview.widget.RecyclerView.Adapter<PropertyViewHolder>() {
+class PropertyAdaptater(var propertyList: List<Property>, var id:String): RecyclerView.Adapter<PropertyViewHolder>() {
 
     var listener: ((String)->Unit)? = null
     private lateinit var context: Context
@@ -29,7 +29,7 @@ class PropertyAdaptater(var propertyList: List<Property>): androidx.recyclerview
     }
 
     override fun onBindViewHolder(holder: PropertyViewHolder, position: Int) {
-        holder.update(propertyList.get(position),context)
+        holder.update(propertyList.get(position),id,context)
     }
 
     internal fun setProperties(properties: List<Property>) {

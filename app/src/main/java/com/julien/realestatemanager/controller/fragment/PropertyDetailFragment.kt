@@ -33,6 +33,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 import com.google.android.gms.maps.MapView
 import com.squareup.picasso.Picasso
+import java.io.File
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -110,7 +111,8 @@ class PropertyDetailFragment : androidx.fragment.app.Fragment(),OnMapReadyCallba
                     for (photo in media) {
 
                         var image = ImageView(context)
-                        Picasso.get().load(Uri.parse(photo.photo)).resize(200,200).into(image)
+                        val file = File(photo.photo)
+                        Picasso.get().load(file).into(image)
                         Log.e("photo", photo.photo)
                         fragment_property_detail_media.addView(image)
                     }

@@ -2,6 +2,8 @@ package com.julien.realestatemanager.controller.activity
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
+import android.content.ContextWrapper
 import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Bitmap
@@ -34,6 +36,8 @@ import kotlinx.android.synthetic.main.fragment_property_detail.*
 
 import java.io.ByteArrayOutputStream
 import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -47,10 +51,10 @@ private const val RC_CHOOSE_PHOTO = 200
 class NewPropertyActivity : AppCompatActivity() {
 
 
-    private var uriList: ArrayList<Uri> = ArrayList()
+    private var photoList: ArrayList<String> = ArrayList()
     private var editTextList: ArrayList<EditText> = ArrayList()
 
-    private lateinit var uri: Uri
+    private lateinit var photo: String
 
     private var choice: Int = 0
 
@@ -120,7 +124,7 @@ class NewPropertyActivity : AppCompatActivity() {
 
                 var geocoder= Geocoder(this)
                // Log.e("test map", adress)
-                var listAdress:List<Address> = geocoder.getFromLocationName(adress,1)
+                var listAdress:List<Address> = geocoder.getFromLocationName(fullAdress,1)
 
                  if (listAdress.size>0) {
                      latitude = listAdress[0].latitude
@@ -228,11 +232,19 @@ class NewPropertyActivity : AppCompatActivity() {
         if (requestCode == RC_CHOOSE_PHOTO) {
             if (resultCode == Activity.RESULT_OK) { //SUCCESS
                 //uriImage = data!!.data
+
+                var bitmap:Bitmap = MediaStore.Images.Media.getBitmap(contentResolver,data!!.data)
+                val id = UUID.randomUUID().toString()
+                val photoChoice = saveToInternalStorage(this,bitmap,id)
                 if (choice == 1) {
-                    uri = data!!.data
+                    photo = photoChoice
+                    //uri = data!!.data
                 } else {
-                    editTextList.add(addPhoto(data!!.data.toString()))
-                    uriList.add(data!!.data)
+
+                    editTextList.add(addPhoto(photoChoice))
+                    photoList.add(photoChoice)
+                    //editTextList.add(addPhoto(data!!.data.toString()))
+                    //uriList.add(data!!.data)
                 }
 
             } else {
@@ -242,13 +254,14 @@ class NewPropertyActivity : AppCompatActivity() {
     }
 
 
-    fun addPhoto(phototest: String): EditText {
+    fun addPhoto(photo: String): EditText {
         var image = ImageView(this)
         var editText = EditText(this)
         var linearLayout = LinearLayout(this)
         linearLayout.orientation = LinearLayout.HORIZONTAL
 
-        Picasso.get().load(Uri.parse(phototest)).resize(200, 200).into(image)
+        var file = File(photo)
+        Picasso.get().load(file).resize(200, 200).into(image)
 
         linearLayout.addView(image)
         linearLayout.addView(editText)
@@ -283,7 +296,7 @@ class NewPropertyActivity : AppCompatActivity() {
             createdDate,
             dateOfSale,
             realEstateAgent,
-            uri.toString(),
+            photo,
             numberOfBathrooms,
             numberOfBedrooms,
             additionAdress,
@@ -295,12 +308,12 @@ class NewPropertyActivity : AppCompatActivity() {
         propertyViewModel.insert(newProperty)
 
 
-        for (i in 0 until uriList.size) {
+        for (i in 0 until photoList.size) {
             val idMedia = UUID.randomUUID().toString()
             val media = Media(
                 idMedia,
                 editTextList[i].text.toString(),
-                uriList[i].toString(),
+                photoList[i],
                 newProperty.id
             )
             propertyViewModel.insertMedia(media)
@@ -328,5 +341,30 @@ class NewPropertyActivity : AppCompatActivity() {
         dialog.show()
     }
 
+    fun saveToInternalStorage(context: Context, bitmapImage: Bitmap, path: String): String {
+        val cw = ContextWrapper(context)
+// path to /data/data/yourapp/app_data/imageDir
+        val directory = cw.getDir("imageDir", Context.MODE_PRIVATE)
+// Create imageDir
+        val mypath = File(directory, path)
+
+        var fos: FileOutputStream? = null
+        try {
+            fos = FileOutputStream(mypath)
+// Use the compress method on the BitMap object to write image to the OutputStream
+            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            try {
+                fos!!.close()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+
+        }
+        Log.e("save", mypath.absolutePath)
+        return mypath.absolutePath
+    }
 
 }

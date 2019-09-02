@@ -43,8 +43,8 @@ class PropertyViewHolder(itemView: View): androidx.recyclerview.widget.RecyclerV
             //photo.text = property.photo
 
         //var file:File = File(Uri.parse(property.photo).path)
-
-        Picasso.get().load(Uri.parse(property.photo)).into(propertyPhoto)
+        val file = File(property.photo)
+        Picasso.get().load(file).into(propertyPhoto)
 
         /*
             Glide.with(context) //SHOWING PREVIEW OF IMAGE

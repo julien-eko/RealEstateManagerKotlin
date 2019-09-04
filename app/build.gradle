@@ -48,7 +48,7 @@ dependencies {
 
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
 
-    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
 
     //map
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
@@ -78,6 +78,12 @@ dependencies {
 // Coroutines
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutines"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutines"
+
+
+    implementation 'com.github.TayfunCesur:Stepper:1.0.2'
+    implementation "com.github.thekhaeng:pushdown-anim-click:1.1.1"
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.0.0-rc02'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.0.0-rc02'
 }
 
 kotlin {

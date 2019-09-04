@@ -69,11 +69,14 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         var itemid = item?.itemId
 
         if (itemid == R.id.action_add){
-            val intent = Intent(this, NewPropertyActivity::class.java)
+            val intent = Intent(this, CreatePropertyActivity::class.java)
             startActivity(intent)
+            //val intent = Intent(this, NewPropertyActivity::class.java)
+            //startActivity(intent)
         }
         if (itemid == R.id.action_edit){
-            Toast.makeText(this, "edit", Toast.LENGTH_SHORT).show()
+
+
         }
         if (itemid == R.id.action_search){
             Toast.makeText(this, "search", Toast.LENGTH_SHORT).show()

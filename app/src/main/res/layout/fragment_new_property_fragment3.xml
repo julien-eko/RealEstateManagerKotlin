@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:background="@drawable/button_gradient"
+        android:layout_height="match_parent">
+    <ImageView
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="16dp"
+            android:id="@+id/backArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_back_black_24dp" android:layout_marginLeft="16dp"/>
+
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/label"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints">
+
+        <EditText
+                android:id="@+id/edit_adress_fragment_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:inputType="textAutoComplete"
+                android:textSize="18sp"
+                android:hint="Adress"/>
+
+        <EditText
+                android:id="@+id/edit_additional_adress_fragment_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:inputType="textAutoComplete"
+                android:textSize="18sp"
+                android:hint="Additional adress"/>
+
+        <EditText
+                android:id="@+id/edit_city_fragment_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:inputType="textAutoComplete"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:hint="City"/>
+
+        <EditText
+                android:id="@+id/edit_postal_code_fragment_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:fontFamily="sans-serif-light"
+                android:digits="0123456789"
+                android:inputType="numberDecimal"
+                android:textSize="18sp"
+                android:hint="Postal code"/>
+
+        <EditText
+                android:id="@+id/edit_country_fragment_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:inputType="textAutoComplete"
+                android:textSize="18sp"
+                android:hint="Country"/>
+
+        <EditText
+                android:id="@+id/edit_place_nearby_fragment_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:inputType="textAutoComplete"
+                android:textSize="18sp"
+                android:hint="Place nearby"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="16sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/label"
+            android:background="@color/quantum_black_100"
+            android:id="@+id/nextToD"
+            android:padding="16sp"
+            android:layout_height="wrap_content">
+        <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:textSize="18sp"
+                android:paddingStart="32sp"
+                android:paddingEnd="32sp"
+                android:textColor="@color/white"
+                android:layout_gravity="center_vertical"
+                app:fontFamily="@font/manropemedium"
+                android:layout_height="wrap_content"
+                android:text="Next"
+                android:gravity="center"
+                />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

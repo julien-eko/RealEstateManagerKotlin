@@ -13,9 +13,10 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".controller.activity.FullScreenActivity"></activity>
-        <activity android:name=".controller.activity.NewPropertyActivity"></activity>
-        <activity android:name=".controller.activity.PropertyDetailActivity"></activity>
+        <activity android:name=".controller.activity.CreatePropertyActivity"></activity>
+        <activity android:name=".controller.activity.FullScreenActivity" />
+        <activity android:name=".controller.activity.NewPropertyActivity" />
+        <activity android:name=".controller.activity.PropertyDetailActivity" />
         <activity android:name=".controller.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

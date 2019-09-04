@@ -6,4 +6,12 @@
 
     <color name="pinkPrimary">#d81b60</color>
     <color name="pinkLight">#ff5c8d</color>
+
+
+
+    <color name="white">#FFFFFF</color>
+    <color name="startColor">#F137A6</color>
+    <color name="centerColor">#F77A85</color>
+    <color name="endColor">#FDBB69</color>
+
 </resources>

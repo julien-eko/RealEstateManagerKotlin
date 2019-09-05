@@ -17,12 +17,13 @@ import com.google.android.material.navigation.NavigationView
 import com.julien.realestatemanager.R
 import com.julien.realestatemanager.controller.fragment.PropertyDetailFragment
 import com.julien.realestatemanager.controller.fragment.PropertyListFragment
+import com.julien.realestatemanager.controller.fragment.SelectPropertyFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var propertyList: PropertyListFragment
-    private lateinit var propertyDetail: PropertyDetailFragment
+    private lateinit var selectPropertyFragment: SelectPropertyFragment
     private lateinit var toolbar:Toolbar
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navigationView: NavigationView
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         setContentView(R.layout.activity_main)
 
         propertyList = PropertyListFragment()
-        propertyDetail = PropertyDetailFragment()
+        selectPropertyFragment = SelectPropertyFragment()
 
         this.configureToolBar()
 
@@ -46,7 +47,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             add(R.id.frame_layout_property_list, propertyList)
             val isTablet: Boolean = resources.getBoolean(R.bool.isTablet)
             if (isTablet) {
-                    add(R.id.frame_layout_property_detail,propertyDetail)
+                   add(R.id.frame_layout_property_detail,selectPropertyFragment)
 
             }
         }

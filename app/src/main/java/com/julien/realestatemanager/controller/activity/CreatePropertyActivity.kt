@@ -24,7 +24,7 @@ class CreatePropertyActivity : AppCompatActivity() {
 
     private lateinit var propertyViewModel: PropertyViewModel
 
-    lateinit var photo: String
+    var photo = ""
 
     lateinit var city:String
     lateinit var type:String

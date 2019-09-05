@@ -51,7 +51,7 @@ class NewPropertyFragment1 : Fragment() {
             ) {
 
 
-                if (position == 2) {
+                if (position == 1) {
                     datePicker_sale_date.visibility = View.VISIBLE
                 } else {
                     datePicker_sale_date.visibility = View.GONE
@@ -65,32 +65,39 @@ class NewPropertyFragment1 : Fragment() {
         PushDownAnim.setPushDownAnimTo(nextToB).setScale(PushDownAnim.MODE_STATIC_DP, 5F)
             .setOnClickListener {
 
-                val createPropertyActivity: CreatePropertyActivity =
-                    activity as CreatePropertyActivity
+                val createPropertyActivity: CreatePropertyActivity = activity as CreatePropertyActivity
 
-                createPropertyActivity.realEstateAgent = edit_real_estate_agent.text.toString()
-                createPropertyActivity.status = spinner_status.selectedItem.toString()
-                createPropertyActivity.createdDate = datePicker(datePicker_created_date)
-                createPropertyActivity.dateOfSale = if (createPropertyActivity.status.equals("Vendu")) {
-                    datePicker(datePicker_sale_date)
+                if (edit_real_estate_agent.text.toString().trim() == ""){
+                    edit_real_estate_agent.error = "This field cannot be blank"
                 }else{
-                    ""
+                    save(createPropertyActivity)
+                    view.findNavController().navigate(R.id.fragmentAtoB)
+                    activity?.findViewById<Stepper>(R.id.Stepper)?.forward()
                 }
 
-                //var test = edit_real_estate_agent.text.toString()
-                view.findNavController().navigate(R.id.fragmentAtoB)
-                activity?.findViewById<Stepper>(R.id.Stepper)?.forward()
+
             }
 
 
     }
 
-    fun datePicker(datePicker: DatePicker): String {
+    private fun datePicker(datePicker: DatePicker): String {
         val year = datePicker.year
         val month = datePicker.month + 1
         val day = datePicker.dayOfMonth
 
         return day.toString() + "/" + month.toString() + "/" + year.toString()
+    }
+
+    private fun save(createPropertyActivity: CreatePropertyActivity){
+        createPropertyActivity.realEstateAgent = edit_real_estate_agent.text.toString()
+        createPropertyActivity.status = spinner_status.selectedItem.toString()
+        createPropertyActivity.createdDate = datePicker(datePicker_created_date)
+        createPropertyActivity.dateOfSale = if (createPropertyActivity.status.equals("Vendu")) {
+            datePicker(datePicker_sale_date)
+        }else{
+            ""
+        }
     }
 }
 

@@ -2,6 +2,7 @@ package com.julien.realestatemanager.controller.fragment
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -32,25 +33,28 @@ class NewPropertyFragment5 : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
         PushDownAnim.setPushDownAnimTo(progress).setScale(PushDownAnim.MODE_STATIC_DP, 5F).setOnClickListener {
 
-            activity?.findViewById<Stepper>(R.id.Stepper)?.progress(3)?.addOnCompleteListener {
 
-                val createPropertyActivity: CreatePropertyActivity =
-                    activity as CreatePropertyActivity
+                activity?.findViewById<Stepper>(R.id.Stepper)?.progress(3)?.addOnCompleteListener {
 
-                createPropertyActivity.description = edit_description_fragment_5.text.toString()
-
-                createPropertyActivity.insertInDatabase()
+                    val createPropertyActivity: CreatePropertyActivity =
+                        activity as CreatePropertyActivity
 
 
 
-                //var test = edit_real_estate_agent.text.toString()
-               // Toast.makeText(context,test.test, Toast.LENGTH_SHORT).show()
-                activity?.findViewById<View>(R.id.StepperView)?.background =
-                    ContextCompat.getDrawable(context!!, R.drawable.success_gradient)
+                    createPropertyActivity.description = edit_description_fragment_5.text.toString()
+
+                    createPropertyActivity.insertInDatabase()
+
+                    activity?.findViewById<View>(R.id.StepperView)?.background =
+                        ContextCompat.getDrawable(context!!, R.drawable.success_gradient)
+
 
             }
+
         }
 
 
@@ -63,6 +67,7 @@ class NewPropertyFragment5 : Fragment() {
         }
         PushDownAnim.setPushDownAnimTo(progressStop).setScale(PushDownAnim.MODE_STATIC_DP, 5F).setOnClickListener {
             activity?.findViewById<Stepper>(R.id.Stepper)?.stop()
+            activity?.finish()
         }
     }
 }

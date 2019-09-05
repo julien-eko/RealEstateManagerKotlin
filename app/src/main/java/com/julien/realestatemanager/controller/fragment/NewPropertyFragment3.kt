@@ -15,7 +15,10 @@ import com.julien.realestatemanager.R
 import com.julien.realestatemanager.controller.activity.CreatePropertyActivity
 import com.tayfuncesur.stepper.Stepper
 import com.thekhaeng.pushdownanim.PushDownAnim
+import kotlinx.android.synthetic.main.activity_new_property.*
+import kotlinx.android.synthetic.main.fragment_new_property_fragment2.*
 import kotlinx.android.synthetic.main.fragment_new_property_fragment3.*
+import kotlinx.android.synthetic.main.fragment_new_property_fragment3.backArrow
 
 /**
  * A simple [Fragment] subclass.
@@ -32,34 +35,31 @@ class NewPropertyFragment3 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         PushDownAnim.setPushDownAnimTo(nextToD).setScale(PushDownAnim.MODE_STATIC_DP,5F).setOnClickListener {
-            val createPropertyActivity: CreatePropertyActivity =
-                activity as CreatePropertyActivity
+            val createPropertyActivity: CreatePropertyActivity = activity as CreatePropertyActivity
 
-            createPropertyActivity.adress = edit_adress_fragment_3.text.toString()
-            createPropertyActivity.additionAdress = edit_additional_adress_fragment_3.text.toString()
-            createPropertyActivity.country = edit_country_fragment_3.text.toString()
-            createPropertyActivity.postalCode = edit_postal_code_fragment_3.text.toString()
-            createPropertyActivity.city = edit_city_fragment_3.text.toString()
-            createPropertyActivity.placeNearby = edit_place_nearby_fragment_3.text.toString()
+            if (validateForm()){
+                save(createPropertyActivity)
 
-            val fullAdress = createPropertyActivity.adress + " " + createPropertyActivity.additionAdress + " " + createPropertyActivity.city + " " + createPropertyActivity.postalCode + " " + createPropertyActivity.country
+                val fullAdress = createPropertyActivity.adress + " " + createPropertyActivity.additionAdress + " " + createPropertyActivity.city + " " + createPropertyActivity.postalCode + " " + createPropertyActivity.country
 
-            var geocoder= Geocoder(context)
-            // Log.e("test map", adress)
-            var listAdress:List<Address> = geocoder.getFromLocationName(fullAdress,1)
+                var geocoder= Geocoder(context)
+                var listAdress:List<Address> = geocoder.getFromLocationName(fullAdress,1)
 
-            if (listAdress.size>0) {
-                createPropertyActivity.latitude = listAdress[0].latitude
-                createPropertyActivity.longitude = listAdress[0].longitude
-                view.findNavController().navigate(R.id.fragmentCtoD)
-                activity?.findViewById<Stepper>(R.id.Stepper)?.forward()
+                if (listAdress.size>0) {
+                    createPropertyActivity.latitude = listAdress[0].latitude
+                    createPropertyActivity.longitude = listAdress[0].longitude
+                    view.findNavController().navigate(R.id.fragmentCtoD)
+                    activity?.findViewById<Stepper>(R.id.Stepper)?.forward()
 
-            }else{
-                createPropertyActivity.latitude = 0.0
-                createPropertyActivity.longitude = 0.0
-                alertDialogWrongAdress()
+                }else{
+                    createPropertyActivity.latitude = 0.0
+                    createPropertyActivity.longitude = 0.0
+                    alertDialogWrongAdress()
 
+                }
             }
+
+
 
 
 
@@ -89,5 +89,40 @@ class NewPropertyFragment3 : Fragment() {
         val dialog: AlertDialog = builder.create()
 
         dialog.show()
+    }
+
+    private fun save(createPropertyActivity: CreatePropertyActivity){
+
+        createPropertyActivity.adress = edit_adress_fragment_3.text.toString()
+        createPropertyActivity.additionAdress = edit_additional_adress_fragment_3.text.toString()
+        createPropertyActivity.country = edit_country_fragment_3.text.toString()
+        createPropertyActivity.postalCode = edit_postal_code_fragment_3.text.toString()
+        createPropertyActivity.city = edit_city_fragment_3.text.toString()
+        createPropertyActivity.placeNearby = edit_place_nearby_fragment_3.text.toString()
+
+    }
+
+    private fun validateForm():Boolean{
+        if (edit_adress_fragment_3.text.toString().trim() != "" &&
+            edit_city_fragment_3.text.toString().trim() != "" &&
+            edit_postal_code_fragment_3.text.toString().trim() != "" &&
+            edit_postal_code_fragment_3.text.toString().trim() != ""){
+            return true
+        }else{
+            if(edit_adress_fragment_3.text.toString().trim() == ""){
+                edit_adress_fragment_3.error = "This field cannot be blank"
+            }
+            if(edit_city_fragment_3.text.toString().trim() == ""){
+                edit_city_fragment_3.error = "This field cannot be blank"
+            }
+            if(edit_postal_code_fragment_3.text.toString().trim() == "" ){
+                edit_postal_code_fragment_3.error = "This field cannot be blank"
+            }
+            if (edit_country_fragment_3.text.toString().trim() == ""){
+                edit_country_fragment_3.error = "This field cannot be blank"
+            }
+
+            return false
+        }
     }
 }

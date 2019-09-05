@@ -66,8 +66,15 @@ class NewPropertyFragment4 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         PushDownAnim.setPushDownAnimTo(nextToE).setScale(PushDownAnim.MODE_STATIC_DP,5F).setOnClickListener {
-            view.findNavController().navigate(R.id.fragmentDtoE)
-            activity?.findViewById<Stepper>(R.id.Stepper)?.forward()
+            val createPropertyActivity: CreatePropertyActivity = activity as CreatePropertyActivity
+
+            if (createPropertyActivity.photo == ""){
+                Toast.makeText(context,"Select main picture",Toast.LENGTH_SHORT).show()
+            }else{
+                view.findNavController().navigate(R.id.fragmentDtoE)
+                activity?.findViewById<Stepper>(R.id.Stepper)?.forward()
+            }
+
         }
         PushDownAnim.setPushDownAnimTo(backArrow).setScale(PushDownAnim.MODE_STATIC_DP,5F).setOnClickListener {
             view.findNavController().popBackStack()

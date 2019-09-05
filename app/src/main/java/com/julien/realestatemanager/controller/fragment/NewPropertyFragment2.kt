@@ -12,6 +12,7 @@ import com.julien.realestatemanager.R
 import com.julien.realestatemanager.controller.activity.CreatePropertyActivity
 import com.tayfuncesur.stepper.Stepper
 import com.thekhaeng.pushdownanim.PushDownAnim
+import kotlinx.android.synthetic.main.fragment_new_property_fragment1.*
 import kotlinx.android.synthetic.main.fragment_new_property_fragment2.*
 
 /**
@@ -30,20 +31,15 @@ class NewPropertyFragment2 : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         PushDownAnim.setPushDownAnimTo(nextToC).setScale(PushDownAnim.MODE_STATIC_DP,5F).setOnClickListener {
-            val createPropertyActivity: CreatePropertyActivity =
-                activity as CreatePropertyActivity
+            val createPropertyActivity: CreatePropertyActivity = activity as CreatePropertyActivity
 
-            createPropertyActivity.type = edit_type_fragment_2.text.toString()
-            createPropertyActivity.numberOfRooms = edit_number_of_romms_fragment_2.text.toString()
-            createPropertyActivity.numberOfBathrooms = edit_number_of_batthrooms_fragment_2.text.toString()
-            createPropertyActivity.numberOfBedrooms = edit_number_of_bedrooms_fragment_2.text.toString()
-            createPropertyActivity.area = edit_area_fragment_2.text.toString()
-            createPropertyActivity.price = edit_price_fragment_2.text.toString()
+            if (validateForm()) {
+                save(createPropertyActivity)
+                view.findNavController().navigate(R.id.fragmentBtoC)
+                activity?.findViewById<Stepper>(R.id.Stepper)?.forward()
 
+            }
 
-
-            view.findNavController().navigate(R.id.fragmentBtoC)
-            activity?.findViewById<Stepper>(R.id.Stepper)?.forward()
         }
 
         PushDownAnim.setPushDownAnimTo(backArrow).setScale(PushDownAnim.MODE_STATIC_DP,5F).setOnClickListener {
@@ -51,5 +47,47 @@ class NewPropertyFragment2 : Fragment() {
             activity?.findViewById<Stepper>(R.id.Stepper)?.back()
         }
     }
+    private fun save(createPropertyActivity: CreatePropertyActivity){
+
+        createPropertyActivity.type = edit_type_fragment_2.text.toString()
+        createPropertyActivity.numberOfRooms = edit_number_of_romms_fragment_2.text.toString()
+        createPropertyActivity.numberOfBathrooms = edit_number_of_batthrooms_fragment_2.text.toString()
+        createPropertyActivity.numberOfBedrooms = edit_number_of_bedrooms_fragment_2.text.toString()
+        createPropertyActivity.area = edit_area_fragment_2.text.toString()
+        createPropertyActivity.price = edit_price_fragment_2.text.toString()
+    }
+
+    private fun validateForm():Boolean{
+        if (edit_type_fragment_2.text.toString().trim() != "" &&
+            edit_number_of_romms_fragment_2.text.toString().trim() != "" &&
+            edit_number_of_romms_fragment_2.text.toString().trim() != "" &&
+            edit_number_of_bedrooms_fragment_2.text.toString().trim() != "" &&
+            edit_area_fragment_2.text.toString().trim() != "" &&
+            edit_price_fragment_2.text.toString().trim() != ""  ){
+            return true
+        }else{
+            if(edit_type_fragment_2.text.toString().trim() == ""){
+                edit_type_fragment_2.error = "This field cannot be blank"
+            }
+            if(edit_number_of_romms_fragment_2.text.toString().trim() == ""){
+                edit_number_of_romms_fragment_2.error = "This field cannot be blank"
+            }
+            if(edit_number_of_batthrooms_fragment_2.text.toString().trim() == "" ){
+                edit_number_of_batthrooms_fragment_2.error = "This field cannot be blank"
+            }
+            if (edit_number_of_bedrooms_fragment_2.text.toString().trim() == ""){
+                edit_number_of_bedrooms_fragment_2.error = "This field cannot be blank"
+            }
+            if (edit_area_fragment_2.text.toString().trim() == ""){
+                edit_area_fragment_2.error = "This field cannot be blank"
+            }
+            if (edit_price_fragment_2.text.toString().trim() == ""){
+                edit_price_fragment_2.error = "This field cannot be blank"
+            }
+
+            return false
+        }
+    }
+
 
 }

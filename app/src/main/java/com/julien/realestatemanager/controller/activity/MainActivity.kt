@@ -85,7 +85,15 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         return super.onOptionsItemSelected(item)
     }
     override fun onNavigationItemSelected(p0: MenuItem): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        var itemid = p0?.itemId
+
+        if (itemid == R.id.activity_main_drawer_map){
+            val intent = Intent(this, MapActivity::class.java)
+            startActivity(intent)
+        }
+
+
+        return super.onOptionsItemSelected(p0)
     }
 
     override fun onBackPressed() {

@@ -5,8 +5,8 @@
 
     <group android:checkableBehavior="single">
         <item
-                android:id="@+id/activity_main_drawer_news"
-                android:title="Fil d'actualité" />
+                android:id="@+id/activity_main_drawer_map"
+                android:title="Map" />
     </group>
 
     <item android:title="Configuration">

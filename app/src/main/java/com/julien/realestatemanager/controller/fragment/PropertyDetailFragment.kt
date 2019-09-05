@@ -149,7 +149,7 @@ class PropertyDetailFragment : androidx.fragment.app.Fragment(),OnMapReadyCallba
         if (latitude == 0.0 && longitude == 0.0){
             Toast.makeText(context,"pas d'adresse valide",Toast.LENGTH_SHORT).show()
         }else{
-            var zoom =13.0f
+            var zoom =18.0f
             val location = LatLng(latitude,longitude)
             mMap.addMarker(MarkerOptions().position(location).title("Marker"))
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location,zoom))

@@ -58,7 +58,7 @@ class PropertyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
     }
 
-    fun formatPrice(price:String?):String{
+    private fun formatPrice(price:String?):String{
         val number:Double = price!!.toDouble()
         val format = NumberFormat.getCurrencyInstance(Locale.FRANCE)
 

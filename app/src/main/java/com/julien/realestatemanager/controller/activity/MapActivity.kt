@@ -26,6 +26,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.julien.realestatemanager.R
 import com.julien.realestatemanager.models.CustomInfoWindowGoogleMap
+import com.julien.realestatemanager.models.InfoWindowData
 import com.julien.realestatemanager.models.Property
 import com.julien.realestatemanager.models.PropertyViewModel
 import kotlinx.android.synthetic.main.fragment_property_detail.*
@@ -92,13 +93,23 @@ class MapActivity : AppCompatActivity() , OnMapReadyCallback {
 
         val markerOptions = MarkerOptions()
         markerOptions.position(location)
-        val customInfoWindow = CustomInfoWindowGoogleMap(this,property)
+
+
+        val info = InfoWindowData(property.type, property.area,
+            property.price,
+            property.realEstateAgent,
+            property.status
+        )
+
+
+
+        val customInfoWindow = CustomInfoWindowGoogleMap(this)
 
         mMap!!.setInfoWindowAdapter(customInfoWindow)
 
-        mMap!!.addMarker(markerOptions)
-        //marker.tag = info
-        //marker.showInfoWindow()
+        val marker = mMap!!.addMarker(markerOptions)
+        marker.tag = info
+        marker.showInfoWindow()
 
 
 

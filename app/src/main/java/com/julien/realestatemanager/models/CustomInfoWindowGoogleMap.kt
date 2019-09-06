@@ -9,18 +9,18 @@ import com.julien.realestatemanager.R
 import kotlinx.android.synthetic.main.activity_new_property.view.*
 import kotlinx.android.synthetic.main.custom_marker_layout.view.*
 
-class CustomInfoWindowGoogleMap(val context: Context,val property: Property) : GoogleMap.InfoWindowAdapter {
+class CustomInfoWindowGoogleMap(val context: Context) : GoogleMap.InfoWindowAdapter {
 
     override fun getInfoContents(p0: Marker?): View {
 
         var mInfoView = (context as Activity).layoutInflater.inflate(R.layout.custom_marker_layout, null)
+        var mInfoWindow: InfoWindowData? = p0?.tag as InfoWindowData?
 
-
-        mInfoView.marker_type.text = property.type
-        mInfoView.marker_area.text = property.area
-        mInfoView.marker_price.text = property.price
-        mInfoView.marker_real_estate_agent.text = "Real estate agent: " + property.realEstateAgent
-        mInfoView.marker_statut.text = property.status
+        mInfoView.marker_type.text = mInfoWindow?.mType
+        mInfoView.marker_area.text =  mInfoWindow?.mArea
+        mInfoView.marker_price.text =  mInfoWindow?.mPrice
+        mInfoView.marker_real_estate_agent.text = "Real estate agent: " + mInfoWindow?.mRealEstateAgent
+        mInfoView.marker_statut.text =  mInfoWindow?.mStatut
 
         return mInfoView
     }

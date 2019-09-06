@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
@@ -26,8 +27,6 @@ import com.tayfuncesur.stepper.Stepper
 import com.thekhaeng.pushdownanim.PushDownAnim
 import kotlinx.android.synthetic.main.activity_new_property.*
 import kotlinx.android.synthetic.main.fragment_new_property_fragment4.*
-import kotlinx.android.synthetic.main.fragment_new_property_fragment4.button_album
-import kotlinx.android.synthetic.main.fragment_new_property_fragment4.button_photo
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
 import java.io.File
@@ -45,6 +44,8 @@ private const val PERMS = android.Manifest.permission.READ_EXTERNAL_STORAGE
 private const val RC_IMAGE_PERMS = 100
 
 private const val RC_CHOOSE_PHOTO = 200
+
+private const val REQUEST_IMAGE_CAPTURE = 1
 
 
 class NewPropertyFragment4 : Fragment() {
@@ -81,12 +82,34 @@ class NewPropertyFragment4 : Fragment() {
             activity?.findViewById<Stepper>(R.id.Stepper)?.back()
         }
 
-        button_photo.setOnClickListener {
+        button_main_photo_capture.setOnClickListener {
+            choice = 1
+            if( context?.packageManager!!.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY )  ){
+                dispatchTakePictureIntent()
+            }else{
+                Toast.makeText(context,"Votre appareil ne possède pas d'appareil photo",Toast.LENGTH_SHORT).show()
+            }
+
+            //onClickAddFile()
+        }
+
+        button_main_photo_galery.setOnClickListener {
             choice = 1
             onClickAddFile()
         }
 
-        button_album.setOnClickListener {
+        button_album_capture.setOnClickListener {
+            choice = 2
+
+            if( context?.packageManager!!.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY )  ){
+                dispatchTakePictureIntent()
+            }else{
+                Toast.makeText(context,"Votre appareil ne possède pas d'appareil photo",Toast.LENGTH_SHORT).show()
+            }
+        }
+
+
+        button_album_galery.setOnClickListener {
             choice = 2
             onClickAddFile()
         }
@@ -95,7 +118,32 @@ class NewPropertyFragment4 : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         // 6 - Calling the appropriate method after activity result
-        handleResponse(requestCode, resultCode, data)
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
+            val imageBitmap = data?.extras?.get("data") as Bitmap
+
+
+            val id = UUID.randomUUID().toString()
+            val photoChoice = saveToInternalStorage(context!!,imageBitmap,id)
+            val createPropertyActivity: CreatePropertyActivity =
+                activity as CreatePropertyActivity
+
+            if (choice == 1) {
+                createPropertyActivity.photo = photoChoice
+                addMainPicture(createPropertyActivity.photo)
+                //uri = data!!.data
+            } else {
+
+                createPropertyActivity.editTextList.add(addPicture(photoChoice))
+                createPropertyActivity.photoList.add(photoChoice)
+                //editTextList.add(addPhoto(data!!.data.toString()))
+                //uriList.add(data!!.data)
+            }
+
+        }
+        if (requestCode == RC_CHOOSE_PHOTO && resultCode == Activity.RESULT_OK) {
+            handleResponse(requestCode, resultCode, data)
+        }
+
     }
 
     override fun onRequestPermissionsResult(
@@ -105,6 +153,7 @@ class NewPropertyFragment4 : Fragment() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         // 2 - Forward results to EasyPermissions
+
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
 
@@ -127,6 +176,16 @@ class NewPropertyFragment4 : Fragment() {
         val i = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         startActivityForResult(i, RC_CHOOSE_PHOTO)
     }
+
+    private fun dispatchTakePictureIntent() {
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+            takePictureIntent.resolveActivity(context?.packageManager)?.also {
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+            }
+        }
+    }
+
+
 
     // 4 - Handle activity response (after user has chosen or not a picture)
     private fun handleResponse(requestCode: Int, resultCode: Int, data: Intent?) {

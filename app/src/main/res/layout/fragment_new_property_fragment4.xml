@@ -47,10 +47,17 @@
             </TextView>
 
             <ImageButton
-                    android:id="@+id/button_photo"
+                    android:id="@+id/button_main_photo_galery"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/baseline_add_circle_black_24"
+                    android:background="@drawable/baseline_add_photo_alternate_black_24"
+                    />
+
+            <ImageButton
+                    android:id="@+id/button_main_photo_capture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/baseline_add_a_photo_black_24"
                     />
 
         </LinearLayout>
@@ -79,10 +86,16 @@
             </TextView>
 
             <ImageButton
-                    android:id="@+id/button_album"
+                    android:id="@+id/button_album_galery"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/baseline_add_circle_black_24"/>
+                    android:background="@drawable/baseline_add_photo_alternate_black_24"/>
+
+            <ImageButton
+                    android:id="@+id/button_album_capture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/baseline_add_a_photo_black_24"/>
 
         </LinearLayout>
 

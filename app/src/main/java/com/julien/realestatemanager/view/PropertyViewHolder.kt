@@ -22,6 +22,8 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_property_list_item.view.*
 import java.io.ByteArrayOutputStream
 import java.io.File
+import java.text.NumberFormat
+import java.util.*
 import kotlin.coroutines.coroutineContext
 
 class PropertyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -30,6 +32,7 @@ class PropertyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     val propertyType = itemView.findViewById<TextView>(R.id.property_type_text_view)
     val propertyCity = itemView.findViewById<TextView>(R.id.property_city_text_view)
     val propertyPrice = itemView.findViewById<TextView>(R.id.price_text_view)
+    val propertyVendu = itemView.findViewById<TextView>(R.id.fragment_property_list_photo_vendu)
     val propertyPhoto = itemView.findViewById<ImageView>(R.id.fragment_property_list_photo)
     val propertyLayout =  itemView.findViewById<LinearLayout>(R.id.property_linear_layout)
 
@@ -37,9 +40,13 @@ class PropertyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     @RequiresApi(Build.VERSION_CODES.M)
     fun update(property: Property, id:String, context: Context){
 
+        if (property.status == "Vendu"){
+            propertyVendu.visibility = View.VISIBLE
+        }
+
         propertyType.text = property.type
         propertyCity.text = property.city
-        propertyPrice.text = property.price
+        propertyPrice.text = formatPrice(property.price)
 
 
         val file = File(property.photo)
@@ -51,6 +58,11 @@ class PropertyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
     }
 
+    fun formatPrice(price:String?):String{
+        val number:Double = price!!.toDouble()
+        val format = NumberFormat.getCurrencyInstance(Locale.FRANCE)
 
+        return format.format(number)
+    }
 
 }

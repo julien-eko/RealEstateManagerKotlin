@@ -84,26 +84,23 @@ class MapActivity : AppCompatActivity() , OnMapReadyCallback {
 
     }
 
-    fun addMarker(longitude:Double, latitude:Double,property: Property){
+    private fun addMarker(longitude:Double, latitude:Double, property: Property){
         val location = LatLng(latitude,longitude)
         //mMap.addMarker(MarkerOptions().position(location).title(property.type).snippet(property.status + "\n" + property.area +"\n" + property.price +"\n" + property.realEstateAgent))
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(location))
 
 
-
-
-
         val markerOptions = MarkerOptions()
-        markerOptions.position(location).title(property.type).snippet(property.status + "\n" + property.area +"\n" + property.price +"\n" + property.realEstateAgent)
+        markerOptions.position(location)
         val customInfoWindow = CustomInfoWindowGoogleMap(this,property)
 
         mMap!!.setInfoWindowAdapter(customInfoWindow)
 
-        val marker = mMap!!.addMarker(markerOptions)
+        mMap!!.addMarker(markerOptions)
         //marker.tag = info
-        marker.showInfoWindow()
+        //marker.showInfoWindow()
 
-        mMap!!.moveCamera(CameraUpdateFactory.newLatLng(location))
+
 
 
     }

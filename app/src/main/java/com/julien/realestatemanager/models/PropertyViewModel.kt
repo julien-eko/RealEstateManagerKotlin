@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.*
 
 class PropertyViewModel(application: Application) : AndroidViewModel(application) {
     private val propertyRepository: PropertyRepository
@@ -33,6 +34,21 @@ class PropertyViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun getProperty(id:String):LiveData<Property> = propertyRepository.getProperties(id)
+
+    fun getPropertyResearch(typeProperty: String,
+                            minArea: Int,
+                            maxArea: Int,
+                            minPrice: Int,
+                            maxPrice: Int,
+                            minDateOfSale: Long,
+                            maxDateOfSale: Long,
+                            statut: String,
+                            minDateOfCreated: Long,
+                            maxDateOfCreated: Long,
+                            city:String,
+                            minRoom: Int,
+                            maxRoom: Int
+    )=propertyRepository.getPropertyResearch(typeProperty,minArea,maxArea,minPrice,maxPrice,minDateOfSale,maxDateOfSale,statut,minDateOfCreated,maxDateOfCreated,city,minRoom,maxRoom)
 
     fun getAllProperty(): LiveData<List<Property>> = propertyRepository.allProperties
 

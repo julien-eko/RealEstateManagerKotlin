@@ -20,6 +20,7 @@ import com.julien.realestatemanager.controller.activity.CreatePropertyActivity
 import kotlinx.android.synthetic.main.activity_new_property.*
 import kotlinx.android.synthetic.main.fragment_new_property_fragment1.edit_real_estate_agent
 import kotlinx.android.synthetic.main.fragment_new_property_fragment1.spinner_status
+import java.util.*
 
 
 /**
@@ -81,12 +82,14 @@ class NewPropertyFragment1 : Fragment() {
 
     }
 
-    private fun datePicker(datePicker: DatePicker): String {
-        val year = datePicker.year
-        val month = datePicker.month + 1
-        val day = datePicker.dayOfMonth
+    private fun datePicker(datePicker: DatePicker): Long {
 
-        return day.toString() + "/" + month.toString() + "/" + year.toString()
+        var calendar = Calendar.getInstance()
+        calendar.set(datePicker.year,datePicker.month,datePicker.dayOfMonth)
+
+        return calendar.time.time
+
+
     }
 
     private fun save(createPropertyActivity: CreatePropertyActivity){
@@ -96,7 +99,7 @@ class NewPropertyFragment1 : Fragment() {
         createPropertyActivity.dateOfSale = if (createPropertyActivity.status.equals("Vendu")) {
             datePicker(datePicker_sale_date)
         }else{
-            ""
+            Calendar.getInstance().time.time
         }
     }
 }

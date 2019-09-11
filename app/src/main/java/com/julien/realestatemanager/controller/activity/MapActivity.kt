@@ -95,8 +95,8 @@ class MapActivity : AppCompatActivity() , OnMapReadyCallback {
         markerOptions.position(location)
 
 
-        val info = InfoWindowData(property.type, property.area,
-            property.price,
+        val info = InfoWindowData(property.type, property.area.toString(),
+            property.price.toString(),
             property.realEstateAgent,
             property.status
         )

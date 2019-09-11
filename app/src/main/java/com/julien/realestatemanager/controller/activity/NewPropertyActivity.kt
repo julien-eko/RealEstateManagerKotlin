@@ -49,7 +49,7 @@ private const val RC_IMAGE_PERMS = 100
 private const val RC_CHOOSE_PHOTO = 200
 
 class NewPropertyActivity : AppCompatActivity() {
-
+/*
 
     private var photoList: ArrayList<String> = ArrayList()
     private var editTextList: ArrayList<EditText> = ArrayList()
@@ -366,5 +366,5 @@ class NewPropertyActivity : AppCompatActivity() {
         Log.e("save", mypath.absolutePath)
         return mypath.absolutePath
     }
-
+*/
 }

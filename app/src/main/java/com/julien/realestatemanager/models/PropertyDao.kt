@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import java.util.*
 
 @Dao
 interface PropertyDao {
@@ -18,6 +19,22 @@ interface PropertyDao {
 
     @Query("SELECT * FROM property WHERE id IN (:propertyIds)")
     fun loadAllByIds(propertyIds: IntArray): List<Property>
+
+    @Query("SELECT * FROM property WHERE (:typeProperty = type) AND (:minArea < area AND area < :maxArea) AND (:minPrice < price AND price <:maxPrice) AND (:minDateOfCreated < creation_date AND creation_date < :maxDateOfCreated) AND (:minDateOfSale < date_of_sale AND date_of_sale<:maxDateOfSale) AND (status = :statut) AND (city = :city) AND (:minRoom < number_of_rooms AND number_of_rooms < :maxRoom)")
+    fun getPropertyResearch(typeProperty: String,
+                                     minArea: Int,
+                                     maxArea: Int,
+                                     minPrice: Int,
+                                     maxPrice: Int,
+                                     minDateOfSale: Long,
+                                     maxDateOfSale: Long,
+                                     statut: String,
+                                     minDateOfCreated: Long,
+                                     maxDateOfCreated: Long,
+                                     city:String,
+                                     minRoom: Int,
+                                     maxRoom: Int
+    ): LiveData<List<Property>>
 
     //@Query("SELECT * FROM user WHERE first_name LIKE :first AND " +
     //        "last_name LIKE :last LIMIT 1")

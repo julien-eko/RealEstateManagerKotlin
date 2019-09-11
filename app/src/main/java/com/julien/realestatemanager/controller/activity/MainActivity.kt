@@ -3,10 +3,9 @@ package com.julien.realestatemanager.controller.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
+
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
@@ -15,10 +14,10 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.navigation.NavigationView
 import com.julien.realestatemanager.R
-import com.julien.realestatemanager.controller.fragment.PropertyDetailFragment
 import com.julien.realestatemanager.controller.fragment.PropertyListFragment
 import com.julien.realestatemanager.controller.fragment.SelectPropertyFragment
-import kotlinx.android.synthetic.main.activity_main.*
+import com.julien.realestatemanager.controller.fragment.SearchFragment
+
 
 class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
 
@@ -27,6 +26,12 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     private lateinit var toolbar:Toolbar
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navigationView: NavigationView
+
+
+
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +60,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
 
     }
 
-    inline fun androidx.fragment.app.FragmentManager.inTransaction(func: androidx.fragment.app.FragmentTransaction.() -> Unit) {
+    inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> Unit) {
         val fragmentTransaction = beginTransaction()
         fragmentTransaction.func()
         fragmentTransaction.commit()
@@ -80,7 +85,9 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
 
         }
         if (itemid == R.id.action_search){
-            Toast.makeText(this, "search", Toast.LENGTH_SHORT).show()
+            val searchFragment = SearchFragment()
+            searchFragment.show(supportFragmentManager,"test")
+
         }
 
         return super.onOptionsItemSelected(item)
@@ -113,7 +120,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     private  fun configureDrawerLayout(){
         drawerLayout = findViewById(R.id.activity_main_drawer_layout)
         toolbar = findViewById(R.id.activity_main_toolbar)
-        var toggle:ActionBarDrawerToggle = ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close)
+        var toggle = ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
     }
@@ -121,5 +128,33 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     private fun configureNavigationView(){
         navigationView = findViewById(R.id.activity_main_nav_view)
         navigationView.setNavigationItemSelectedListener(this)
+    }
+
+    fun updateList(typeProperty: String,
+                   minArea: Int,
+                   maxArea: Int,
+                   minPrice: Int,
+                   maxPrice: Int,
+                   minDateOfSale: Long,
+                   maxDateOfSale: Long,
+                   statut: String,
+                   minDateOfCreated: Long,
+                   maxDateOfCreated: Long,
+                   city:String,
+                   minRoom: Int,
+                   maxRoom: Int){
+        propertyList.searchProperties(typeProperty,
+            minArea,
+            maxArea,
+            minPrice,
+            maxPrice,
+            minDateOfSale,
+            maxDateOfSale,
+            statut,
+            minDateOfCreated,
+            maxDateOfCreated,
+            city,
+            minRoom,
+            maxRoom)
     }
 }

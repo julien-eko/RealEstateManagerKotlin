@@ -101,11 +101,15 @@ class PropertyDetailFragment : androidx.fragment.app.Fragment(),OnMapReadyCallba
                 // Update the cached copy of the words in the adapter.
                 property?.let {
 
+                    //Log.e("db date", property.creationDate.toString())
+
+                    //Log.e("convert date", Date(property.creationDate).toString())
+
                     description_text_view.text = property.description
-                    area_text_view.text = property.area
-                    number_of_rooms_text_view.text = property.numberOfRooms
-                    bedrooms_text_view.text = property.numberOfBedrooms
-                    bathrooms_text_view.text = property.numberOfBathrooms
+                    area_text_view.text = property.area.toString()
+                    number_of_rooms_text_view.text = property.numberOfRooms.toString()
+                    bedrooms_text_view.text = property.numberOfBedrooms.toString()
+                    bathrooms_text_view.text = property.numberOfBathrooms.toString()
                     adress_text_view.text = property.adress
                     additional_adress_text_view.text = property.additionalAdress
                     city_text_view.text = property.city

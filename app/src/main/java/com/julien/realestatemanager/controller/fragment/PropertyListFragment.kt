@@ -4,6 +4,7 @@ package com.julien.realestatemanager.controller.fragment
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -16,16 +17,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.julien.realestatemanager.R
+import com.julien.realestatemanager.controller.activity.MainActivity
 import com.julien.realestatemanager.controller.activity.NewPropertyActivity
 import com.julien.realestatemanager.controller.activity.PropertyDetailActivity
 import com.julien.realestatemanager.models.*
 import com.openclassrooms.realestatemanager.views.PropertyAdaptater
 import com.openclassrooms.realestatemanager.views.PropertyViewHolder
 import kotlinx.android.synthetic.main.fragment_property_list.*
+import kotlinx.android.synthetic.main.fragment_property_list_item.*
 import java.io.ByteArrayOutputStream
 
 
@@ -64,34 +68,36 @@ class PropertyListFragment : androidx.fragment.app.Fragment() {
         super.onActivityCreated(savedInstanceState)
         linearLayoutManager = LinearLayoutManager(context)
         recycler_view_property.layoutManager = linearLayoutManager
-        var id:String
-        if (tag != null){
+        var id: String
+        if (tag != null) {
             id = tag!!
-        }else{
+        } else {
             id = "1"
         }
 
 
-        adapter = PropertyAdaptater(listOf(),id)
-            recycler_view_property.adapter = adapter
+        adapter = PropertyAdaptater(listOf(), id)
+        recycler_view_property.adapter = adapter
 
         propertyViewModel = ViewModelProviders.of(this).get(PropertyViewModel::class.java)
 
-        propertyViewModel.allProperties.observe(this, Observer { property ->
-            // Update the cached copy of the words in the adapter.
-            property?.let {
-                //adapter.setWords(it)
-                adapter.setProperties(property)
-            }
-        })
+
+
+        displayAllProperties()
+
 
 
         listener()
 
+        cancel_search_button.setOnClickListener {
+            displayAllProperties()
+            cancel_search_button.visibility = View.GONE
+        }
+
     }
 
     //click
-    fun listener(){
+    fun listener() {
         adapter.listener = { id ->
             // do something here
 
@@ -99,16 +105,15 @@ class PropertyListFragment : androidx.fragment.app.Fragment() {
 
             val isTablet: Boolean = resources.getBoolean(R.bool.isTablet)
             if (isTablet) {
-
                 propertyDetail = PropertyDetailFragment()
                 propertyList = PropertyListFragment()
                 activity?.supportFragmentManager?.inTransaction {
-                    replace(R.id.frame_layout_property_list, propertyList, id)
+                    //replace(R.id.frame_layout_property_list, propertyList, id)
                     replace(R.id.frame_layout_property_detail, propertyDetail, id)
 
                 }
 
-            }else{
+            } else {
                 val intent = Intent(context, PropertyDetailActivity::class.java)
                 intent.putExtra("id", id)
                 // start your next activity
@@ -119,6 +124,7 @@ class PropertyListFragment : androidx.fragment.app.Fragment() {
 
         }
     }
+
     inline fun androidx.fragment.app.FragmentManager.inTransaction(func: androidx.fragment.app.FragmentTransaction.() -> Unit) {
         val fragmentTransaction = beginTransaction()
         fragmentTransaction.func()
@@ -127,12 +133,52 @@ class PropertyListFragment : androidx.fragment.app.Fragment() {
 
 
 
+    fun displayAllProperties() {
+        propertyViewModel.allProperties.observe(this, Observer { property ->
+            // Update the cached copy of the words in the adapter.
+            property?.let {
+                //adapter.setWords(it)
+                adapter.setProperties(property)
+            }
+        })
+    }
 
+    fun searchProperties(typeProperty: String,
+                         minArea: Int,
+                         maxArea: Int,
+                         minPrice: Int,
+                         maxPrice: Int,
+                         minDateOfSale: Long,
+                         maxDateOfSale: Long,
+                         statut: String,
+                         minDateOfCreated: Long,
+                         maxDateOfCreated: Long,
+                         city:String,
+                         minRoom: Int,
+                         maxRoom: Int) {
+        val propertyViewModel = ViewModelProviders.of(this).get(PropertyViewModel::class.java)
+        propertyViewModel.getPropertyResearch(
+            typeProperty,
+            minArea,
+            maxArea,
+            minPrice,
+            maxPrice,
+            minDateOfSale,
+            maxDateOfSale,
+            statut,
+            minDateOfCreated,
+            maxDateOfCreated,
+            city,
+            minRoom,
+            maxRoom
+        ).observe(this, Observer { property ->
+            // Update the cached copy of the words in the adapter.
+            property?.let {
 
-
-
-
-
-
-
+                //adapter.setWords(it)
+                cancel_search_button.visibility =View.VISIBLE
+                adapter.setProperties(property)
+            }
+        })
+    }
 }

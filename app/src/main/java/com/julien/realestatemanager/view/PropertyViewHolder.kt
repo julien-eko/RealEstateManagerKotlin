@@ -14,6 +14,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
 import com.julien.realestatemanager.R
 import com.julien.realestatemanager.models.Property
@@ -34,27 +35,27 @@ class PropertyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     val propertyPrice = itemView.findViewById<TextView>(R.id.price_text_view)
     val propertyVendu = itemView.findViewById<TextView>(R.id.fragment_property_list_photo_vendu)
     val propertyPhoto = itemView.findViewById<ImageView>(R.id.fragment_property_list_photo)
-    val propertyLayout =  itemView.findViewById<LinearLayout>(R.id.property_linear_layout)
+    val propertyLayout =  itemView.findViewById<LinearLayout>(R.id.property_list_main_layout)
 
 
-    @RequiresApi(Build.VERSION_CODES.M)
+
     fun update(property: Property, id:String, context: Context){
 
         if (property.status == "Vendu"){
             propertyVendu.visibility = View.VISIBLE
+        }else{
+            propertyVendu.visibility = View.GONE
         }
 
         propertyType.text = property.type
         propertyCity.text = property.city
-        propertyPrice.text = formatPrice(property.price)
+        propertyPrice.text = formatPrice(property.price.toString())
 
 
         val file = File(property.photo)
         Picasso.get().load(file).resize(100,100).into(propertyPhoto)
-         if (property.id == id){
-            propertyLayout.setBackgroundColor(context.getColor(R.color.pinkPrimary))
-             propertyPrice.setTextColor(Color.WHITE)
-         }
+
+
 
     }
 
@@ -64,5 +65,7 @@ class PropertyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
         return format.format(number)
     }
+
+
 
 }

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.IntegerRes
 import androidx.navigation.findNavController
 
 import com.julien.realestatemanager.R
@@ -50,11 +51,11 @@ class NewPropertyFragment2 : Fragment() {
     private fun save(createPropertyActivity: CreatePropertyActivity){
 
         createPropertyActivity.type = edit_type_fragment_2.text.toString()
-        createPropertyActivity.numberOfRooms = edit_number_of_romms_fragment_2.text.toString()
-        createPropertyActivity.numberOfBathrooms = edit_number_of_batthrooms_fragment_2.text.toString()
-        createPropertyActivity.numberOfBedrooms = edit_number_of_bedrooms_fragment_2.text.toString()
-        createPropertyActivity.area = edit_area_fragment_2.text.toString()
-        createPropertyActivity.price = edit_price_fragment_2.text.toString()
+        createPropertyActivity.numberOfRooms = edit_number_of_romms_fragment_2.text.toString().toInt()
+        createPropertyActivity.numberOfBathrooms = edit_number_of_batthrooms_fragment_2.text.toString().toInt()
+        createPropertyActivity.numberOfBedrooms = edit_number_of_bedrooms_fragment_2.text.toString().toInt()
+        createPropertyActivity.area = edit_area_fragment_2.text.toString().toInt()
+        createPropertyActivity.price = edit_price_fragment_2.text.toString().toInt()
     }
 
     private fun validateForm():Boolean{

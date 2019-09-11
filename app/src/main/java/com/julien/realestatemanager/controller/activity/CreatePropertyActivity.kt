@@ -28,21 +28,21 @@ class CreatePropertyActivity : AppCompatActivity() {
 
     lateinit var city:String
     lateinit var type:String
-    lateinit var price:String
-    lateinit var area:String
-    lateinit var numberOfRooms:String
+    var price:Int = 0
+    var area:Int = 0
+    var numberOfRooms:Int = 0
     lateinit var description:String
     lateinit var adress:String
     lateinit var placeNearby:String
     lateinit var status:String
-    lateinit var createdDate:String
+    var createdDate:Long = 0
     lateinit var realEstateAgent:String
-    lateinit var numberOfBathrooms:String
-    lateinit var numberOfBedrooms:String
+    var numberOfBathrooms:Int = 0
+    var numberOfBedrooms:Int =0
     lateinit var additionAdress:String
     lateinit var postalCode:String
     lateinit var country:String
-    lateinit var dateOfSale:String
+    var dateOfSale:Long = 0
     var latitude = 0.0
     var longitude = 0.0
 
@@ -60,14 +60,14 @@ class CreatePropertyActivity : AppCompatActivity() {
         val newId = UUID.randomUUID().toString()
         val newProperty = Property(
             newId,
-            city,
-            type,
+            city.trim().toLowerCase(),
+            type.trim().toLowerCase(),
             price,
             area,
             numberOfRooms,
             description,
             adress,
-            placeNearby,
+            placeNearby.trim().toLowerCase(),
             status,
             createdDate,
             dateOfSale,
@@ -77,7 +77,7 @@ class CreatePropertyActivity : AppCompatActivity() {
             numberOfBedrooms,
             additionAdress,
             postalCode,
-            country,
+            country.trim().toLowerCase(),
             latitude,
             longitude
         )

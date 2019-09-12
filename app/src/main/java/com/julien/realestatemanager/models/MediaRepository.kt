@@ -14,6 +14,8 @@ class MediaRepository(private val mediaDao: MediaDao) {
 
     //val allMedia: LiveData<List<Property>> = mediaDao.getAll()
 
+    fun updateMedia(media: Media) = mediaDao.updateMedia(media)
+
     @WorkerThread
     suspend fun insert(media: Media) {
         mediaDao.insert(media)

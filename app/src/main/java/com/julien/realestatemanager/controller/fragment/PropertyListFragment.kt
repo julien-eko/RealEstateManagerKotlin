@@ -23,7 +23,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.julien.realestatemanager.R
 import com.julien.realestatemanager.controller.activity.MainActivity
-import com.julien.realestatemanager.controller.activity.NewPropertyActivity
 import com.julien.realestatemanager.controller.activity.PropertyDetailActivity
 import com.julien.realestatemanager.models.*
 import com.openclassrooms.realestatemanager.views.PropertyAdaptater
@@ -52,6 +51,8 @@ class PropertyListFragment : androidx.fragment.app.Fragment() {
 
     private lateinit var propertyViewModel: PropertyViewModel
 
+    lateinit var idProperty: String
+
     //private lateinit var photo:ByteArray
 
     override fun onCreateView(
@@ -68,15 +69,15 @@ class PropertyListFragment : androidx.fragment.app.Fragment() {
         super.onActivityCreated(savedInstanceState)
         linearLayoutManager = LinearLayoutManager(context)
         recycler_view_property.layoutManager = linearLayoutManager
-        var id: String
+
         if (tag != null) {
-            id = tag!!
+            idProperty = tag!!
         } else {
-            id = "1"
+            idProperty = "0"
         }
 
 
-        adapter = PropertyAdaptater(listOf(), id)
+        adapter = PropertyAdaptater(listOf(), idProperty)
         recycler_view_property.adapter = adapter
 
         propertyViewModel = ViewModelProviders.of(this).get(PropertyViewModel::class.java)
@@ -102,6 +103,7 @@ class PropertyListFragment : androidx.fragment.app.Fragment() {
             // do something here
 
 
+            this.idProperty = id
 
             val isTablet: Boolean = resources.getBoolean(R.bool.isTablet)
             if (isTablet) {
@@ -125,7 +127,7 @@ class PropertyListFragment : androidx.fragment.app.Fragment() {
         }
     }
 
-    inline fun androidx.fragment.app.FragmentManager.inTransaction(func: androidx.fragment.app.FragmentTransaction.() -> Unit) {
+    inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> Unit) {
         val fragmentTransaction = beginTransaction()
         fragmentTransaction.func()
         fragmentTransaction.commit()

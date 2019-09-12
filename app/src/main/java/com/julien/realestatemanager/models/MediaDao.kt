@@ -1,10 +1,7 @@
 package com.julien.realestatemanager.models
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface MediaDao {
@@ -17,6 +14,9 @@ interface MediaDao {
 
     @Insert
     fun insert(media: Media)
+
+    @Update
+    fun updateMedia(media: Media)
 
     @Delete
     fun delete(media: Media)

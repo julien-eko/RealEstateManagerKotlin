@@ -33,6 +33,9 @@ class PropertyViewModel(application: Application) : AndroidViewModel(application
 
     }
 
+    fun updateProperty(property: Property) =viewModelScope.launch(Dispatchers.IO) {
+        propertyRepository.updateProperty(property)
+    }
     fun getProperty(id:String):LiveData<Property> = propertyRepository.getProperties(id)
 
     fun getPropertyResearch(typeProperty: String,
@@ -62,7 +65,11 @@ class PropertyViewModel(application: Application) : AndroidViewModel(application
         mediaRepository.insert(media)
     }
 
-    fun getMedia(id:String):LiveData<List<Media>> = mediaRepository.getMedia(id)
+    fun updateMedia(media: Media) =viewModelScope.launch(Dispatchers.IO) {
+        mediaRepository.updateMedia(media)
+    }
+        fun getMedia(id:String):LiveData<List<Media>> = mediaRepository.getMedia(id)
 
-    fun getMediaId(id:String):LiveData<Media> = mediaRepository.getMediaId(id)
+        fun getMediaId(id:String):LiveData<Media> = mediaRepository.getMediaId(id)
+
 }

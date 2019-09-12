@@ -25,7 +25,7 @@ class PropertyRepository(private val propertyDao: PropertyDao) {
                             maxRoom: Int
     )=propertyDao.getPropertyResearch(typeProperty,minArea,maxArea,minPrice,maxPrice,minDateOfSale,maxDateOfSale,statut,minDateOfCreated,maxDateOfCreated,city,minRoom,maxRoom)
 
-
+    fun updateProperty(property: Property) = propertyDao.updateProperty(property)
 
     //Create
     //fun createProperty(property: Property) = propertyDao.insertProperty(property)

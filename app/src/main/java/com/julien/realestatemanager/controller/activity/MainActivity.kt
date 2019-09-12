@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
@@ -75,12 +76,24 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         var itemid = item?.itemId
 
         if (itemid == R.id.action_add){
-            val intent = Intent(this, CreatePropertyActivity::class.java)
+            val intent = Intent(this, PropertyActivity::class.java)
+            intent.putExtra("isNewProperty",true)
             startActivity(intent)
             //val intent = Intent(this, NewPropertyActivity::class.java)
             //startActivity(intent)
         }
         if (itemid == R.id.action_edit){
+
+            val id:String = propertyList.idProperty
+
+            if(id == "0"){
+                Toast.makeText(this,"Choose a property",Toast.LENGTH_SHORT).show()
+            }else{
+                val intent = Intent(this, PropertyActivity::class.java)
+                intent.putExtra("isNewProperty",false)
+                intent.putExtra("id",id)
+                startActivity(intent)
+            }
 
 
         }

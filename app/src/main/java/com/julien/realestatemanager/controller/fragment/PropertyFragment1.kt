@@ -1,23 +1,22 @@
 package com.julien.realestatemanager.controller.fragment
 
 
-import android.opengl.Visibility
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.DatePicker
-import android.widget.Toast
+import androidx.lifecycle.ViewModelProviders
 
 import com.julien.realestatemanager.R
-import com.tayfuncesur.stepper.Stepper
 import com.thekhaeng.pushdownanim.PushDownAnim
 import kotlinx.android.synthetic.main.fragment_new_property_fragment1.*
 import androidx.navigation.findNavController
-import com.julien.realestatemanager.controller.activity.CreatePropertyActivity
-import kotlinx.android.synthetic.main.activity_new_property.*
+import com.julien.realestatemanager.controller.activity.PropertyActivity
+import com.julien.realestatemanager.models.PropertyViewModel
 import kotlinx.android.synthetic.main.fragment_new_property_fragment1.edit_real_estate_agent
 import kotlinx.android.synthetic.main.fragment_new_property_fragment1.spinner_status
 import java.util.*
@@ -26,18 +25,29 @@ import java.util.*
 /**
  * A simple [Fragment] subclass.
  */
-class NewPropertyFragment1 : Fragment() {
+class PropertyFragment1 : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_new_property_fragment1, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+        val propertyActivity: PropertyActivity = activity as PropertyActivity
+
+
+        if (!propertyActivity.intent.getBooleanExtra("isNewProperty",true)){
+
+            loadProperty(propertyActivity)
+        }
+
 
         spinner_status.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -66,14 +76,14 @@ class NewPropertyFragment1 : Fragment() {
         PushDownAnim.setPushDownAnimTo(nextToB).setScale(PushDownAnim.MODE_STATIC_DP, 5F)
             .setOnClickListener {
 
-                val createPropertyActivity: CreatePropertyActivity = activity as CreatePropertyActivity
+
 
                 if (edit_real_estate_agent.text.toString().trim() == ""){
                     edit_real_estate_agent.error = "This field cannot be blank"
                 }else{
-                    save(createPropertyActivity)
+                    save(propertyActivity)
                     view.findNavController().navigate(R.id.fragmentAtoB)
-                    activity?.findViewById<Stepper>(R.id.Stepper)?.forward()
+                    //activity?.findViewById<Stepper>(R.id.Stepper)?.forward()
                 }
 
 
@@ -81,6 +91,8 @@ class NewPropertyFragment1 : Fragment() {
 
 
     }
+
+
 
     private fun datePicker(datePicker: DatePicker): Long {
 
@@ -92,15 +104,46 @@ class NewPropertyFragment1 : Fragment() {
 
     }
 
-    private fun save(createPropertyActivity: CreatePropertyActivity){
-        createPropertyActivity.realEstateAgent = edit_real_estate_agent.text.toString()
-        createPropertyActivity.status = spinner_status.selectedItem.toString()
-        createPropertyActivity.createdDate = datePicker(datePicker_created_date)
-        createPropertyActivity.dateOfSale = if (createPropertyActivity.status.equals("Vendu")) {
+    private fun save(propertyActivity: PropertyActivity){
+        propertyActivity.realEstateAgent = edit_real_estate_agent.text.toString()
+        propertyActivity.status = spinner_status.selectedItem.toString()
+        propertyActivity.createdDate = datePicker(datePicker_created_date)
+        propertyActivity.dateOfSale = if (propertyActivity.status.equals("Vendu")) {
             datePicker(datePicker_sale_date)
         }else{
             Calendar.getInstance().time.time
         }
+    }
+
+    private fun loadProperty(propertyActivity: PropertyActivity){
+
+        val propertyViewModel = ViewModelProviders.of(this).get(PropertyViewModel::class.java)
+
+
+
+        propertyViewModel.getProperty(propertyActivity.intent.getStringExtra("id")).observe(this, Observer { property ->
+            // Update the cached copy of the words in the adapter.
+            property?.let {
+                edit_real_estate_agent.setText(property.realEstateAgent)
+
+                //val date = Date(property.creationDate)
+
+                val calendar = Calendar.getInstance()
+                calendar.time = Date(property.creationDate)
+                datePicker_created_date.updateDate(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH))
+
+                if (property.status == "Vendu"){
+                spinner_status.setSelection(1)
+                    val calendarSale = Calendar.getInstance()
+                    calendarSale.time = Date(property.dateOfSale)
+                    datePicker_sale_date.updateDate(calendarSale.get(Calendar.YEAR),calendarSale.get(Calendar.MONTH),calendarSale.get(Calendar.DAY_OF_MONTH))
+
+                }
+
+
+            }
+        })
+
     }
 }
 

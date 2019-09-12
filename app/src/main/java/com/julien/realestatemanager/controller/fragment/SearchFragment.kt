@@ -4,8 +4,6 @@ package com.julien.realestatemanager.controller.fragment
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.Dialog
-import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -13,10 +11,7 @@ import android.widget.*
 import androidx.fragment.app.DialogFragment
 
 import com.julien.realestatemanager.R
-import com.julien.realestatemanager.controller.activity.CreatePropertyActivity
 import com.julien.realestatemanager.controller.activity.MainActivity
-import kotlinx.android.synthetic.main.fragment_new_property_fragment2.*
-import kotlinx.android.synthetic.main.fragment_search.*
 import java.text.SimpleDateFormat
 import java.util.*
 

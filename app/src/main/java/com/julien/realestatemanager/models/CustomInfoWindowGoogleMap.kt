@@ -6,7 +6,6 @@ import android.view.View
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
 import com.julien.realestatemanager.R
-import kotlinx.android.synthetic.main.activity_new_property.view.*
 import kotlinx.android.synthetic.main.custom_marker_layout.view.*
 
 class CustomInfoWindowGoogleMap(val context: Context) : GoogleMap.InfoWindowAdapter {

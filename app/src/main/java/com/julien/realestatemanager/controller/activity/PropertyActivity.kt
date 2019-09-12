@@ -2,10 +2,12 @@ package com.julien.realestatemanager.controller.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import com.julien.realestatemanager.R
 import com.julien.realestatemanager.models.Media
@@ -17,10 +19,14 @@ import kotlinx.android.synthetic.main.activity_create_property.*
 import kotlinx.android.synthetic.main.fragment_new_property_fragment5.*
 import java.util.*
 
-class CreatePropertyActivity : AppCompatActivity() {
+class PropertyActivity : AppCompatActivity() {
 
     var photoList: ArrayList<String> = ArrayList()
     var editTextList: ArrayList<EditText> = ArrayList()
+
+    var photoListEdited: ArrayList<String> = ArrayList()
+    var editTextListEdited: ArrayList<EditText> = ArrayList()
+    var idMedia:ArrayList<String> = ArrayList()
 
     private lateinit var propertyViewModel: PropertyViewModel
 
@@ -46,20 +52,38 @@ class CreatePropertyActivity : AppCompatActivity() {
     var latitude = 0.0
     var longitude = 0.0
 
+    lateinit var property: Property
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_property)
+        this.setFinishOnTouchOutside(false)
 
         propertyViewModel = ViewModelProviders.of(this).get(PropertyViewModel::class.java)
+
+        if (!intent.getBooleanExtra("isNewProperty",true)){
+
+            loadProperty()
+        }
+
     }
 
     override fun onSupportNavigateUp() = NavHostFragment.findNavController(nav_host_fragment).navigateUp()
 
 
     fun insertInDatabase(){
-        val newId = UUID.randomUUID().toString()
+
+        var id:String
+        if (!intent.getBooleanExtra("isNewProperty",true)){
+               id = intent.getStringExtra("id")
+
+        }else{
+            id = UUID.randomUUID().toString()
+        }
+
+        //val id = UUID.randomUUID().toString()
         val newProperty = Property(
-            newId,
+            id,
             city.trim().toLowerCase(),
             type.trim().toLowerCase(),
             price,
@@ -81,21 +105,60 @@ class CreatePropertyActivity : AppCompatActivity() {
             latitude,
             longitude
         )
-        propertyViewModel.insert(newProperty)
+
+        if (!intent.getBooleanExtra("isNewProperty",true)){
+            propertyViewModel.updateProperty(newProperty)
+
+            if (photoListEdited.size > 0){
+                for (i in 0 until photoListEdited.size) {
+                    val media = Media(
+                        idMedia[i],
+                        editTextListEdited[i].text.toString(),
+                        photoListEdited[i],
+                        newProperty.id
+                    )
+                    propertyViewModel.updateMedia(media)
+                }
+            }
 
 
-        for (i in 0 until photoList.size) {
-            val idMedia = UUID.randomUUID().toString()
-            val media = Media(
-                idMedia,
-                editTextList[i].text.toString(),
-                photoList[i],
-                newProperty.id
-            )
-            propertyViewModel.insertMedia(media)
+        }else{
+            propertyViewModel.insert(newProperty)
+
+
         }
+
+        if(photoList.size > 0){
+            for (i in 0 until photoList.size) {
+                val idMedia = UUID.randomUUID().toString()
+                val media = Media(
+                    idMedia,
+                    editTextList[i].text.toString(),
+                    photoList[i],
+                    newProperty.id
+                )
+                propertyViewModel.insertMedia(media)
+            }
+        }
+
+
+
 
         finish()
     }
 
+
+    fun loadProperty(){
+
+        propertyViewModel.getProperty(intent.getStringExtra("id")).observe(this, Observer { property ->
+            // Update the cached copy of the words in the adapter.
+            property?.let {
+                this.property = property
+
+
+
+
+            }
+        })
+    }
 }

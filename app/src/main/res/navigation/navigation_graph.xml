@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/fragmentA"
-        android:name="com.julien.realestatemanager.controller.fragment.NewPropertyFragment1"
+        android:name="com.julien.realestatemanager.controller.fragment.PropertyFragment1"
         android:label="Fragment A"
         tools:layout="@layout/fragment_new_property_fragment1">
         <action
@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/fragmentB"
-        android:name="com.julien.realestatemanager.controller.fragment.NewPropertyFragment2"
+        android:name="com.julien.realestatemanager.controller.fragment.PropertyFragment2"
         android:label="Fragment B"
         tools:layout="@layout/fragment_new_property_fragment2">
         <action
@@ -34,7 +34,7 @@
 
     <fragment
         android:id="@+id/fragmentC"
-        android:name="com.julien.realestatemanager.controller.fragment.NewPropertyFragment3"
+        android:name="com.julien.realestatemanager.controller.fragment.PropertyFragment3"
         android:label="Fragment C"
         tools:layout="@layout/fragment_new_property_fragment3">
         <action
@@ -62,7 +62,7 @@
 
     <fragment
             android:id="@+id/fragmentE"
-            android:name="com.julien.realestatemanager.controller.fragment.NewPropertyFragment5"
+            android:name="com.julien.realestatemanager.controller.fragment.PropertyFragment5"
             android:label="Fragment E"
             tools:layout="@layout/fragment_new_property_fragment5">
     </fragment>

@@ -14,21 +14,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.Toast
+import android.widget.*
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 
 import com.julien.realestatemanager.R
-import com.julien.realestatemanager.controller.activity.CreatePropertyActivity
+import com.julien.realestatemanager.controller.activity.PropertyActivity
+import com.julien.realestatemanager.models.PropertyViewModel
 import com.squareup.picasso.Picasso
-import com.tayfuncesur.stepper.Stepper
 import com.thekhaeng.pushdownanim.PushDownAnim
-import kotlinx.android.synthetic.main.activity_new_property.*
 import kotlinx.android.synthetic.main.fragment_new_property_fragment4.*
+import kotlinx.android.synthetic.main.fragment_new_property_fragment4.backArrow
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
+import androidx.lifecycle.Observer
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -66,20 +65,29 @@ class NewPropertyFragment4 : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        PushDownAnim.setPushDownAnimTo(nextToE).setScale(PushDownAnim.MODE_STATIC_DP,5F).setOnClickListener {
-            val createPropertyActivity: CreatePropertyActivity = activity as CreatePropertyActivity
 
-            if (createPropertyActivity.photo == ""){
+        val propertyActivity: PropertyActivity = activity as PropertyActivity
+
+
+        if (!propertyActivity.intent.getBooleanExtra("isNewProperty",true)){
+
+            loadProperty(propertyActivity)
+        }
+
+        PushDownAnim.setPushDownAnimTo(nextToE).setScale(PushDownAnim.MODE_STATIC_DP,5F).setOnClickListener {
+
+
+            if (propertyActivity.photo == "" && propertyActivity.intent.getBooleanExtra("isNewProperty",true) ){
                 Toast.makeText(context,"Select main picture",Toast.LENGTH_SHORT).show()
             }else{
                 view.findNavController().navigate(R.id.fragmentDtoE)
-                activity?.findViewById<Stepper>(R.id.Stepper)?.forward()
+                //activity?.findViewById<Stepper>(R.id.Stepper)?.forward()
             }
 
         }
         PushDownAnim.setPushDownAnimTo(backArrow).setScale(PushDownAnim.MODE_STATIC_DP,5F).setOnClickListener {
             view.findNavController().popBackStack()
-            activity?.findViewById<Stepper>(R.id.Stepper)?.back()
+            //activity?.findViewById<Stepper>(R.id.Stepper)?.back()
         }
 
         button_main_photo_capture.setOnClickListener {
@@ -124,17 +132,17 @@ class NewPropertyFragment4 : Fragment() {
 
             val id = UUID.randomUUID().toString()
             val photoChoice = saveToInternalStorage(context!!,imageBitmap,id)
-            val createPropertyActivity: CreatePropertyActivity =
-                activity as CreatePropertyActivity
+            val propertyActivity: PropertyActivity =
+                activity as PropertyActivity
 
             if (choice == 1) {
-                createPropertyActivity.photo = photoChoice
-                addMainPicture(createPropertyActivity.photo)
+                propertyActivity.photo = photoChoice
+                addMainPicture(propertyActivity.photo)
                 //uri = data!!.data
             } else {
 
-                createPropertyActivity.editTextList.add(addPicture(photoChoice))
-                createPropertyActivity.photoList.add(photoChoice)
+                propertyActivity.editTextList.add(addPicture(photoChoice))
+                propertyActivity.photoList.add(photoChoice)
                 //editTextList.add(addPhoto(data!!.data.toString()))
                 //uriList.add(data!!.data)
             }
@@ -196,17 +204,17 @@ class NewPropertyFragment4 : Fragment() {
                 var bitmap: Bitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver,data!!.data)
                 val id = UUID.randomUUID().toString()
                 val photoChoice = saveToInternalStorage(context!!,bitmap,id)
-                val createPropertyActivity: CreatePropertyActivity =
-                    activity as CreatePropertyActivity
+                val propertyActivity: PropertyActivity =
+                    activity as PropertyActivity
 
                 if (choice == 1) {
-                    createPropertyActivity.photo = photoChoice
-                    addMainPicture(createPropertyActivity.photo)
+                    propertyActivity.photo = photoChoice
+                    addMainPicture(propertyActivity.photo)
                     //uri = data!!.data
                 } else {
 
-                    createPropertyActivity.editTextList.add(addPicture(photoChoice))
-                    createPropertyActivity.photoList.add(photoChoice)
+                    propertyActivity.editTextList.add(addPicture(photoChoice))
+                    propertyActivity.photoList.add(photoChoice)
                     //editTextList.add(addPhoto(data!!.data.toString()))
                     //uriList.add(data!!.data)
                 }
@@ -218,15 +226,20 @@ class NewPropertyFragment4 : Fragment() {
     }
 
 
-    fun addMainPicture(photo:String){
+    private fun addMainPicture(photo:String){
         var file = File(photo)
         Picasso.get().load(file).resize(200, 200).into(main_picture)
 
     }
-    fun addPicture(photo: String): EditText {
+    private fun addPicture(photo: String): EditText {
         var image = ImageView(context)
         var editText = EditText(context)
         var linearLayout = LinearLayout(context)
+        //var deleteButton = ImageButton(context)
+        //deleteButton.setImageDrawable(ContextCompat.getDrawable(context!!,R.drawable.property))
+        //deleteButton.setImageDrawable(ContextCompat.getDrawable(context!!,R.drawable.baseline_delete_black_24))
+        //imageButton.background = ContextCompat.getDrawable(context!!,R.drawable.baseline_add_24)
+
         linearLayout.orientation = LinearLayout.HORIZONTAL
 
         var file = File(photo)
@@ -234,6 +247,7 @@ class NewPropertyFragment4 : Fragment() {
 
         linearLayout.addView(image)
         linearLayout.addView(editText)
+        //linearLayout.addView(deleteButton)
         other_photo.addView(linearLayout)
 
         return editText
@@ -264,5 +278,53 @@ class NewPropertyFragment4 : Fragment() {
         }
         Log.e("save", mypath.absolutePath)
         return mypath.absolutePath
+    }
+
+    private fun loadProperty(propertyActivity: PropertyActivity){
+
+        val propertyViewModel = ViewModelProviders.of(this).get(PropertyViewModel::class.java)
+
+
+
+        propertyViewModel.getProperty(propertyActivity.intent.getStringExtra("id")).observe(this, Observer { property ->
+            // Update the cached copy of the words in the adapter.
+            property?.let {
+
+                propertyActivity.photo = property.photo!!
+                addMainPicture(property.photo!!)
+
+            }
+        })
+
+
+        propertyViewModel.getMedia(propertyActivity.intent.getStringExtra("id")).observe(this, Observer { medias ->
+            // Update the cached copy of the words in the adapter.
+            medias?.let {
+
+                for (media in medias){
+
+                    var image = ImageView(context)
+                    var editText = EditText(context)
+                    editText.setText(media.description)
+                    var linearLayout = LinearLayout(context)
+                    linearLayout.orientation = LinearLayout.HORIZONTAL
+
+                    var file = File(media.photo)
+                    Picasso.get().load(file).resize(200, 200).into(image)
+
+                    linearLayout.addView(image)
+                    linearLayout.addView(editText)
+                    other_photo.addView(linearLayout)
+
+                    propertyActivity.editTextListEdited.add(editText)
+                    propertyActivity.idMedia.add(media.id)
+                    propertyActivity.photoListEdited.add(media.photo!!)
+
+
+                }
+
+            }
+        })
+
     }
 }

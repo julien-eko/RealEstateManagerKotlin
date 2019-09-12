@@ -6,20 +6,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.IntegerRes
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 
 import com.julien.realestatemanager.R
-import com.julien.realestatemanager.controller.activity.CreatePropertyActivity
-import com.tayfuncesur.stepper.Stepper
+import com.julien.realestatemanager.controller.activity.PropertyActivity
+import com.julien.realestatemanager.models.PropertyViewModel
 import com.thekhaeng.pushdownanim.PushDownAnim
-import kotlinx.android.synthetic.main.fragment_new_property_fragment1.*
 import kotlinx.android.synthetic.main.fragment_new_property_fragment2.*
 
 /**
  * A simple [Fragment] subclass.
  */
-class NewPropertyFragment2 : Fragment() {
+class PropertyFragment2 : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,13 +31,21 @@ class NewPropertyFragment2 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val propertyActivity: PropertyActivity = activity as PropertyActivity
+
+
+        if (!propertyActivity.intent.getBooleanExtra("isNewProperty",true)){
+
+            loadProperty(propertyActivity)
+        }
+
         PushDownAnim.setPushDownAnimTo(nextToC).setScale(PushDownAnim.MODE_STATIC_DP,5F).setOnClickListener {
-            val createPropertyActivity: CreatePropertyActivity = activity as CreatePropertyActivity
+
 
             if (validateForm()) {
-                save(createPropertyActivity)
+                save(propertyActivity)
                 view.findNavController().navigate(R.id.fragmentBtoC)
-                activity?.findViewById<Stepper>(R.id.Stepper)?.forward()
+                //activity?.findViewById<Stepper>(R.id.Stepper)?.forward()
 
             }
 
@@ -45,17 +53,17 @@ class NewPropertyFragment2 : Fragment() {
 
         PushDownAnim.setPushDownAnimTo(backArrow).setScale(PushDownAnim.MODE_STATIC_DP,5F).setOnClickListener {
             view.findNavController().popBackStack()
-            activity?.findViewById<Stepper>(R.id.Stepper)?.back()
+           // activity?.findViewById<Stepper>(R.id.Stepper)?.back()
         }
     }
-    private fun save(createPropertyActivity: CreatePropertyActivity){
+    private fun save(propertyActivity: PropertyActivity){
 
-        createPropertyActivity.type = edit_type_fragment_2.text.toString()
-        createPropertyActivity.numberOfRooms = edit_number_of_romms_fragment_2.text.toString().toInt()
-        createPropertyActivity.numberOfBathrooms = edit_number_of_batthrooms_fragment_2.text.toString().toInt()
-        createPropertyActivity.numberOfBedrooms = edit_number_of_bedrooms_fragment_2.text.toString().toInt()
-        createPropertyActivity.area = edit_area_fragment_2.text.toString().toInt()
-        createPropertyActivity.price = edit_price_fragment_2.text.toString().toInt()
+        propertyActivity.type = edit_type_fragment_2.text.toString()
+        propertyActivity.numberOfRooms = edit_number_of_romms_fragment_2.text.toString().toInt()
+        propertyActivity.numberOfBathrooms = edit_number_of_batthrooms_fragment_2.text.toString().toInt()
+        propertyActivity.numberOfBedrooms = edit_number_of_bedrooms_fragment_2.text.toString().toInt()
+        propertyActivity.area = edit_area_fragment_2.text.toString().toInt()
+        propertyActivity.price = edit_price_fragment_2.text.toString().toInt()
     }
 
     private fun validateForm():Boolean{
@@ -90,5 +98,28 @@ class NewPropertyFragment2 : Fragment() {
         }
     }
 
+    private fun loadProperty(propertyActivity: PropertyActivity){
 
+        val propertyViewModel = ViewModelProviders.of(this).get(PropertyViewModel::class.java)
+
+
+
+        propertyViewModel.getProperty(propertyActivity.intent.getStringExtra("id")).observe(this, Observer { property ->
+            // Update the cached copy of the words in the adapter.
+            property?.let {
+
+                edit_type_fragment_2.setText(property.type)
+                edit_number_of_romms_fragment_2.setText(property.numberOfRooms.toString())
+                edit_number_of_batthrooms_fragment_2.setText(property.numberOfBathrooms.toString())
+                edit_number_of_bedrooms_fragment_2.setText(property.numberOfBathrooms.toString())
+                edit_area_fragment_2.setText(property.area.toString())
+                edit_price_fragment_2.setText(property.price.toString())
+
+
+
+
+            }
+        })
+
+    }
 }

@@ -151,10 +151,10 @@ class SearchFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
         }
 
         buttonSearch.setOnClickListener {
-            if(validateForm()){
+
                 runSearch(view)
                 dismiss()
-            }
+
         }
 
         buttonCancel.setOnClickListener {
@@ -221,16 +221,47 @@ class SearchFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
 
     private fun runSearch(view: View){
 
+        typeProperty = if(typeEditText.text.toString().trim() == ""){
+            "%"
+        }else{
+            typeEditText.text.toString().trim().toLowerCase()
+        }
+        city = if(cityEditText.text.toString().trim() == ""){
+            "%"
+        }else{
+            cityEditText.text.toString().trim().toLowerCase()
+        }
+        minRoom = if(minRoomEditText.text.toString().trim() == "" ){
+            0
+        }else{
+            minRoomEditText.text.toString().toInt()
+        }
+        maxRoom = if (maxRoomEditText.text.toString().trim() == ""){
+            10000
+        }else{
+            maxRoomEditText.text.toString().toInt()
+        }
+        minPrice = if (minPriceEditText.text.toString().trim() == ""){
+            0
+        }else{
+            minPriceEditText.text.toString().toInt()
+        }
+        maxPrice = if (maxPricemEditText.text.toString().trim() == ""){
+            1000000000
+        }else{
+            maxPricemEditText.text.toString().toInt()
+        }
+        minArea = if (minAreaEditText.text.toString().trim() == ""){
+            0
+        }else{
+            minAreaEditText.text.toString().toInt()
+        }
+        maxArea = if (maxAreaEditText.text.toString().trim() == ""){
+            1000000
+        }else{
+            maxAreaEditText.text.toString().toInt()
+        }
 
-
-        typeProperty = typeEditText.text.toString().trim().toLowerCase()
-        city = cityEditText.text.toString().trim().toLowerCase()
-        minArea = minAreaEditText.text.toString().toInt()
-        maxArea = maxAreaEditText.text.toString().toInt()
-        minRoom = minRoomEditText.text.toString().toInt()
-        maxRoom = maxRoomEditText.text.toString().toInt()
-        minPrice =minPriceEditText.text.toString().toInt()
-        maxPrice = maxPricemEditText.text.toString().toInt()
 
 
         val mainActivity: MainActivity = activity as MainActivity
@@ -239,44 +270,5 @@ class SearchFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
     }
 
 
-    private fun validateForm():Boolean{
-        if (typeEditText.text.toString().trim() != "" &&
-            cityEditText.text.toString().trim() != "" &&
-            minRoomEditText.text.toString().trim() != "" &&
-            maxRoomEditText.text.toString().trim() != "" &&
-            minPriceEditText.text.toString().trim() != "" &&
-            maxPricemEditText.text.toString().trim() != "" &&
-            minAreaEditText.text.toString().trim() != "" &&
-            maxAreaEditText.text.toString().trim() != ""){
-            return true
-        }else{
-            if(typeEditText.text.toString().trim() == ""){
-                typeEditText.error = "This field cannot be blank"
-            }
-            if(cityEditText.text.toString().trim() == ""){
-                cityEditText.error = "This field cannot be blank"
-            }
-            if(minRoomEditText.text.toString().trim() == "" ){
-                minRoomEditText.error = "This field cannot be blank"
-            }
-            if (maxRoomEditText.text.toString().trim() == ""){
-                maxRoomEditText.error = "This field cannot be blank"
-            }
-            if (minPriceEditText.text.toString().trim() == ""){
-                minPriceEditText.error = "This field cannot be blank"
-            }
-            if (maxPricemEditText.text.toString().trim() == ""){
-                maxPricemEditText.error = "This field cannot be blank"
-            }
-            if (minAreaEditText.text.toString().trim() == ""){
-                minAreaEditText.error = "This field cannot be blank"
-            }
-            if (maxAreaEditText.text.toString().trim() == ""){
-                maxAreaEditText.error = "This field cannot be blank"
-            }
-
-            return false
-        }
-    }
 }
 

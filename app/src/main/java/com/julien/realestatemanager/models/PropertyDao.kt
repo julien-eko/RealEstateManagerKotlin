@@ -17,7 +17,7 @@ interface PropertyDao {
     @Query("SELECT * FROM property WHERE id IN (:propertyIds)")
     fun loadAllByIds(propertyIds: IntArray): List<Property>
 
-    @Query("SELECT * FROM property WHERE (:typeProperty = type) AND (:minArea < area AND area < :maxArea) AND (:minPrice < price AND price <:maxPrice) AND (:minDateOfCreated < creation_date AND creation_date < :maxDateOfCreated) AND (:minDateOfSale < date_of_sale AND date_of_sale<:maxDateOfSale) AND (status = :statut) AND (city = :city) AND (:minRoom < number_of_rooms AND number_of_rooms < :maxRoom)")
+    @Query("SELECT * FROM property WHERE (type LIKE :typeProperty) AND (:minArea < area AND area < :maxArea) AND (:minPrice < price AND price <:maxPrice) AND (:minDateOfCreated < creation_date AND creation_date < :maxDateOfCreated) AND (:minDateOfSale < date_of_sale AND date_of_sale<:maxDateOfSale) AND (status = :statut) AND (city LIKE :city) AND (:minRoom < number_of_rooms AND number_of_rooms < :maxRoom)")
     fun getPropertyResearch(typeProperty: String,
                                      minArea: Int,
                                      maxArea: Int,

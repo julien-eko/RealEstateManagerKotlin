@@ -12,7 +12,7 @@
             android:layout_gravity="center"
             android:id="@+id/cancel_search_button"
             android:visibility="gone"
-            android:text="Annuler la recherche"/>
+            android:text="@string/annuler_la_recherche"/>
 
 
     <androidx.recyclerview.widget.RecyclerView

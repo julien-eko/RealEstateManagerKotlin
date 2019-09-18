@@ -2,8 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
+        android:layout_margin="10dp"
         xmlns:tools="http://schemas.android.com/tools"
-        android:background="@drawable/button_gradient"
         android:layout_height="match_parent">
 
     <ImageView
@@ -27,15 +27,28 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints">
 
-        <EditText
-                android:id="@+id/edit_type_fragment_2"
+        <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-light"
-                android:inputType="textAutoComplete"
-                android:textSize="18sp"
-                android:hint="Type"/>
+                app:errorTextAppearance="@style/MyErrorText"
+                app:errorEnabled="true">
 
+            <EditText
+                    android:id="@+id/edit_type_fragment_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:inputType="textAutoComplete"
+                    android:theme="@style/MyEditText"
+                    android:textSize="18sp"
+                    android:hint="Type"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorTextAppearance="@style/MyErrorText"
+                app:errorEnabled="true">
         <EditText
                 android:id="@+id/edit_number_of_romms_fragment_2"
                 android:layout_width="match_parent"
@@ -43,10 +56,17 @@
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-light"
                 android:digits="0123456789"
+                android:theme="@style/MyEditText"
                 android:inputType="numberDecimal"
                 android:textSize="18sp"
                 android:hint="Rooms"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorTextAppearance="@style/MyErrorText"
+                app:errorEnabled="true">
 
         <EditText
                 android:id="@+id/edit_number_of_batthrooms_fragment_2"
@@ -55,10 +75,17 @@
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-light"
                 android:digits="0123456789"
+                android:theme="@style/MyEditText"
                 android:inputType="numberDecimal"
                 android:textSize="18sp"
-                android:hint="Bathrooms"/>
+                android:hint="@string/bathrooms"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorTextAppearance="@style/MyErrorText"
+                app:errorEnabled="true">
         <EditText
                 android:id="@+id/edit_number_of_bedrooms_fragment_2"
                 android:layout_width="match_parent"
@@ -66,10 +93,17 @@
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-light"
                 android:digits="0123456789"
+                android:theme="@style/MyEditText"
                 android:inputType="numberDecimal"
                 android:textSize="18sp"
-                android:hint="Bedrooms"/>
+                android:hint="@string/bedrooms"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorTextAppearance="@style/MyErrorText"
+                app:errorEnabled="true">
 
 
         <EditText
@@ -79,10 +113,17 @@
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-light"
                 android:digits="0123456789"
+                android:theme="@style/MyEditText"
                 android:inputType="numberDecimal"
                 android:textSize="18sp"
-                android:hint="Area (m²)"/>
+                android:hint="@string/area_m"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorTextAppearance="@style/MyErrorText"
+                app:errorEnabled="true">
         <EditText
                 android:id="@+id/edit_price_fragment_2"
                 android:layout_width="match_parent"
@@ -90,10 +131,11 @@
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-light"
                 android:digits="0123456789"
+                android:theme="@style/MyEditText"
                 android:inputType="numberDecimal"
                 android:textSize="18sp"
-                android:hint="Price (Dollar)"/>
-
+                android:hint="@string/price_dollar"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
 
     </LinearLayout>
@@ -104,7 +146,7 @@
             android:layout_marginTop="16sp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/label"
-            android:background="@color/quantum_black_100"
+            android:background="@color/colorPrimary"
             android:id="@+id/nextToC"
             android:padding="16sp"
             android:layout_height="wrap_content">
@@ -117,7 +159,7 @@
                 android:layout_gravity="center_vertical"
                 app:fontFamily="@font/manropemedium"
                 android:layout_height="wrap_content"
-                android:text="Next"
+                android:text="@string/next"
                 android:gravity="center"
                 />
     </LinearLayout>

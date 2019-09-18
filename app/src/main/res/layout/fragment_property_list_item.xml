@@ -24,7 +24,7 @@
                 android:visibility="invisible"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:text="VENDU"/>
+                android:text="@string/vendu"/>
 
     </RelativeLayout>
 

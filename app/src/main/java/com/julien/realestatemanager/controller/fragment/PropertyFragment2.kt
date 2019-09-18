@@ -76,22 +76,22 @@ class PropertyFragment2 : Fragment() {
             return true
         }else{
             if(edit_type_fragment_2.text.toString().trim() == ""){
-                edit_type_fragment_2.error = "This field cannot be blank"
+                edit_type_fragment_2.error = getString(R.string.field_cannot_be_blank)
             }
             if(edit_number_of_romms_fragment_2.text.toString().trim() == ""){
-                edit_number_of_romms_fragment_2.error = "This field cannot be blank"
+                edit_number_of_romms_fragment_2.error = getString(R.string.field_cannot_be_blank)
             }
             if(edit_number_of_batthrooms_fragment_2.text.toString().trim() == "" ){
-                edit_number_of_batthrooms_fragment_2.error = "This field cannot be blank"
+                edit_number_of_batthrooms_fragment_2.error = getString(R.string.field_cannot_be_blank)
             }
             if (edit_number_of_bedrooms_fragment_2.text.toString().trim() == ""){
-                edit_number_of_bedrooms_fragment_2.error = "This field cannot be blank"
+                edit_number_of_bedrooms_fragment_2.error = getString(R.string.field_cannot_be_blank)
             }
             if (edit_area_fragment_2.text.toString().trim() == ""){
-                edit_area_fragment_2.error = "This field cannot be blank"
+                edit_area_fragment_2.error = getString(R.string.field_cannot_be_blank)
             }
             if (edit_price_fragment_2.text.toString().trim() == ""){
-                edit_price_fragment_2.error = "This field cannot be blank"
+                edit_price_fragment_2.error = getString(R.string.field_cannot_be_blank)
             }
 
             return false

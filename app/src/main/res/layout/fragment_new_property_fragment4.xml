@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:background="@drawable/button_gradient"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -42,7 +41,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Main picture      ">
+                    android:text="@string/main_picture">
 
             </TextView>
 
@@ -81,7 +80,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Add picture    ">
+                    android:text="@string/add_picture">
 
             </TextView>
 
@@ -116,7 +115,7 @@
             android:layout_marginTop="16sp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/label"
-            android:background="@color/quantum_black_100"
+            android:background="@color/colorPrimary"
             android:id="@+id/nextToE"
             android:padding="16sp"
             android:layout_height="wrap_content">

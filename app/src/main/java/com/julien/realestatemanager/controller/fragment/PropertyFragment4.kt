@@ -78,7 +78,7 @@ class NewPropertyFragment4 : Fragment() {
 
 
             if (propertyActivity.photo == "" && propertyActivity.intent.getBooleanExtra("isNewProperty",true) ){
-                Toast.makeText(context,"Select main picture",Toast.LENGTH_SHORT).show()
+                Toast.makeText(context,getString(R.string.select_main_picture),Toast.LENGTH_SHORT).show()
             }else{
                 view.findNavController().navigate(R.id.fragmentDtoE)
                 //activity?.findViewById<Stepper>(R.id.Stepper)?.forward()
@@ -95,7 +95,7 @@ class NewPropertyFragment4 : Fragment() {
             if( context?.packageManager!!.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY )  ){
                 dispatchTakePictureIntent()
             }else{
-                Toast.makeText(context,"Votre appareil ne possède pas d'appareil photo",Toast.LENGTH_SHORT).show()
+                Toast.makeText(context,getString(R.string.not_camera),Toast.LENGTH_SHORT).show()
             }
 
             //onClickAddFile()
@@ -112,7 +112,7 @@ class NewPropertyFragment4 : Fragment() {
             if( context?.packageManager!!.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY )  ){
                 dispatchTakePictureIntent()
             }else{
-                Toast.makeText(context,"Votre appareil ne possède pas d'appareil photo",Toast.LENGTH_SHORT).show()
+                Toast.makeText(context,getString(R.string.not_camera),Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -220,7 +220,7 @@ class NewPropertyFragment4 : Fragment() {
                 }
 
             } else {
-                Toast.makeText(context, "pas d'image choisie", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.no_picture_choose), Toast.LENGTH_SHORT).show()
             }
         }
     }

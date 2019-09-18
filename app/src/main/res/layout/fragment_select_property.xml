@@ -11,7 +11,7 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CHOOSE A PROPERTY"
+            android:text="@string/choose_a_property"
             android:textStyle="bold"
             android:textSize="25dp"
             android:layout_gravity="center"
@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
             android:layout_gravity="center"
-        android:text="OR"
+        android:text="@string/or"
         android:textStyle="bold"
         android:textSize="25dp"
         android:textColor="@color/quantum_black_100"/>
@@ -29,7 +29,7 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CREATE A NEW PROPERTY"
+            android:text="@string/create_a_new_property"
             android:textStyle="bold"
             android:layout_gravity="center"
             android:textSize="25dp"

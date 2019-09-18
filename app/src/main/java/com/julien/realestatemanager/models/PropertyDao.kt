@@ -1,5 +1,6 @@
 package com.julien.realestatemanager.models
 
+import android.database.Cursor
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import java.util.*
@@ -32,6 +33,12 @@ interface PropertyDao {
                                      minRoom: Int,
                                      maxRoom: Int
     ): LiveData<List<Property>>
+
+
+    @Query("SELECT * FROM property WHERE id = :propertyId")
+    fun getPropertyWithCursor(propertyId: String):Cursor
+
+
 
     //@Query("SELECT * FROM user WHERE first_name LIKE :first AND " +
     //        "last_name LIKE :last LIMIT 1")

@@ -82,15 +82,15 @@ class PropertyFragment3 : Fragment() {
     fun alertDialogWrongAdress(){
         val builder = AlertDialog.Builder(context)
 
-        builder.setTitle("Adresse non trouvé")
+        builder.setTitle(getString(R.string.Address_not_found))
 
-        builder.setMessage("Votre adresse ne peut pas être localisée voulez-vous la modifier ?")
+        builder.setMessage(getString(R.string.change_adress))
 
-        builder.setPositiveButton("YES"){dialog, which ->
+        builder.setPositiveButton(getString(R.string.yes)){ dialog, which ->
 
         }
 
-        builder.setNegativeButton("No"){dialog,which ->
+        builder.setNegativeButton(getString(R.string.no)){ dialog, which ->
             view!!.findNavController().navigate(R.id.fragmentCtoD)
             //activity?.findViewById<Stepper>(R.id.Stepper)?.forward()
         }
@@ -119,16 +119,16 @@ class PropertyFragment3 : Fragment() {
             return true
         }else{
             if(edit_adress_fragment_3.text.toString().trim() == ""){
-                edit_adress_fragment_3.error = "This field cannot be blank"
+                edit_adress_fragment_3.error = getString(R.string.field_cannot_be_blank)
             }
             if(edit_city_fragment_3.text.toString().trim() == ""){
-                edit_city_fragment_3.error = "This field cannot be blank"
+                edit_city_fragment_3.error = getString(R.string.field_cannot_be_blank)
             }
             if(edit_postal_code_fragment_3.text.toString().trim() == "" ){
-                edit_postal_code_fragment_3.error = "This field cannot be blank"
+                edit_postal_code_fragment_3.error = getString(R.string.field_cannot_be_blank)
             }
             if (edit_country_fragment_3.text.toString().trim() == ""){
-                edit_country_fragment_3.error = "This field cannot be blank"
+                edit_country_fragment_3.error = getString(R.string.field_cannot_be_blank)
             }
 
             return false

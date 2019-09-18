@@ -1,10 +1,10 @@
 <resources>
 
     <bool name="isTablet">false</bool>
-    <string name="app_name">Real Estate Manager</string>
+    <string name="app_name" translatable="false">Real Estate Manager</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="media">Media</string>
     <string name="description">Description</string>
 
@@ -12,6 +12,59 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="statut_prompt">Choose a statut</string>
+    <string name="real_estate_manager">Real estate manager</string>
+    <string name="date_of_sale">date of sale</string>
+    <string name="created_date">Created date</string>
+    <string name="bathrooms">Bathrooms</string>
+    <string name="bedrooms">Bedrooms</string>
+    <string name="area_m">Area (m²)</string>
+    <string name="price_dollar">Price (Dollar)</string>
+    <string name="adress">Adress</string>
+    <string name="additional_adress">Additional adress</string>
+    <string name="postal_code">Postal code</string>
+    <string name="country">Country</string>
+    <string name="place_nearby">Place nearby</string>
+    <string name="next">Next</string>
+    <string name="main_picture">Main picture</string>
+    <string name="add_picture">Add picture</string>
+    <string name="progress">Save</string>
+    <string name="stop">Stop</string>
+    <string name="surface">Surface</string>
+    <string name="test_m" translatable="false">test m²</string>
+    <string name="number_of_rooms">Number of rooms</string>
+    <string name="number_of_bathrooms">Number of bathrooms :</string>
+    <string name="number_of_bedrooms">Number of bedrooms :</string>
+    <string name="location">Location</string>
+    <string name="annuler_la_recherche">Cancel search</string>
+    <string name="vendu">SOLD</string>
+    <string name="type">Type</string>
+    <string name="city">City</string>
+    <string name="min_area">Min area</string>
+    <string name="max_area">Max area</string>
+    <string name="min_price">Min price</string>
+    <string name="max_price">Max price</string>
+    <string name="min_room">Min number of room</string>
+    <string name="max_room">Max number of room</string>
+    <string name="min_created_date">Min created date</string>
+    <string name="max_created_date">Max created date</string>
+    <string name="min_sale_date">Min sale date</string>
+    <string name="max_sale_date">Max sale date</string>
+    <string name="search">Search</string>
+    <string name="cancel">Cancel</string>
+    <string name="choose_property">Choose a property</string>
+    <string name="permission_denied">Permission denied</string>
+    <string name="no_valid_address">no valid address</string>
+    <string name="field_cannot_be_blank">This field cannot be blank</string>
+    <string name="Address_not_found">Address not found</string>
+    <string name="change_adress">Your address can not be located Do you want to change it?</string>
+    <string name="yes">YES</string>
+    <string name="no">No</string>
+    <string name="select_main_picture">Select main picture</string>
+    <string name="not_camera">Your device does not have a camera</string>
+    <string name="no_picture_choose">no picture choose</string>
+    <string name="choose_a_property">CHOOSE A PROPERTY</string>
+    <string name="or">OR</string>
+    <string name="create_a_new_property">CREATE A NEW PROPERTY</string>
 
     <string-array name="statut_arrays">
         <item>Dispo</item>

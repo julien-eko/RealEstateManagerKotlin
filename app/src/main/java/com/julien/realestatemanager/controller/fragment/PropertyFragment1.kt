@@ -63,8 +63,10 @@ class PropertyFragment1 : Fragment() {
 
 
                 if (position == 1) {
+                    date_of_sale_text_view_fragment1.visibility =View.VISIBLE
                     datePicker_sale_date.visibility = View.VISIBLE
                 } else {
+                    date_of_sale_text_view_fragment1.visibility =View.GONE
                     datePicker_sale_date.visibility = View.GONE
                 }
             }
@@ -79,7 +81,7 @@ class PropertyFragment1 : Fragment() {
 
 
                 if (edit_real_estate_agent.text.toString().trim() == ""){
-                    edit_real_estate_agent.error = "This field cannot be blank"
+                    edit_real_estate_agent.error = getString(R.string.field_cannot_be_blank)
                 }else{
                     save(propertyActivity)
                     view.findNavController().navigate(R.id.fragmentAtoB)

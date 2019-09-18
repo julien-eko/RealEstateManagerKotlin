@@ -11,7 +11,20 @@ import org.junit.Assert.*
  */
 class ExampleUnitTest {
     @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+    @Throws(Exception::class)
+    fun covertEuroToDollar() {
+        assertEquals(12, Utils.convertEuroToDollar(10))
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun covertDollarToEuro() {
+        assertEquals(8, Utils.convertDollarToEuro(10))
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun dateFormat() {
+        assertEquals("24/06/2019", Utils.getTodayDate())
     }
 }

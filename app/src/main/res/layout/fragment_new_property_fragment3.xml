@@ -2,8 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
+        android:layout_margin="10dp"
         xmlns:tools="http://schemas.android.com/tools"
-        android:background="@drawable/button_gradient"
         android:layout_height="match_parent">
     <ImageView
             app:layout_constraintLeft_toLeftOf="parent"
@@ -26,63 +26,101 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints">
 
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorTextAppearance="@style/MyErrorText"
+                app:errorEnabled="true">
         <EditText
                 android:id="@+id/edit_adress_fragment_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
                 android:inputType="textAutoComplete"
+                android:theme="@style/MyEditText"
                 android:textSize="18sp"
-                android:hint="Adress"/>
-
+                android:hint="@string/adress"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorTextAppearance="@style/MyErrorText"
+                app:errorEnabled="true">
         <EditText
                 android:id="@+id/edit_additional_adress_fragment_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
                 android:inputType="textAutoComplete"
+                android:theme="@style/MyEditText"
                 android:textSize="18sp"
-                android:hint="Additional adress"/>
-
+                android:hint="@string/additional_adress"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorTextAppearance="@style/MyErrorText"
+                app:errorEnabled="true">
         <EditText
                 android:id="@+id/edit_city_fragment_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
                 android:inputType="textAutoComplete"
+                android:theme="@style/MyEditText"
                 android:textSize="18sp"
                 android:layout_weight="1"
-                android:hint="City"/>
-
+                android:hint="@string/city"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorTextAppearance="@style/MyErrorText"
+                app:errorEnabled="true">
         <EditText
                 android:id="@+id/edit_postal_code_fragment_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:fontFamily="sans-serif-light"
+                android:theme="@style/MyEditText"
                 android:digits="0123456789"
                 android:inputType="numberDecimal"
                 android:textSize="18sp"
-                android:hint="Postal code"/>
+                android:hint="@string/postal_code"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorTextAppearance="@style/MyErrorText"
+                app:errorEnabled="true">
         <EditText
                 android:id="@+id/edit_country_fragment_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:theme="@style/MyEditText"
                 android:fontFamily="sans-serif-light"
                 android:inputType="textAutoComplete"
                 android:textSize="18sp"
-                android:hint="Country"/>
+                android:hint="@string/country"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorTextAppearance="@style/MyErrorText"
+                app:errorEnabled="true">
         <EditText
                 android:id="@+id/edit_place_nearby_fragment_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:theme="@style/MyEditText"
                 android:fontFamily="sans-serif-light"
                 android:inputType="textAutoComplete"
                 android:textSize="18sp"
-                android:hint="Place nearby"/>
-
+                android:hint="@string/place_nearby"/>
+        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -91,7 +129,7 @@
             android:layout_marginTop="16sp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/label"
-            android:background="@color/quantum_black_100"
+            android:background="@color/colorPrimary"
             android:id="@+id/nextToD"
             android:padding="16sp"
             android:layout_height="wrap_content">
@@ -104,7 +142,7 @@
                 android:layout_gravity="center_vertical"
                 app:fontFamily="@font/manropemedium"
                 android:layout_height="wrap_content"
-                android:text="Next"
+                android:text="@string/next"
                 android:gravity="center"
                 />
     </LinearLayout>

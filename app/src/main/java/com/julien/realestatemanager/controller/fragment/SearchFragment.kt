@@ -12,6 +12,8 @@ import androidx.fragment.app.DialogFragment
 
 import com.julien.realestatemanager.R
 import com.julien.realestatemanager.controller.activity.MainActivity
+import com.thekhaeng.pushdownanim.PushDownAnim
+import kotlinx.android.synthetic.main.fragment_new_property_fragment5.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -24,8 +26,8 @@ class SearchFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
     private lateinit var buttonMaxCreated:Button
     private lateinit var  buttonMinSale:Button
     private lateinit var buttonMaxSale:Button
-    private lateinit var buttonSearch:Button
-    private lateinit var buttonCancel:Button
+    private lateinit var buttonSearch:LinearLayout
+    private lateinit var buttonCancel:LinearLayout
     private lateinit var spinner:Spinner
     private var lastButton:Int = 0
 
@@ -87,8 +89,8 @@ class SearchFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
         buttonMaxCreated = view.findViewById<View>(R.id.max_created_date_button) as Button
         buttonMinSale = view.findViewById<View>(R.id.min_sale__date_button) as Button
         buttonMaxSale = view.findViewById<View>(R.id.max_sale__date_button) as Button
-        buttonSearch = view.findViewById<View>(R.id.reserach_button) as Button
-        buttonCancel = view.findViewById<View>(R.id.cancel_button) as Button
+        buttonSearch = view.findViewById<View>(R.id.reserach_button) as LinearLayout
+        buttonCancel = view.findViewById<View>(R.id.cancel_button) as LinearLayout
 
 
         typeEditText = view.findViewById<View>(R.id.edit_search_fragment_type) as EditText
@@ -150,14 +152,13 @@ class SearchFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
             maxSale.show()
         }
 
-        buttonSearch.setOnClickListener {
+        PushDownAnim.setPushDownAnimTo(buttonSearch).setScale(PushDownAnim.MODE_STATIC_DP, 5F).setOnClickListener {
 
                 runSearch(view)
                 dismiss()
 
         }
-
-        buttonCancel.setOnClickListener {
+        PushDownAnim.setPushDownAnimTo(buttonCancel).setScale(PushDownAnim.MODE_STATIC_DP, 5F).setOnClickListener {
             dismiss()
         }
 

@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             val id:String = propertyList.idProperty
 
             if(id == "0"){
-                Toast.makeText(this,"Choose a property",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,getString(R.string.choose_property),Toast.LENGTH_SHORT).show()
             }else{
                 val intent = Intent(this, PropertyActivity::class.java)
                 intent.putExtra("isNewProperty",false)

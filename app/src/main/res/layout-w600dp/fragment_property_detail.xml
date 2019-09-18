@@ -79,7 +79,7 @@
 
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                         android:id="@+id/area_text"
-                        android:text="Surface"
+                        android:text="@string/surface"
                         android:textColor="@color/quantum_black_100"
                         android:layout_toRightOf="@id/image_area"
                         android:layout_marginLeft="10dp"/>
@@ -88,7 +88,7 @@
                         android:id="@+id/area_text_view"
                         android:layout_below="@+id/area_text"
                         android:layout_alignLeft="@+id/area_text"
-                        android:text="test m²"/>
+                        android:text="@string/test_m"/>
 
 
         </RelativeLayout>
@@ -110,7 +110,7 @@
 
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                         android:id="@+id/number_of_rooms_text"
-                        android:text="Number of rooms"
+                        android:text="@string/number_of_rooms"
                         android:textColor="@color/quantum_black_100"
                         android:layout_toRightOf="@id/image_number_rooms"
                         android:layout_marginLeft="10dp"/>
@@ -141,7 +141,7 @@
 
 
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="Number of bathrooms :"
+                        android:text="@string/number_of_bathrooms"
                         android:id="@+id/bathrooms_text"
                         android:textColor="@color/quantum_black_100"
                         android:layout_toRightOf="@id/image_number_of_batthrooms"
@@ -171,7 +171,7 @@
 
 
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="Number of bedrooms :"
+                        android:text="@string/number_of_bedrooms"
                         android:id="@+id/bedrooms_text"
                         android:textColor="@color/quantum_black_100"
                         android:layout_toRightOf="@id/image_bedrooms"
@@ -214,7 +214,7 @@
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_gravity="center"
-                   android:text="Location"/>
+                   android:text="@string/location"/>
 
         </LinearLayout>
 

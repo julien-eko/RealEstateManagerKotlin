@@ -3,6 +3,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:columnCount="2"
         android:rowCount="8"
         tools:context=".controller.fragment.SearchFragment">
@@ -19,106 +20,163 @@
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"/>
 
-
-    <EditText
-            android:id="@+id/edit_search_fragment_type"
-            android:fontFamily="sans-serif-light"
-            android:inputType="textAutoComplete"
+    <com.google.android.material.textfield.TextInputLayout
             android:layout_column="0"
             android:layout_row="1"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
+            app:errorTextAppearance="@style/MyErrorText"
+            app:errorEnabled="true">
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_search_fragment_type"
+            android:fontFamily="sans-serif-light"
+            android:inputType="textAutoComplete"
+            android:theme="@style/MyEditText"
             android:textSize="18sp"
-            android:hint="Type"/>
+            android:hint="@string/type"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-
-
+    <com.google.android.material.textfield.TextInputLayout
+            android:layout_column="1"
+            android:layout_row="1"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            app:errorTextAppearance="@style/MyErrorText"
+            app:errorEnabled="true">
 
     <EditText
             android:id="@+id/edit_search_fragment_city"
             android:fontFamily="sans-serif-light"
             android:inputType="textAutoComplete"
-            android:layout_column="1"
-            android:layout_row="1"
+            android:theme="@style/MyEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:hint="@string/city"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:layout_column="0"
+            android:layout_row="2"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
-            android:textSize="18sp"
-            android:hint="City"/>
-
-
+            app:errorTextAppearance="@style/MyErrorText"
+            app:errorEnabled="true">
     <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
         android:id="@+id/edit_search_fragment_min_area"
         android:fontFamily="sans-serif-light"
         android:digits="0123456789"
         android:inputType="numberDecimal"
+            android:theme="@style/MyEditText"
         android:textSize="18sp"
-        android:layout_column="0"
-        android:layout_row="2"
-        android:layout_columnWeight="1"
-        android:layout_rowWeight="1"
-        android:hint="Min area"/>
 
-    <EditText
-            android:id="@+id/edit_search_fragment_max_area"
-            android:fontFamily="sans-serif-light"
-            android:digits="0123456789"
-            android:inputType="numberDecimal"
-            android:textSize="18sp"
+        android:hint="@string/min_area"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
             android:layout_column="1"
             android:layout_row="2"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
-            android:hint="Max area"/>
-
+            app:errorTextAppearance="@style/MyErrorText"
+            app:errorEnabled="true">
     <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_search_fragment_max_area"
+            android:fontFamily="sans-serif-light"
+            android:digits="0123456789"
+            android:theme="@style/MyEditText"
+            android:inputType="numberDecimal"
+            android:textSize="18sp"
+
+            android:hint="@string/max_area"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:layout_column="0"
+            android:layout_row="3"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            app:errorTextAppearance="@style/MyErrorText"
+            app:errorEnabled="true">
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
         android:id="@+id/edit_search_fragment_min_Price"
         android:fontFamily="sans-serif-light"
         android:digits="0123456789"
+            android:theme="@style/MyEditText"
         android:inputType="numberDecimal"
         android:textSize="18sp"
-        android:layout_column="0"
-        android:layout_row="3"
-        android:layout_columnWeight="1"
-        android:layout_rowWeight="1"
-        android:hint="Min price"/>
 
-    <EditText
-            android:id="@+id/edit_search_fragment_max_Price"
-            android:fontFamily="sans-serif-light"
-            android:digits="0123456789"
-            android:inputType="numberDecimal"
-            android:textSize="18sp"
+        android:hint="@string/min_price"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
             android:layout_column="1"
             android:layout_row="3"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
-            android:hint="Max price"/>
-
+            app:errorTextAppearance="@style/MyErrorText"
+            app:errorEnabled="true">
     <EditText
-            android:id="@+id/edit_search_fragment_min_Room"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_search_fragment_max_Price"
             android:fontFamily="sans-serif-light"
             android:digits="0123456789"
+            android:theme="@style/MyEditText"
             android:inputType="numberDecimal"
             android:textSize="18sp"
+
+            android:hint="@string/max_price"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
             android:layout_column="0"
             android:layout_row="4"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
-            android:hint="Min room"/>
-
+            app:errorTextAppearance="@style/MyErrorText"
+            app:errorEnabled="true">
     <EditText
-            android:id="@+id/edit_search_fragment_max_Room"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_search_fragment_min_Room"
             android:fontFamily="sans-serif-light"
             android:digits="0123456789"
+            android:theme="@style/MyEditText"
             android:inputType="numberDecimal"
             android:textSize="18sp"
+
+            android:hint="@string/min_room"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
             android:layout_column="1"
             android:layout_row="4"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
-            android:hint="Max room"/>
+            app:errorTextAppearance="@style/MyErrorText"
+            app:errorEnabled="true">
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_search_fragment_max_Room"
+            android:fontFamily="sans-serif-light"
+            android:digits="0123456789"
+            android:theme="@style/MyEditText"
+            android:inputType="numberDecimal"
+            android:textSize="18sp"
 
+            android:hint="@string/max_room"/>
 
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
             android:id="@+id/min_created_date_button"
@@ -127,8 +185,9 @@
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
             android:layout_margin="5dp"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:textColor="@android:color/black"
-            android:text="Min created date" />
+            android:text="@string/min_created_date" />
 
     <Button
             android:id="@+id/max_created_date_button"
@@ -137,8 +196,9 @@
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
             android:layout_margin="5dp"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:textColor="@android:color/black"
-            android:text="Max created date" />
+            android:text="@string/max_created_date" />
 
     <Button
             android:id="@+id/min_sale__date_button"
@@ -148,8 +208,9 @@
             android:layout_rowWeight="1"
             android:layout_margin="5dp"
             android:visibility="gone"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:textColor="@android:color/black"
-            android:text="Min sale date"/>
+            android:text="@string/min_sale_date"/>
 
     <Button
             android:id="@+id/max_sale__date_button"
@@ -158,27 +219,56 @@
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
             android:layout_margin="5dp"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:visibility="gone"
             android:textColor="@android:color/black"
-            android:text="Max sale date" />
+            android:text="@string/max_sale_date" />
 
-    <Button
-            android:id="@+id/reserach_button"
+
+
+    <LinearLayout
             android:layout_column="1"
+            android:id="@+id/reserach_button"
             android:layout_row="7"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
-            android:layout_margin="5dp"
-            android:textColor="@android:color/black"
-            android:text="research" />
+            android:layout_margin="10sp"
+            android:background="@color/colorPrimary"
 
-    <Button
+            android:orientation="horizontal">
+
+    <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:textSize="18sp"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            app:fontFamily="@font/manropemedium"
+            android:layout_height="wrap_content"
+            android:text="@string/search"
+            android:gravity="center"
+            />
+    </LinearLayout>
+
+
+    <LinearLayout
             android:id="@+id/cancel_button"
             android:layout_column="0"
             android:layout_row="7"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
-            android:layout_margin="5dp"
-            android:textColor="@android:color/black"
-            android:text="cancel" />
+            android:background="@color/colorPrimary"
+            android:layout_margin="10dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:textColor="@color/white"
+                app:fontFamily="@font/manropemedium"
+                android:text="@string/cancel"
+                />
+    </LinearLayout>
+
+
 </GridLayout>

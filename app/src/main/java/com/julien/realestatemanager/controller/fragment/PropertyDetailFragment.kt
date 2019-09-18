@@ -151,7 +151,7 @@ class PropertyDetailFragment : androidx.fragment.app.Fragment(),OnMapReadyCallba
     fun updateMap(latitude:Double,longitude:Double){
 
         if (latitude == 0.0 && longitude == 0.0){
-            Toast.makeText(context,"pas d'adresse valide",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,getString(R.string.no_valid_address),Toast.LENGTH_SHORT).show()
         }else{
             var zoom =18.0f
             val location = LatLng(latitude,longitude)

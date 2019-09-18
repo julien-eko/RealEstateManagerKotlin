@@ -161,7 +161,7 @@ class MapActivity : AppCompatActivity() , OnMapReadyCallback {
                     //Toast.makeText(this,"permisssion accepeter",Toast.LENGTH_SHORT).show()
                 } else {
                     // permission denied, boo! Disable the
-                    Toast.makeText(this,"permisssion refusé",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,getString(R.string.permission_denied),Toast.LENGTH_SHORT).show()
                     // functionality that depends on this permission.
                 }
                 return

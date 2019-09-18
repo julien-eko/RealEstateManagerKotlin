@@ -19,16 +19,13 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".controller.activity.EditPropertyActivity"
-                android:excludeFromRecents="true"
-                android:theme="@style/mytheme"></activity>
+
         <activity android:name=".controller.activity.MapActivity" />
         <activity
                 android:name=".controller.activity.PropertyActivity"
                 android:excludeFromRecents="true"
                 android:theme="@style/mytheme" />
         <activity android:name=".controller.activity.FullScreenActivity" />
-        <activity android:name=".controller.activity.NewPropertyActivity" />
         <activity android:name=".controller.activity.PropertyDetailActivity" />
         <activity android:name=".controller.activity.MainActivity">
             <intent-filter>
@@ -37,6 +34,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+                android:name=".provider.PropertyContentProvider"
+                android:authorities="com.julien.realestatemanager.provider"
+                android:exported="true"/>
 
         <meta-data
                 android:name="com.google.android.geo.API_KEY"

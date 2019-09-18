@@ -3,7 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:background="@drawable/button_gradient"
+        android:layout_margin="10dp"
         android:layout_width="wrap_content" android:layout_height="wrap_content">
 
 <LinearLayout
@@ -26,7 +26,7 @@
             android:prompt="@string/statut_prompt" />
 
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="Created date"/>
+            android:text="@string/created_date"/>
     <DatePicker
             android:id="@+id/datePicker_created_date"
             android:layout_width="wrap_content"
@@ -36,7 +36,8 @@
             android:calendarViewShown="false"/>
 
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="date of sale"
+            android:id="@+id/date_of_sale_text_view_fragment1"
+            android:text="@string/date_of_sale"
             android:visibility="gone"/>
     <DatePicker
             android:id="@+id/datePicker_sale_date"
@@ -47,14 +48,25 @@
             android:datePickerMode="spinner"
             android:calendarViewShown="false"/>
 
-    <EditText
-            android:id="@+id/edit_real_estate_agent"
+    <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-light"
-            android:inputType="textAutoComplete"
-            android:textSize="18sp"
-            android:hint="real estate manager"/>
+            app:errorTextAppearance="@style/MyErrorText"
+            app:errorEnabled="true">
+
+        <EditText
+                android:id="@+id/edit_real_estate_agent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:inputType="textAutoComplete"
+                android:theme="@style/MyEditText"
+                android:textSize="18sp"
+                android:hint="@string/real_estate_manager"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
 </LinearLayout>
 
 
@@ -64,7 +76,7 @@
             android:layout_marginTop="16sp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/label"
-            android:background="@color/quantum_black_100"
+            android:background="@color/colorPrimary"
             android:id="@+id/nextToB"
             android:padding="16sp"
             android:layout_height="wrap_content">
@@ -77,7 +89,7 @@
                 android:layout_gravity="center_vertical"
                 app:fontFamily="@font/manropemedium"
                 android:layout_height="wrap_content"
-                android:text="Next"
+                android:text="@string/next"
                 android:gravity="center"
                 />
     </LinearLayout>

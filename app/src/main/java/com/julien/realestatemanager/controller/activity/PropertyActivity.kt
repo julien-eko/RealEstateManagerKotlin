@@ -1,5 +1,6 @@
 package com.julien.realestatemanager.controller.activity
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -73,12 +74,18 @@ class PropertyActivity : AppCompatActivity() {
 
     fun insertInDatabase(){
 
-        var id:String
-        if (!intent.getBooleanExtra("isNewProperty",true)){
-               id = intent.getStringExtra("id")
+        var id:String = if (!intent.getBooleanExtra("isNewProperty",true)){
+            intent.getStringExtra("id")
 
         }else{
-            id = UUID.randomUUID().toString()
+            UUID.randomUUID().toString()
+        }
+
+        //save real estat agent in sharepreferences
+        val sharedPref = this?.getPreferences(Context.MODE_PRIVATE) ?: return
+        with (sharedPref.edit()) {
+            putString("agent", realEstateAgent)
+            commit()
         }
 
         //val id = UUID.randomUUID().toString()

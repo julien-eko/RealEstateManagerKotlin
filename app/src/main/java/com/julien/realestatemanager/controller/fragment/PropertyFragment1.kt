@@ -1,6 +1,7 @@
 package com.julien.realestatemanager.controller.fragment
 
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -39,6 +40,11 @@ class PropertyFragment1 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
+        val defaultValue = ""
+        val lastAgent = sharedPref.getString("agent", defaultValue)
+
+        edit_real_estate_agent.setText(lastAgent)
 
         val propertyActivity: PropertyActivity = activity as PropertyActivity
 

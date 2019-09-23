@@ -58,7 +58,7 @@ class PropertyFragment2 : Fragment() {
     }
     private fun save(propertyActivity: PropertyActivity){
 
-        propertyActivity.type = edit_type_fragment_2.text.toString()
+        propertyActivity.type = spinner_type.selectedItem.toString()
         propertyActivity.numberOfRooms = edit_number_of_romms_fragment_2.text.toString().toInt()
         propertyActivity.numberOfBathrooms = edit_number_of_batthrooms_fragment_2.text.toString().toInt()
         propertyActivity.numberOfBedrooms = edit_number_of_bedrooms_fragment_2.text.toString().toInt()
@@ -67,17 +67,14 @@ class PropertyFragment2 : Fragment() {
     }
 
     private fun validateForm():Boolean{
-        if (edit_type_fragment_2.text.toString().trim() != "" &&
-            edit_number_of_romms_fragment_2.text.toString().trim() != "" &&
+        if (edit_number_of_romms_fragment_2.text.toString().trim() != "" &&
             edit_number_of_romms_fragment_2.text.toString().trim() != "" &&
             edit_number_of_bedrooms_fragment_2.text.toString().trim() != "" &&
             edit_area_fragment_2.text.toString().trim() != "" &&
             edit_price_fragment_2.text.toString().trim() != ""  ){
             return true
         }else{
-            if(edit_type_fragment_2.text.toString().trim() == ""){
-                edit_type_fragment_2.error = getString(R.string.field_cannot_be_blank)
-            }
+
             if(edit_number_of_romms_fragment_2.text.toString().trim() == ""){
                 edit_number_of_romms_fragment_2.error = getString(R.string.field_cannot_be_blank)
             }
@@ -108,7 +105,18 @@ class PropertyFragment2 : Fragment() {
             // Update the cached copy of the words in the adapter.
             property?.let {
 
-                edit_type_fragment_2.setText(property.type)
+                if (property.type == "Appartement"){
+                    spinner_type.setSelection(0)
+                }
+                if (property.type == "Loft"){
+                    spinner_type.setSelection(1)
+                }
+                if (property.type == "Manoir"){
+                    spinner_type.setSelection(2)
+                }
+                if (property.type == "Maison"){
+                    spinner_type.setSelection(3)
+                }
                 edit_number_of_romms_fragment_2.setText(property.numberOfRooms.toString())
                 edit_number_of_batthrooms_fragment_2.setText(property.numberOfBathrooms.toString())
                 edit_number_of_bedrooms_fragment_2.setText(property.numberOfBathrooms.toString())

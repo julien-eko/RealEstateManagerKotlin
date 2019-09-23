@@ -70,4 +70,13 @@
         <item>Dispo</item>
         <item>Vendu</item>
     </string-array>
+
+    <string-array name="type_arrays">
+        <item>Appartement</item>
+        <item>Loft</item>
+        <item>Manoir</item>
+        <item>Maison</item>
+    </string-array>
+
+
 </resources>

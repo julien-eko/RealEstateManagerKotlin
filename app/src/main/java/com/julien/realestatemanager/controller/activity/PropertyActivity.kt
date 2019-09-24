@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
+import com.julien.realestatemanager.Notification
 import com.julien.realestatemanager.R
 import com.julien.realestatemanager.models.Media
 import com.julien.realestatemanager.models.Property
@@ -127,11 +128,14 @@ class PropertyActivity : AppCompatActivity() {
                     propertyViewModel.updateMedia(media)
                 }
             }
+            val notification = Notification()
+            notification.createNotification(this,getString(R.string.property_edited_notification_title),getString(R.string.edited_property_notification))
 
 
         }else{
             propertyViewModel.insert(newProperty)
-
+            val notification = Notification()
+            notification.createNotification(this,getString(R.string.property_creates),getString(R.string.property_save))
 
         }
 
@@ -147,7 +151,6 @@ class PropertyActivity : AppCompatActivity() {
                 propertyViewModel.insertMedia(media)
             }
         }
-
 
 
 

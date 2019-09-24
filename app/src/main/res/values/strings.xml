@@ -65,6 +65,12 @@
     <string name="choose_a_property">CHOOSE A PROPERTY</string>
     <string name="or">OR</string>
     <string name="create_a_new_property">CREATE A NEW PROPERTY</string>
+    <string name="channel_name" translatable="false">notification channel</string>
+    <string name="channel_description" translatable="false">chanel description</string>
+    <string name="property_creates">Property creates</string>
+    <string name="property_save">The property has been saved in the database</string>
+    <string name="edited_property_notification">The property has been edited in the database</string>
+    <string name="property_edited_notification_title">Property edited</string>
 
     <string-array name="statut_arrays">
         <item>Dispo</item>

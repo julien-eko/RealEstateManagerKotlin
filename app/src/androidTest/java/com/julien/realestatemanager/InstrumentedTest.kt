@@ -1,5 +1,8 @@
 package com.julien.realestatemanager
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
 
@@ -14,11 +17,18 @@ import org.junit.Assert.*
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 @RunWith(AndroidJUnit4::class)
-class ExampleInstrumentedTest {
+class InstrumentedTest {
+
+
+
     @Test
-    fun useAppContext() {
-        // Context of the app under test.
+    fun testNetwork(){
         val appContext = InstrumentationRegistry.getTargetContext()
-        assertEquals("com.julien.realestatemanager", appContext.packageName)
+
+        val connectivityManager=appContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo=connectivityManager.activeNetworkInfo
+
+        assertEquals(Utils.isInternetAvailable(appContext),networkInfo.isConnected)
+
     }
 }

@@ -1,48 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:columnCount="2"
-        android:rowCount="8"
         tools:context=".controller.fragment.SearchFragment">
 
 
-    <Spinner
-            android:id="@+id/search_fragment_spinner_status"
-            android:entries="@array/statut_arrays"
-            android:prompt="@string/statut_prompt"
-            android:layout_gravity="center"
-            android:layout_column="0"
-            android:layout_row="0"
-            android:layout_columnSpan="2"
-            android:layout_columnWeight="1"
-            android:layout_rowWeight="1"/>
-
-    <com.google.android.material.textfield.TextInputLayout
-            android:layout_column="0"
-            android:layout_row="1"
-            android:layout_columnWeight="1"
-            android:layout_rowWeight="1"
-            app:errorTextAppearance="@style/MyErrorText"
-            app:errorEnabled="true">
-    <EditText
+<ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/edit_search_fragment_type"
-            android:fontFamily="sans-serif-light"
-            android:inputType="textAutoComplete"
-            android:theme="@style/MyEditText"
-            android:textSize="18sp"
-            android:hint="@string/type"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            android:orientation="vertical">
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="10dp"
+            android:orientation="horizontal">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:text="@string/statut"/>
+
+        <Spinner
+                android:id="@+id/search_fragment_spinner_status"
+                android:entries="@array/statut_arrays"
+                android:prompt="@string/statut_prompt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="10dp"
+            android:orientation="horizontal">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:text="Type: "/>
+
+        <Spinner
+                android:id="@+id/search_fragment_spinner_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:entries="@array/type_arrays"
+                android:prompt="@string/statut_prompt" />
+
+    </LinearLayout>
+
 
     <com.google.android.material.textfield.TextInputLayout
-            android:layout_column="1"
-            android:layout_row="1"
-            android:layout_columnWeight="1"
-            android:layout_rowWeight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:errorTextAppearance="@style/MyErrorText"
             app:errorEnabled="true">
 
@@ -58,10 +81,8 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-            android:layout_column="0"
-            android:layout_row="2"
-            android:layout_columnWeight="1"
-            android:layout_rowWeight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:errorTextAppearance="@style/MyErrorText"
             app:errorEnabled="true">
     <EditText
@@ -70,6 +91,7 @@
         android:id="@+id/edit_search_fragment_min_area"
         android:fontFamily="sans-serif-light"
         android:digits="0123456789"
+            android:imeOptions="actionNext"
         android:inputType="numberDecimal"
             android:theme="@style/MyEditText"
         android:textSize="18sp"
@@ -78,10 +100,8 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-            android:layout_column="1"
-            android:layout_row="2"
-            android:layout_columnWeight="1"
-            android:layout_rowWeight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:errorTextAppearance="@style/MyErrorText"
             app:errorEnabled="true">
     <EditText
@@ -90,6 +110,7 @@
             android:id="@+id/edit_search_fragment_max_area"
             android:fontFamily="sans-serif-light"
             android:digits="0123456789"
+            android:imeOptions="actionNext"
             android:theme="@style/MyEditText"
             android:inputType="numberDecimal"
             android:textSize="18sp"
@@ -98,10 +119,8 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-            android:layout_column="0"
-            android:layout_row="3"
-            android:layout_columnWeight="1"
-            android:layout_rowWeight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:errorTextAppearance="@style/MyErrorText"
             app:errorEnabled="true">
     <EditText
@@ -109,6 +128,7 @@
             android:layout_height="wrap_content"
         android:id="@+id/edit_search_fragment_min_Price"
         android:fontFamily="sans-serif-light"
+            android:imeOptions="actionNext"
         android:digits="0123456789"
             android:theme="@style/MyEditText"
         android:inputType="numberDecimal"
@@ -118,10 +138,8 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-            android:layout_column="1"
-            android:layout_row="3"
-            android:layout_columnWeight="1"
-            android:layout_rowWeight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:errorTextAppearance="@style/MyErrorText"
             app:errorEnabled="true">
     <EditText
@@ -130,6 +148,7 @@
             android:id="@+id/edit_search_fragment_max_Price"
             android:fontFamily="sans-serif-light"
             android:digits="0123456789"
+            android:imeOptions="actionNext"
             android:theme="@style/MyEditText"
             android:inputType="numberDecimal"
             android:textSize="18sp"
@@ -138,10 +157,8 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-            android:layout_column="0"
-            android:layout_row="4"
-            android:layout_columnWeight="1"
-            android:layout_rowWeight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:errorTextAppearance="@style/MyErrorText"
             app:errorEnabled="true">
     <EditText
@@ -150,6 +167,7 @@
             android:id="@+id/edit_search_fragment_min_Room"
             android:fontFamily="sans-serif-light"
             android:digits="0123456789"
+            android:imeOptions="actionNext"
             android:theme="@style/MyEditText"
             android:inputType="numberDecimal"
             android:textSize="18sp"
@@ -158,10 +176,8 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-            android:layout_column="1"
-            android:layout_row="4"
-            android:layout_columnWeight="1"
-            android:layout_rowWeight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:errorTextAppearance="@style/MyErrorText"
             app:errorEnabled="true">
     <EditText
@@ -170,6 +186,7 @@
             android:id="@+id/edit_search_fragment_max_Room"
             android:fontFamily="sans-serif-light"
             android:digits="0123456789"
+            android:imeOptions="actionDone"
             android:theme="@style/MyEditText"
             android:inputType="numberDecimal"
             android:textSize="18sp"
@@ -178,60 +195,103 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-            android:id="@+id/min_created_date_button"
-            android:layout_column="0"
-            android:layout_row="5"
-            android:layout_columnWeight="1"
-            android:layout_rowWeight="1"
-            android:layout_margin="5dp"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:textColor="@android:color/black"
-            android:text="@string/min_created_date" />
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:orientation="horizontal">
 
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"
+                    android:text="@string/min_created_date"/>
+
+            <Button
+                    android:id="@+id/min_created_date_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:textColor="@android:color/black"
+                    android:text="@string/min_created_date" />
+
+        </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:orientation="horizontal">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:text="@string/max_created_date"/>
     <Button
             android:id="@+id/max_created_date_button"
-            android:layout_column="1"
-            android:layout_row="5"
-            android:layout_columnWeight="1"
-            android:layout_rowWeight="1"
-            android:layout_margin="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:textColor="@android:color/black"
             android:text="@string/max_created_date" />
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/min_sale__date_visibility"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:orientation="horizontal">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:text="@string/min_sale_date"/>
 
     <Button
             android:id="@+id/min_sale__date_button"
-            android:layout_column="0"
-            android:layout_row="6"
-            android:layout_columnWeight="1"
-            android:layout_rowWeight="1"
-            android:layout_margin="5dp"
-            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:textColor="@android:color/black"
             android:text="@string/min_sale_date"/>
+    </LinearLayout>
 
+    <LinearLayout
+            android:id="@+id/max_sale__date_visibility"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:orientation="horizontal">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:text="@string/max_sale_date"/>
     <Button
             android:id="@+id/max_sale__date_button"
-            android:layout_column="1"
-            android:layout_row="6"
-            android:layout_columnWeight="1"
-            android:layout_rowWeight="1"
-            android:layout_margin="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             style="@style/Widget.AppCompat.Button.Borderless"
-            android:visibility="gone"
             android:textColor="@android:color/black"
             android:text="@string/max_sale_date" />
 
-
+    </LinearLayout>
 
     <LinearLayout
-            android:layout_column="1"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:id="@+id/reserach_button"
-            android:layout_row="7"
-            android:layout_columnWeight="1"
-            android:layout_rowWeight="1"
             android:layout_margin="10sp"
             android:background="@color/colorPrimary"
 
@@ -252,10 +312,9 @@
 
     <LinearLayout
             android:id="@+id/cancel_button"
-            android:layout_column="0"
-            android:layout_row="7"
-            android:layout_columnWeight="1"
-            android:layout_rowWeight="1"
+            android:layout_gravity="center"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             android:layout_margin="10dp">
 
@@ -269,6 +328,7 @@
                 android:text="@string/cancel"
                 />
     </LinearLayout>
+    </LinearLayout>
+</ScrollView>
 
-
-</GridLayout>
+</LinearLayout>

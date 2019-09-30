@@ -5,7 +5,14 @@
         android:layout_margin="10dp"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_height="match_parent">
-
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
     <ImageView
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -15,6 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_arrow_back_black_24dp" android:layout_marginLeft="16dp"/>
+
 
     <LinearLayout
             android:layout_width="300dp"
@@ -61,6 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-light"
+                android:imeOptions="actionNext"
                 android:digits="0123456789"
                 android:theme="@style/MyEditText"
                 android:inputType="numberDecimal"
@@ -83,6 +92,7 @@
                 android:digits="0123456789"
                 android:theme="@style/MyEditText"
                 android:inputType="numberDecimal"
+                android:imeOptions="actionNext"
                 android:textSize="18sp"
                 android:hint="@string/bathrooms"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -98,6 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-light"
+                android:imeOptions="actionNext"
                 android:digits="0123456789"
                 android:theme="@style/MyEditText"
                 android:inputType="numberDecimal"
@@ -118,6 +129,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-light"
+                android:imeOptions="actionNext"
                 android:digits="0123456789"
                 android:theme="@style/MyEditText"
                 android:inputType="numberDecimal"
@@ -137,6 +149,7 @@
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-light"
                 android:digits="0123456789"
+                android:imeOptions="actionDone"
                 android:theme="@style/MyEditText"
                 android:inputType="numberDecimal"
                 android:textSize="18sp"
@@ -148,6 +161,7 @@
 
     <LinearLayout
             android:layout_width="wrap_content"
+            android:layout_gravity="center"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="16sp"
             app:layout_constraintRight_toRightOf="parent"
@@ -169,5 +183,6 @@
                 android:gravity="center"
                 />
     </LinearLayout>
-
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

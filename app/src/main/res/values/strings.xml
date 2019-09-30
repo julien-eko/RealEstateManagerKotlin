@@ -45,10 +45,10 @@
     <string name="max_price">Max price</string>
     <string name="min_room">Min number of room</string>
     <string name="max_room">Max number of room</string>
-    <string name="min_created_date">Min created date</string>
-    <string name="max_created_date">Max created date</string>
-    <string name="min_sale_date">Min sale date</string>
-    <string name="max_sale_date">Max sale date</string>
+    <string name="min_created_date">Min created date :</string>
+    <string name="max_created_date">Max created date :</string>
+    <string name="min_sale_date">Min sale date :</string>
+    <string name="max_sale_date">Max sale date :</string>
     <string name="search">Search</string>
     <string name="cancel">Cancel</string>
     <string name="choose_property">Choose a property</string>
@@ -71,6 +71,7 @@
     <string name="property_save">The property has been saved in the database</string>
     <string name="edited_property_notification">The property has been edited in the database</string>
     <string name="property_edited_notification_title">Property edited</string>
+    <string name="statut">Statut :</string>
 
     <string-array name="statut_arrays">
         <item>Dispo</item>

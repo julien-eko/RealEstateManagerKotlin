@@ -51,6 +51,9 @@ class PropertyListFragment : androidx.fragment.app.Fragment() {
 
     private lateinit var propertyViewModel: PropertyViewModel
 
+    private lateinit var lastId:String
+
+
     lateinit var idProperty: String
 
     //private lateinit var photo:ByteArray
@@ -67,6 +70,7 @@ class PropertyListFragment : androidx.fragment.app.Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        lastId = ""
         linearLayoutManager = LinearLayoutManager(context)
         recycler_view_property.layoutManager = linearLayoutManager
 
@@ -116,11 +120,15 @@ class PropertyListFragment : androidx.fragment.app.Fragment() {
                 }
 
             } else {
-                val intent = Intent(context, PropertyDetailActivity::class.java)
-                intent.putExtra("id", id)
-                // start your next activity
-                startActivity(intent)
-                //Toast.makeText(context, pos.toString(), Toast.LENGTH_SHORT).show()
+
+                if (lastId == id){
+                    val intent = Intent(context, PropertyDetailActivity::class.java)
+                    intent.putExtra("id", id)
+                    // start your next activity
+                    startActivity(intent)
+                    //Toast.makeText(context, pos.toString(), Toast.LENGTH_SHORT).show()
+                }
+                lastId = id
             }
 
 

@@ -4,6 +4,10 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.*
+import android.content.ClipData.Item
+import android.content.ContentValues
+
+
 
 @Entity
 data class Property(

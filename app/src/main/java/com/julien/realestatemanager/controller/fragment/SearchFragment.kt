@@ -13,7 +13,10 @@ import androidx.fragment.app.DialogFragment
 import com.julien.realestatemanager.R
 import com.julien.realestatemanager.controller.activity.MainActivity
 import com.thekhaeng.pushdownanim.PushDownAnim
+import kotlinx.android.synthetic.main.activity_map.*
+import kotlinx.android.synthetic.main.fragment_new_property_fragment1.*
 import kotlinx.android.synthetic.main.fragment_new_property_fragment5.*
+import kotlinx.android.synthetic.main.fragment_search.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -28,7 +31,10 @@ class SearchFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
     private lateinit var buttonMaxSale:Button
     private lateinit var buttonSearch:LinearLayout
     private lateinit var buttonCancel:LinearLayout
-    private lateinit var spinner:Spinner
+    private lateinit var minDateVisibility:LinearLayout
+    private lateinit var maxDateVisibility:LinearLayout
+    private lateinit var spinnerStatus:Spinner
+    private lateinit var spinnerType:Spinner
     private var lastButton:Int = 0
 
     private lateinit var typeEditText:EditText
@@ -84,16 +90,18 @@ class SearchFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
 
     private fun configureButtonDate(view: View) {
 
-        spinner = view.findViewById<View>(R.id.search_fragment_spinner_status) as Spinner
+        spinnerStatus = view.findViewById<View>(R.id.search_fragment_spinner_status) as Spinner
+        spinnerType = view.findViewById<View>(R.id.search_fragment_spinner_type) as Spinner
         buttonMinCreated = view.findViewById<View>(R.id.min_created_date_button) as Button
         buttonMaxCreated = view.findViewById<View>(R.id.max_created_date_button) as Button
         buttonMinSale = view.findViewById<View>(R.id.min_sale__date_button) as Button
         buttonMaxSale = view.findViewById<View>(R.id.max_sale__date_button) as Button
         buttonSearch = view.findViewById<View>(R.id.reserach_button) as LinearLayout
         buttonCancel = view.findViewById<View>(R.id.cancel_button) as LinearLayout
+        minDateVisibility =  view.findViewById<View>(R.id.min_sale__date_visibility) as LinearLayout
+        maxDateVisibility =  view.findViewById<View>(R.id.max_sale__date_visibility) as LinearLayout
 
-
-        typeEditText = view.findViewById<View>(R.id.edit_search_fragment_type) as EditText
+        //typeEditText = view.findViewById<View>(R.id.edit_search_fragment_type) as EditText
         cityEditText = view.findViewById<View>(R.id.edit_search_fragment_city) as EditText
         minRoomEditText = view.findViewById<View>(R.id.edit_search_fragment_min_Room) as EditText
         maxRoomEditText = view.findViewById<View>(R.id.edit_search_fragment_max_Room) as EditText
@@ -162,7 +170,7 @@ class SearchFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
             dismiss()
         }
 
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        spinnerStatus.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
@@ -177,12 +185,12 @@ class SearchFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
 
                 if (position == 1) {
                     statut = "Vendu"
-                    buttonMinSale.visibility = View.VISIBLE
-                    buttonMaxSale.visibility = View.VISIBLE
+                    minDateVisibility.visibility = View.VISIBLE
+                    maxDateVisibility.visibility = View.VISIBLE
                 } else {
                     statut="Dispo"
-                    buttonMinSale.visibility = View.GONE
-                    buttonMaxSale.visibility = View.GONE
+                    minDateVisibility.visibility = View.GONE
+                    maxDateVisibility.visibility = View.GONE
                 }
             }
 
@@ -220,13 +228,13 @@ class SearchFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
 
     }
 
+
+
+
     private fun runSearch(view: View){
 
-        typeProperty = if(typeEditText.text.toString().trim() == ""){
-            "%"
-        }else{
-            typeEditText.text.toString().trim().toLowerCase()
-        }
+
+        typeProperty =  spinnerType.selectedItem.toString()
         city = if(cityEditText.text.toString().trim() == ""){
             "%"
         }else{

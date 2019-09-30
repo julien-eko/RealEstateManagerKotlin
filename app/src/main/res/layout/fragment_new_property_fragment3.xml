@@ -5,6 +5,14 @@
         android:layout_margin="10dp"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_height="match_parent">
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
     <ImageView
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -83,6 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:fontFamily="sans-serif-light"
+                android:imeOptions="actionNext"
                 android:theme="@style/MyEditText"
                 android:digits="0123456789"
                 android:inputType="numberDecimal"
@@ -125,6 +134,7 @@
 
     <LinearLayout
             android:layout_width="wrap_content"
+            android:layout_gravity="center"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="16sp"
             app:layout_constraintRight_toRightOf="parent"
@@ -146,5 +156,6 @@
                 android:gravity="center"
                 />
     </LinearLayout>
-
+    </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

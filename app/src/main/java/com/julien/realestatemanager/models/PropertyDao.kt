@@ -1,12 +1,15 @@
 package com.julien.realestatemanager.models
 
 import android.database.Cursor
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import java.util.*
 
 @Dao
 interface PropertyDao {
+
+
 
     @Query("SELECT * FROM property")
     fun getAll(): LiveData<List<Property>>

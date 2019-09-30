@@ -7,6 +7,7 @@ import android.location.Location
 import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -29,6 +30,7 @@ import com.julien.realestatemanager.models.CustomInfoWindowGoogleMap
 import com.julien.realestatemanager.models.InfoWindowData
 import com.julien.realestatemanager.models.Property
 import com.julien.realestatemanager.models.PropertyViewModel
+import kotlinx.android.synthetic.main.activity_map.*
 import kotlinx.android.synthetic.main.fragment_property_detail.*
 import java.io.File
 
@@ -53,6 +55,8 @@ class MapActivity : AppCompatActivity() , OnMapReadyCallback {
         mMapView.onCreate(savedInstanceState)
         mMapView.onResume()
         //mapView = childFragmentManager.findFragmentById(R.id.mapView)
+        configureToolbar()
+
 
         mMapView.getMapAsync(this)
 
@@ -83,6 +87,20 @@ class MapActivity : AppCompatActivity() , OnMapReadyCallback {
         checkPermitionLocation()
 
 
+    }
+
+    private fun configureToolbar(){
+        setSupportActionBar(activity_map_toolbar)
+
+        val actionBar = supportActionBar
+        actionBar?.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_white_24)
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+        actionBar?.setTitle("Map")
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        onBackPressed()
+        return super.onOptionsItemSelected(item)
     }
 
     private fun addMarker(longitude:Double, latitude:Double, property: Property){

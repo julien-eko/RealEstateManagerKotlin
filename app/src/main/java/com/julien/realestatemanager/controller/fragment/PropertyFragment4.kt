@@ -229,6 +229,7 @@ class NewPropertyFragment4 : Fragment() {
     private fun addMainPicture(photo:String){
         var file = File(photo)
         Picasso.get().load(file).resize(200, 200).into(main_picture)
+        text_view_main_picture.setText("Change main picture")
 
     }
     private fun addPicture(photo: String): EditText {

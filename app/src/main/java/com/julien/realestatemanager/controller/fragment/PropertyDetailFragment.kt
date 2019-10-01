@@ -25,6 +25,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.maps.*
 import java.io.ByteArrayOutputStream
@@ -34,6 +35,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
 import com.google.android.gms.maps.MapView
+import com.julien.realestatemanager.Utils
 import com.julien.realestatemanager.controller.activity.FullScreenActivity
 import com.julien.realestatemanager.controller.activity.PropertyDetailActivity
 import com.julien.realestatemanager.view.MediaAdaptater
@@ -116,7 +118,9 @@ class PropertyDetailFragment : androidx.fragment.app.Fragment(),OnMapReadyCallba
                     postal_code_text_view.text = property.postalCode
                     country_text_view.text = property.country
 
-                    updateMap(property.latitude,property.longitude)
+                    val fullAdress = property.adress + " " + property.additionalAdress + " " + property.city + " " + property.postalCode + " " + property.country
+
+                    updateMap(property.latitude,property.longitude,fullAdress)
                 }
 
 
@@ -148,14 +152,32 @@ class PropertyDetailFragment : androidx.fragment.app.Fragment(),OnMapReadyCallba
 
     }
 
-    fun updateMap(latitude:Double,longitude:Double){
+    fun updateMap(latitude:Double,longitude:Double,fullAdress:String){
+
 
         if (latitude == 0.0 && longitude == 0.0){
-            Toast.makeText(context,getString(R.string.no_valid_address),Toast.LENGTH_SHORT).show()
+            if (Utils.isInternetAvailable(context)){
+                var geocoder= Geocoder(context)
+                var listAdress:List<Address> = geocoder.getFromLocationName(fullAdress,1)
+
+                if (listAdress.size>0) {
+                    var zoom =18.0f
+                    val location = LatLng(listAdress[0].latitude,listAdress[0].longitude)
+                    mMap.addMarker(MarkerOptions().position(location).title("Property"))
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location,zoom))
+
+                }else{
+                    Toast.makeText(context,getString(R.string.no_valid_address),Toast.LENGTH_SHORT).show()
+
+                }
+            }else{
+                Toast.makeText(context,getString(R.string.no_internet_cant_display_property),Toast.LENGTH_SHORT).show()
+            }
+
         }else{
             var zoom =18.0f
             val location = LatLng(latitude,longitude)
-            mMap.addMarker(MarkerOptions().position(location).title("Marker"))
+            mMap.addMarker(MarkerOptions().position(location).title("Property"))
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location,zoom))
         }
 

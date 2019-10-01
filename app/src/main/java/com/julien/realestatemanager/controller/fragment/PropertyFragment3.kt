@@ -9,11 +9,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 
 import com.julien.realestatemanager.R
+import com.julien.realestatemanager.Utils
 import com.julien.realestatemanager.controller.activity.PropertyActivity
 import com.julien.realestatemanager.models.PropertyViewModel
 import com.thekhaeng.pushdownanim.PushDownAnim
@@ -51,21 +53,29 @@ class PropertyFragment3 : Fragment() {
 
                 val fullAdress = propertyActivity.adress + " " + propertyActivity.additionAdress + " " + propertyActivity.city + " " + propertyActivity.postalCode + " " + propertyActivity.country
 
-                var geocoder= Geocoder(context)
-                var listAdress:List<Address> = geocoder.getFromLocationName(fullAdress,1)
+                if (Utils.isInternetAvailable(context)){
+                    var geocoder= Geocoder(context)
+                    var listAdress:List<Address> = geocoder.getFromLocationName(fullAdress,1)
 
-                if (listAdress.size>0) {
-                    propertyActivity.latitude = listAdress[0].latitude
-                    propertyActivity.longitude = listAdress[0].longitude
-                    view.findNavController().navigate(R.id.fragmentCtoD)
-                    //activity?.findViewById<Stepper>(R.id.Stepper)?.forward()
+                    if (listAdress.size>0) {
+                        propertyActivity.latitude = listAdress[0].latitude
+                        propertyActivity.longitude = listAdress[0].longitude
+                        view.findNavController().navigate(R.id.fragmentCtoD)
+                        //activity?.findViewById<Stepper>(R.id.Stepper)?.forward()
 
+                    }else{
+                        propertyActivity.latitude = 0.0
+                        propertyActivity.longitude = 0.0
+                        alertDialogWrongAdress()
+
+                    }
                 }else{
                     propertyActivity.latitude = 0.0
                     propertyActivity.longitude = 0.0
-                    alertDialogWrongAdress()
-
+                    Toast.makeText(context,getString(R.string.no_connection_check_adress),Toast.LENGTH_SHORT).show()
+                    view.findNavController().navigate(R.id.fragmentCtoD)
                 }
+
             }
 
 

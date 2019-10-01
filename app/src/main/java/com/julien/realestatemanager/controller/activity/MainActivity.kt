@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.navigation.NavigationView
 import com.julien.realestatemanager.R
+import com.julien.realestatemanager.Utils
 import com.julien.realestatemanager.controller.fragment.PropertyListFragment
 import com.julien.realestatemanager.controller.fragment.SelectPropertyFragment
 import com.julien.realestatemanager.controller.fragment.SearchFragment
@@ -109,8 +110,13 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         var itemid = p0?.itemId
 
         if (itemid == R.id.activity_main_drawer_map){
-            val intent = Intent(this, MapActivity::class.java)
-            startActivity(intent)
+            if (Utils.isInternetAvailable(this)){
+                val intent = Intent(this, MapActivity::class.java)
+                startActivity(intent)
+            }else{
+                Toast.makeText(this,getString(R.string.no_connection), Toast.LENGTH_SHORT).show()
+            }
+
         }
         if (itemid == R.id.activity_main_drawer_settings){
             val intent = Intent(this, SettingActivity::class.java)

@@ -24,7 +24,11 @@ import java.util.*
 
 
 /**
- * A simple [Fragment] subclass.
+ * fragment create or edit property part 1
+ * status
+ * date created
+ * date of sale if property sale
+ *real estate agent
  */
 class PropertyFragment1 : Fragment() {
 
@@ -32,7 +36,6 @@ class PropertyFragment1 : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
 
         return inflater.inflate(R.layout.fragment_new_property_fragment1, container, false)
     }
@@ -40,21 +43,22 @@ class PropertyFragment1 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //load last agent created property
         val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
         val defaultValue = ""
         val lastAgent = sharedPref.getString("agent", defaultValue)
-
         edit_real_estate_agent.setText(lastAgent)
+
 
         val propertyActivity: PropertyActivity = activity as PropertyActivity
 
 
         if (!propertyActivity.intent.getBooleanExtra("isNewProperty",true)){
-
             loadProperty(propertyActivity)
         }
 
 
+        //if property sale display date of sale
         spinner_status.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
@@ -81,6 +85,7 @@ class PropertyFragment1 : Fragment() {
 
 
 
+        //next fragment
         PushDownAnim.setPushDownAnimTo(nextToB).setScale(PushDownAnim.MODE_STATIC_DP, 5F)
             .setOnClickListener {
 

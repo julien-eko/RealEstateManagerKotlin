@@ -17,17 +17,13 @@ import kotlinx.android.synthetic.main.fragment_new_property_fragment1.*
 class SettingActivity : AppCompatActivity() {
 
 
-    private var isUSD = true
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting)
 
         configureToolbar()
 
-
+        //Save in sharedPreference currency preference of user
         var preferences = PreferenceManager.getDefaultSharedPreferences(this)
         var isUSD = preferences.getBoolean("isUSD",true)
 

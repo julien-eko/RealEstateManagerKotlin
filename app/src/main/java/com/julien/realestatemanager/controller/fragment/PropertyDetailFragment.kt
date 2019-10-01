@@ -54,7 +54,7 @@ private const val ARG_PARAM2 = "param2"
  * A simple [Fragment] subclass.
  *
  */
-class PropertyDetailFragment : androidx.fragment.app.Fragment(),OnMapReadyCallback {
+class PropertyDetailFragment : androidx.fragment.app.Fragment(), OnMapReadyCallback {
 
 
     private lateinit var propertyViewModel: PropertyViewModel
@@ -62,18 +62,18 @@ class PropertyDetailFragment : androidx.fragment.app.Fragment(),OnMapReadyCallba
     private lateinit var mMapView: MapView
     private lateinit var adapter: MediaAdaptater
     private lateinit var linearLayoutManager: LinearLayoutManager
-    private var adress ="France"
+    private var adress = "France"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val rootView = inflater.inflate(R.layout.fragment_property_detail, container, false)
+
+        //create map
         mMapView = rootView.findViewById(R.id.mapView) as MapView
         mMapView.onCreate(savedInstanceState)
         mMapView.onResume()
-        //mapView = childFragmentManager.findFragmentById(R.id.mapView)
 
         mMapView.getMapAsync(this)
 
@@ -81,12 +81,10 @@ class PropertyDetailFragment : androidx.fragment.app.Fragment(),OnMapReadyCallba
     }
 
 
-
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        linearLayoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL, false)
+        linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         recycler_view_media.layoutManager = linearLayoutManager
 
         adapter = MediaAdaptater(listOf())
@@ -96,16 +94,10 @@ class PropertyDetailFragment : androidx.fragment.app.Fragment(),OnMapReadyCallba
         listener()
         if (tag != null) {
 
-
-
-
             propertyViewModel.getProperty(tag!!.toString()).observe(this, Observer { property ->
                 // Update the cached copy of the words in the adapter.
                 property?.let {
 
-                    //Log.e("db date", property.creationDate.toString())
-
-                    //Log.e("convert date", Date(property.creationDate).toString())
 
                     description_text_view.text = property.description
                     area_text_view.text = property.area.toString()
@@ -118,9 +110,10 @@ class PropertyDetailFragment : androidx.fragment.app.Fragment(),OnMapReadyCallba
                     postal_code_text_view.text = property.postalCode
                     country_text_view.text = property.country
 
-                    val fullAdress = property.adress + " " + property.additionalAdress + " " + property.city + " " + property.postalCode + " " + property.country
+                    val fullAdress =
+                        property.adress + " " + property.additionalAdress + " " + property.city + " " + property.postalCode + " " + property.country
 
-                    updateMap(property.latitude,property.longitude,fullAdress)
+                    updateMap(property.latitude, property.longitude, fullAdress)
                 }
 
 
@@ -131,7 +124,6 @@ class PropertyDetailFragment : androidx.fragment.app.Fragment(),OnMapReadyCallba
                 media?.let {
                     //Log.e("size media", media.size.toString())
                     adapter.setMedia(media)
-
 
 
                 }
@@ -145,46 +137,54 @@ class PropertyDetailFragment : androidx.fragment.app.Fragment(),OnMapReadyCallba
 
 
     }
+
     override fun onMapReady(googleMap: GoogleMap?) {
         mMap = googleMap!!
-        // Add a marker in Sydney and move the camera
-
-
     }
 
-    fun updateMap(latitude:Double,longitude:Double,fullAdress:String){
+    //update mini map
+    fun updateMap(latitude: Double, longitude: Double, fullAdress: String) {
 
 
-        if (latitude == 0.0 && longitude == 0.0){
-            if (Utils.isInternetAvailable(context)){
-                var geocoder= Geocoder(context)
-                var listAdress:List<Address> = geocoder.getFromLocationName(fullAdress,1)
+        if (latitude == 0.0 && longitude == 0.0) {
+            if (Utils.isInternetAvailable(context)) {
+                var geocoder = Geocoder(context)
+                var listAdress: List<Address> = geocoder.getFromLocationName(fullAdress, 1)
 
-                if (listAdress.size>0) {
-                    var zoom =18.0f
-                    val location = LatLng(listAdress[0].latitude,listAdress[0].longitude)
+                if (listAdress.size > 0) {
+                    var zoom = 18.0f
+                    val location = LatLng(listAdress[0].latitude, listAdress[0].longitude)
                     mMap.addMarker(MarkerOptions().position(location).title("Property"))
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location,zoom))
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, zoom))
 
-                }else{
-                    Toast.makeText(context,getString(R.string.no_valid_address),Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(
+                        context,
+                        getString(R.string.no_valid_address),
+                        Toast.LENGTH_SHORT
+                    ).show()
 
                 }
-            }else{
-                Toast.makeText(context,getString(R.string.no_internet_cant_display_property),Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(
+                    context,
+                    getString(R.string.no_internet_cant_display_property),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
-        }else{
-            var zoom =18.0f
-            val location = LatLng(latitude,longitude)
+        } else {
+            var zoom = 18.0f
+            val location = LatLng(latitude, longitude)
             mMap.addMarker(MarkerOptions().position(location).title("Property"))
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location,zoom))
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, zoom))
         }
 
 
     }
-    //click
-    fun listener(){
+
+    //When user click on phoro display the photo in full screen
+    fun listener() {
         adapter.listener = { id ->
             // do something here
             propertyViewModel.getMediaId(id).observe(this, Observer { media ->
@@ -193,14 +193,12 @@ class PropertyDetailFragment : androidx.fragment.app.Fragment(),OnMapReadyCallba
 
                     val intent = Intent(context, FullScreenActivity::class.java)
                     intent.putExtra("photo", media.photo)
-                    // start your next activity
+                    intent.putExtra("description", media.description)
                     startActivity(intent)
-                    //Toast.makeText(context,media.description,Toast.LENGTH_SHORT).show()
                 }
 
 
             })
-
 
 
         }

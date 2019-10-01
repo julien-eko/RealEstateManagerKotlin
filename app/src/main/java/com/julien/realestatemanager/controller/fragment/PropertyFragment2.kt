@@ -21,7 +21,13 @@ import com.thekhaeng.pushdownanim.PushDownAnim
 import kotlinx.android.synthetic.main.fragment_new_property_fragment2.*
 
 /**
- * A simple [Fragment] subclass.
+ * fragment create or edit property part 2
+ * nb room
+ * nb bathrooms
+ * nb bedrooms
+ * area
+ * price
+ * type
  */
 class PropertyFragment2 : Fragment() {
 

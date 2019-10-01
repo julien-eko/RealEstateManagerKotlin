@@ -40,9 +40,7 @@ class MapActivity : AppCompatActivity() , OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var mMapView: MapView
-
     private lateinit var propertyViewModel: PropertyViewModel
-
     private lateinit var mFusedLocationProviderClient:FusedLocationProviderClient
 
 
@@ -51,10 +49,10 @@ class MapActivity : AppCompatActivity() , OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map)
 
-        mMapView = findViewById<MapView>(R.id.mapView_activity)
+        mMapView = findViewById(R.id.mapView_activity)
         mMapView.onCreate(savedInstanceState)
         mMapView.onResume()
-        //mapView = childFragmentManager.findFragmentById(R.id.mapView)
+
         configureToolbar()
 
 
@@ -64,6 +62,7 @@ class MapActivity : AppCompatActivity() , OnMapReadyCallback {
 
         propertyViewModel = ViewModelProviders.of(this).get(PropertyViewModel::class.java)
 
+        //add marker for properties with a valid address
         propertyViewModel.getAllProperty().observe(this, Observer { properties ->
             // Update the cached copy of the words in the adapter.
             properties?.let {
@@ -82,10 +81,7 @@ class MapActivity : AppCompatActivity() , OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap?) {
         mMap = googleMap!!
-        //mMap.isMyLocationEnabled = true
-        // Add a marker in Sydney and move the camera
         checkPermitionLocation()
-
 
     }
 
@@ -103,24 +99,16 @@ class MapActivity : AppCompatActivity() , OnMapReadyCallback {
         return super.onOptionsItemSelected(item)
     }
 
+    //add a custom marker
     private fun addMarker(longitude:Double, latitude:Double, property: Property){
         val location = LatLng(latitude,longitude)
-        //mMap.addMarker(MarkerOptions().position(location).title(property.type).snippet(property.status + "\n" + property.area +"\n" + property.price +"\n" + property.realEstateAgent))
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(location))
-
-
         val markerOptions = MarkerOptions()
         markerOptions.position(location)
-
-
         val info = InfoWindowData(property.type, property.area.toString(),
             property.price.toString(),
             property.realEstateAgent,
             property.status
         )
-
-
-
         val customInfoWindow = CustomInfoWindowGoogleMap(this)
 
         mMap!!.setInfoWindowAdapter(customInfoWindow)
@@ -128,8 +116,6 @@ class MapActivity : AppCompatActivity() , OnMapReadyCallback {
         val marker = mMap!!.addMarker(markerOptions)
         marker.tag = info
         marker.showInfoWindow()
-
-
 
 
     }
@@ -141,15 +127,11 @@ class MapActivity : AppCompatActivity() , OnMapReadyCallback {
                 Manifest.permission.ACCESS_FINE_LOCATION)
             != PackageManager.PERMISSION_GRANTED) {
 
-            // Permission is not granted
 
             ActivityCompat.requestPermissions(this,
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                 MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
 
-            // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-            // app-defined int constant. The callback method gets the
-            // result of the request.
 
         } else {
             // Permission has already been granted
@@ -169,26 +151,22 @@ class MapActivity : AppCompatActivity() , OnMapReadyCallback {
                                             permissions: Array<String>, grantResults: IntArray) {
         when (requestCode) {
             MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION -> {
-                // If request is cancelled, the result arrays are empty.
+
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
 
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
+
                     mMap.isMyLocationEnabled = true
                     getDeviceLocation()
-                    //Toast.makeText(this,"permisssion accepeter",Toast.LENGTH_SHORT).show()
+
                 } else {
-                    // permission denied, boo! Disable the
+
                     Toast.makeText(this,getString(R.string.permission_denied),Toast.LENGTH_SHORT).show()
-                    // functionality that depends on this permission.
+
                 }
                 return
             }
 
-            // Add other 'when' lines to check for other
-            // permissions this app might request.
             else -> {
-                // Ignore all other requests.
             }
         }
     }

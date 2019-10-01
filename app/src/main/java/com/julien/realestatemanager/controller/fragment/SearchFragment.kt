@@ -20,9 +20,7 @@ import kotlinx.android.synthetic.main.fragment_search.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-/**
- * A simple [Fragment] subclass.
- */
+
 class SearchFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
 
     private lateinit var buttonMinCreated:Button

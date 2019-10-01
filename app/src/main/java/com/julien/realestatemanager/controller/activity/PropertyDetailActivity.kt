@@ -24,8 +24,6 @@ class PropertyDetailActivity : AppCompatActivity() {
 
         configureToolbar()
 
-
-        // propertyList =  supportFragmentManager.findFragmentById(R.id.frame_layout_main)
         supportFragmentManager.inTransaction {
             add(R.id.frame_layout_property_detail, propertyDetail,intent.getStringExtra("id").toString())
         }

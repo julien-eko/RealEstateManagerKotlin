@@ -34,7 +34,9 @@ import java.io.IOException
 import java.util.*
 
 /**
- * A simple [Fragment] subclass.
+ *fragment create or edit property part 4
+ * main picture
+ * and description picture
  */
 
 

@@ -73,6 +73,7 @@ class PropertyActivity : AppCompatActivity() {
     override fun onSupportNavigateUp() = NavHostFragment.findNavController(nav_host_fragment).navigateUp()
 
 
+    //insert new property or edit property in db
     fun insertInDatabase(){
 
         var id:String = if (!intent.getBooleanExtra("isNewProperty",true)){
@@ -89,7 +90,6 @@ class PropertyActivity : AppCompatActivity() {
             commit()
         }
 
-        //val id = UUID.randomUUID().toString()
         val newProperty = Property(
             id,
             city.trim().toLowerCase(),
@@ -164,8 +164,6 @@ class PropertyActivity : AppCompatActivity() {
             // Update the cached copy of the words in the adapter.
             property?.let {
                 this.property = property
-
-
 
 
             }

@@ -23,7 +23,8 @@ import kotlinx.android.synthetic.main.fragment_new_property_fragment3.*
 import kotlinx.android.synthetic.main.fragment_new_property_fragment3.backArrow
 
 /**
- * A simple [Fragment] subclass.
+ * fragment create or edit property part 3
+ * adress information
  */
 class PropertyFragment3 : Fragment() {
 

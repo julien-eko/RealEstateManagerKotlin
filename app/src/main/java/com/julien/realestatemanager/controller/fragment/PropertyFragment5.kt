@@ -18,7 +18,8 @@ import kotlinx.android.synthetic.main.fragment_new_property_fragment5.*
 import kotlinx.android.synthetic.main.fragment_new_property_fragment5.backArrow
 
 /**
- * A simple [Fragment] subclass.
+ *fragment create or edit property part 5
+ * description of property
  */
 class PropertyFragment5 : Fragment() {
 

@@ -32,10 +32,6 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
 
 
 
-
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -49,7 +45,6 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
 
         this.configureNavigationView()
 
-       // propertyList =  supportFragmentManager.findFragmentById(R.id.frame_layout_main)
         supportFragmentManager.inTransaction {
             add(R.id.frame_layout_property_list, propertyList)
             val isTablet: Boolean = resources.getBoolean(R.bool.isTablet)
@@ -80,8 +75,6 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             val intent = Intent(this, PropertyActivity::class.java)
             intent.putExtra("isNewProperty",true)
             startActivity(intent)
-            //val intent = Intent(this, NewPropertyActivity::class.java)
-            //startActivity(intent)
         }
         if (itemid == R.id.action_edit){
 
@@ -153,6 +146,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         navigationView.setNavigationItemSelectedListener(this)
     }
 
+    //displays the properties matching the search criteria
     fun updateList(typeProperty: String,
                    minArea: Int,
                    maxArea: Int,

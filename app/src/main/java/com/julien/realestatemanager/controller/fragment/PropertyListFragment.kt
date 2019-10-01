@@ -2,11 +2,13 @@ package com.julien.realestatemanager.controller.fragment
 
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.provider.MediaStore
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -81,7 +83,10 @@ class PropertyListFragment : androidx.fragment.app.Fragment() {
         }
 
 
-        adapter = PropertyAdaptater(listOf(), idProperty)
+        var preferences = PreferenceManager.getDefaultSharedPreferences(context)
+        var isUSD = preferences.getBoolean("isUSD",true)
+
+        adapter = PropertyAdaptater(listOf(), idProperty,isUSD)
         recycler_view_property.adapter = adapter
 
         propertyViewModel = ViewModelProviders.of(this).get(PropertyViewModel::class.java)

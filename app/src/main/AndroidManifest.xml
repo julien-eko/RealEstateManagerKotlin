@@ -19,8 +19,8 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-
-        <activity android:name=".controller.activity.MapActivity"/>
+        <activity android:name=".controller.activity.SettingActivity"></activity>
+        <activity android:name=".controller.activity.MapActivity" />
         <activity
                 android:name=".controller.activity.PropertyActivity"
                 android:excludeFromRecents="true"
@@ -38,7 +38,7 @@
         <provider
                 android:name=".provider.PropertyContentProvider"
                 android:authorities="com.julien.realestatemanager.provider"
-                android:exported="true"/>
+                android:exported="true" />
 
         <meta-data
                 android:name="com.google.android.geo.API_KEY"

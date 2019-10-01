@@ -1,5 +1,6 @@
 package com.julien.realestatemanager.controller.activity
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -46,7 +47,6 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         this.configureDrawerLayout()
 
         this.configureNavigationView()
-
 
        // propertyList =  supportFragmentManager.findFragmentById(R.id.frame_layout_main)
         supportFragmentManager.inTransaction {
@@ -110,6 +110,10 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
 
         if (itemid == R.id.activity_main_drawer_map){
             val intent = Intent(this, MapActivity::class.java)
+            startActivity(intent)
+        }
+        if (itemid == R.id.activity_main_drawer_settings){
+            val intent = Intent(this, SettingActivity::class.java)
             startActivity(intent)
         }
 

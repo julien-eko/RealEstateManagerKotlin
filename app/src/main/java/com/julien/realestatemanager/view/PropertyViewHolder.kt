@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager.views
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -17,9 +18,11 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
 import com.julien.realestatemanager.R
+import com.julien.realestatemanager.Utils
 import com.julien.realestatemanager.models.Property
 import com.julien.realestatemanager.models.PropertyViewModel
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_new_property_fragment2.*
 import kotlinx.android.synthetic.main.fragment_property_list_item.view.*
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -39,7 +42,7 @@ class PropertyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
 
 
-    fun update(property: Property, id:String, context: Context){
+    fun update(property: Property, isUSD: Boolean){
 
         if (property.status == "Vendu"){
             propertyVendu.visibility = View.VISIBLE
@@ -49,7 +52,7 @@ class PropertyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
         propertyType.text = property.type
         propertyCity.text = property.city
-        propertyPrice.text = formatPrice(property.price.toString())
+        propertyPrice.text = formatPrice(property.price,isUSD)
 
 
         val file = File(property.photo)
@@ -59,11 +62,21 @@ class PropertyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
     }
 
-    private fun formatPrice(price:String?):String{
-        val number:Double = price!!.toDouble()
-        val format = NumberFormat.getCurrencyInstance(Locale.FRANCE)
+    private fun formatPrice(price:Int,isUSD:Boolean):String{
 
-        return format.format(number)
+        if (isUSD){
+            val number:Double = price!!.toDouble()
+            val format = NumberFormat.getCurrencyInstance(Locale.US)
+
+            return format.format(number)
+        }else{
+            val priceEU =Utils.convertDollarToEuro(price)
+            val number:Double = priceEU!!.toDouble()
+            val format = NumberFormat.getCurrencyInstance(Locale.FRANCE)
+
+            return format.format(number)
+        }
+
     }
 
 

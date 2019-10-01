@@ -11,7 +11,7 @@ import androidx.core.content.ContextCompat
 import com.julien.realestatemanager.R
 import com.julien.realestatemanager.models.Property
 
-class PropertyAdaptater(var propertyList: List<Property>, var id:String): RecyclerView.Adapter<PropertyViewHolder>() {
+class PropertyAdaptater(var propertyList: List<Property>, var id:String,var isUSD:Boolean): RecyclerView.Adapter<PropertyViewHolder>() {
 
     var listener: ((String)->Unit)? = null
     private lateinit var context: Context
@@ -27,7 +27,7 @@ class PropertyAdaptater(var propertyList: List<Property>, var id:String): Recycl
     }
 
     override fun onBindViewHolder(holder: PropertyViewHolder, position: Int) {
-        holder.update(propertyList.get(position),id,context)
+        holder.update(propertyList.get(position),isUSD)
 
 
         holder.itemView.setOnClickListener {

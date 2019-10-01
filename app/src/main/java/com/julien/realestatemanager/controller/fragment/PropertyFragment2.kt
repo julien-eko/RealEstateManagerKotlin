@@ -1,16 +1,20 @@
 package com.julien.realestatemanager.controller.fragment
 
 
+import android.content.Context
 import android.os.Bundle
+import android.preference.PreferenceManager
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 
 import com.julien.realestatemanager.R
+import com.julien.realestatemanager.Utils
 import com.julien.realestatemanager.controller.activity.PropertyActivity
 import com.julien.realestatemanager.models.PropertyViewModel
 import com.thekhaeng.pushdownanim.PushDownAnim
@@ -63,7 +67,15 @@ class PropertyFragment2 : Fragment() {
         propertyActivity.numberOfBathrooms = edit_number_of_batthrooms_fragment_2.text.toString().toInt()
         propertyActivity.numberOfBedrooms = edit_number_of_bedrooms_fragment_2.text.toString().toInt()
         propertyActivity.area = edit_area_fragment_2.text.toString().toInt()
-        propertyActivity.price = edit_price_fragment_2.text.toString().toInt()
+
+        var preferences = PreferenceManager.getDefaultSharedPreferences(context)
+        var isUSD = preferences.getBoolean("isUSD",true)
+        if (isUSD){
+            propertyActivity.price = edit_price_fragment_2.text.toString().toInt()
+        }else{
+            propertyActivity.price = Utils.convertEuroToDollar(edit_price_fragment_2.text.toString().toInt())
+        }
+
     }
 
     private fun validateForm():Boolean{

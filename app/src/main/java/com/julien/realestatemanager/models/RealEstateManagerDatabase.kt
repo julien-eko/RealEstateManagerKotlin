@@ -19,7 +19,7 @@ abstract class RealEstateManagerDatabase: RoomDatabase() {
         @Volatile
         private var INSTANCE: RealEstateManagerDatabase? = null
 
-        fun getDatabase(context: Context,scope:CoroutineScope): RealEstateManagerDatabase {
+        fun getDatabase(context: Context): RealEstateManagerDatabase {
             val tempInstance = INSTANCE
             if (tempInstance != null) {
                 return tempInstance
@@ -29,12 +29,13 @@ abstract class RealEstateManagerDatabase: RoomDatabase() {
                         context.applicationContext,
                         RealEstateManagerDatabase::class.java,
                         "Real_estate_database"
-                ).addCallback(PropertyDatabaseCallback(scope)).build()
+                ).build()
                 INSTANCE = instance
                 return instance
             }
         }
     }
+
 
     private class PropertyDatabaseCallback(
         private val scope: CoroutineScope

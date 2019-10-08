@@ -1,34 +1,17 @@
 package com.openclassrooms.realestatemanager.views
 
-import android.app.Activity
-import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Color
-import android.net.Uri
-import android.os.Build
-import android.provider.MediaStore
-import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProviders
 import com.julien.realestatemanager.R
 import com.julien.realestatemanager.Utils
 import com.julien.realestatemanager.models.Property
-import com.julien.realestatemanager.models.PropertyViewModel
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.fragment_new_property_fragment2.*
-import kotlinx.android.synthetic.main.fragment_property_list_item.view.*
-import java.io.ByteArrayOutputStream
 import java.io.File
 import java.text.NumberFormat
 import java.util.*
-import kotlin.coroutines.coroutineContext
 
 class PropertyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 

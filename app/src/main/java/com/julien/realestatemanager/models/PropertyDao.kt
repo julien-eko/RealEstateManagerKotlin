@@ -54,10 +54,10 @@ interface PropertyDao {
     //fun insertProperty(property: Property)
 
     @Insert
-    fun insert(property: Property)
+    fun insert(property: Property):Long
 
     @Update
-    fun updateProperty(property: Property)
+    fun updateProperty(property: Property):Int
 
     @Delete
     fun delete(property: Property)

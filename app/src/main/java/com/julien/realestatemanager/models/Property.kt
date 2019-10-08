@@ -35,4 +35,32 @@ data class Property(
 
 
 
-)
+){
+
+        companion object {
+                fun fromContentValues(values:ContentValues):Property{
+                        return Property(values.getAsString("id"),
+                                values.getAsString("city"),
+                                values.getAsString("type"),
+                                values.getAsInteger("price"),
+                                values.getAsInteger("area"),
+                                values.getAsInteger("number_of_rooms"),
+                                values.getAsString("description"),
+                                values.getAsString("adress"),
+                                values.getAsString("place_nearby"),
+                                values.getAsString("status"),
+                                values.getAsLong("creation_date"),
+                                values.getAsLong("date_of_sale"),
+                                values.getAsString("real_estate_agent"),
+                                values.getAsString("photo"),
+                                values.getAsInteger("number_of_bathrooms"),
+                                values.getAsInteger("number_of_bedrooms"),
+                                values.getAsString("additional_adress"),
+                                values.getAsString("postal_code"),
+                                values.getAsString("country"),
+                                values.getAsDouble("latitude"),
+                                values.getAsDouble("longitude")
+                                )
+                }
+        }
+}

@@ -16,8 +16,8 @@ class PropertyViewModel(application: Application) : AndroidViewModel(application
     //val allMedia:LiveData<List<Media>>
 
     init {
-        val propertyDao = RealEstateManagerDatabase.getDatabase(application,viewModelScope).propertyDao()
-        val mediaDao = RealEstateManagerDatabase.getDatabase(application,viewModelScope).mediaDao()
+        val propertyDao = RealEstateManagerDatabase.getDatabase(application).propertyDao()
+        val mediaDao = RealEstateManagerDatabase.getDatabase(application).mediaDao()
         propertyRepository = PropertyRepository(propertyDao)
         mediaRepository = MediaRepository(mediaDao)
         allProperties = propertyRepository.allProperties

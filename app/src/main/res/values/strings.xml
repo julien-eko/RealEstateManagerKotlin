@@ -77,6 +77,16 @@
     <string name="no_connection">No internet connection</string>
     <string name="no_connection_check_adress">No internet connection. We can\'t check the address</string>
     <string name="no_internet_cant_display_property">No internet connection. We can\'t display the property on the map</string>
+    <string name="price">Price</string>
+    <string name="contribution">Contribution</string>
+    <string name="interest_rate">Interest rate</string>
+    <string name="duration">Duration (in years)</string>
+    <string name="simulate">Simulate</string>
+    <string name="back">Back</string>
+    <string name="sup">Must be greater than zero</string>
+    <string name="ok">Ok</string>
+    <string name="simulator">Simulator</string>
+    <string name="per_month">per month</string>
 
     <string-array name="statut_arrays">
         <item>Dispo</item>

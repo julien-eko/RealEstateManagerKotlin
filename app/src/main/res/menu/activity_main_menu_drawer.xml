@@ -13,8 +13,8 @@
         <menu>
             <group android:checkableBehavior="single">
                 <item
-                        android:id="@+id/activity_main_drawer_profile"
-                        android:title="Profil" />
+                        android:id="@+id/activity_main_drawer_simulator"
+                        android:title="Simulator" />
                 <item
                         android:id="@+id/activity_main_drawer_settings"
                         android:title="Paramètres" />

@@ -115,7 +115,12 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             val intent = Intent(this, SettingActivity::class.java)
             startActivity(intent)
         }
-
+        if (itemid == R.id.activity_main_drawer_simulator){
+            val id:String = propertyList.idProperty
+            val intent = Intent(this, SimulatorActivity::class.java)
+            intent.putExtra("id",id)
+            startActivity(intent)
+        }
 
         return super.onOptionsItemSelected(p0)
     }

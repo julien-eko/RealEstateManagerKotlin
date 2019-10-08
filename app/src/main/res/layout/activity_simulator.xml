@@ -87,7 +87,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="sans-serif-light"
-                    android:imeOptions="actionNext"
+                    android:imeOptions="actionDone"
                     android:digits="0123456789"
                     android:theme="@style/MyEditText"
                     android:inputType="numberDecimal"

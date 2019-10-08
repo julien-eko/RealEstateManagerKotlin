@@ -7,11 +7,7 @@
         <item
                 android:id="@+id/activity_main_drawer_map"
                 android:title="Map" />
-    </group>
 
-    <item android:title="Configuration">
-        <menu>
-            <group android:checkableBehavior="single">
                 <item
                         android:id="@+id/activity_main_drawer_simulator"
                         android:title="Simulator" />
@@ -19,7 +15,6 @@
                         android:id="@+id/activity_main_drawer_settings"
                         android:title="Paramètres" />
             </group>
-        </menu>
-    </item>
+
 
 </menu>

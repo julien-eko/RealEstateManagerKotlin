@@ -87,6 +87,9 @@
     <string name="ok">Ok</string>
     <string name="simulator">Simulator</string>
     <string name="per_month">per month</string>
+    <string name="for_years">" for "</string>
+    <string name="years">" years"</string>
+    <string name="totalPrice">"Total price : "</string>
 
     <string-array name="statut_arrays">
         <item>Dispo</item>

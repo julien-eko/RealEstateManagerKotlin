@@ -4,15 +4,13 @@ import android.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.findNavController
 import com.julien.realestatemanager.R
 import com.julien.realestatemanager.Utils
 import com.julien.realestatemanager.models.PropertyViewModel
 import kotlinx.android.synthetic.main.activity_simulator.*
-import kotlinx.android.synthetic.main.fragment_new_property_fragment2.*
+import java.time.Year
 
 class SimulatorActivity : AppCompatActivity() {
 
@@ -40,13 +38,8 @@ class SimulatorActivity : AppCompatActivity() {
 
         simuate_button.setOnClickListener {
             if(validateForm()){
-                var price = simulator_price.text.toString().toFloat() + (simulator_price.text.toString().toFloat() * (simulator_taux.text.toString().toFloat() / 100))
-                price = price - simulator_apport.text.toString().toFloat()
-                var time = simulator_duree.text.toString().toFloat() * 12
 
-                var monthPrice = price / time
-
-                alertDialog(monthPrice)
+                alertDialog(monthPrice(simulator_price.text.toString().toFloat(),simulator_taux.text.toString().toFloat(),simulator_apport.text.toString().toFloat(),simulator_duree.text.toString().toFloat()),totalPrice(simulator_price.text.toString().toFloat(),simulator_taux.text.toString().toFloat()),simulator_duree.text.toString())
                 //Toast.makeText(this,monthPrice.toString(),Toast.LENGTH_SHORT).show()
 
             }
@@ -103,9 +96,10 @@ class SimulatorActivity : AppCompatActivity() {
         }
     }
 
-    fun alertDialog(price: Float){
+    fun alertDialog(price: Float, totalPrice:Float, year:String){
         val builder = AlertDialog.Builder(this)
         val price2digits:Double = String.format("%.2f", price).toDouble()
+        val totalPricerice2digits:Double = String.format("%.2f", totalPrice).toDouble()
         
         var preferences = PreferenceManager.getDefaultSharedPreferences(this)
         var isUSD = preferences.getBoolean("isUSD",true)
@@ -117,8 +111,9 @@ class SimulatorActivity : AppCompatActivity() {
         }
         builder.setTitle(getString(R.string.simulator))
 
-        
-        builder.setMessage(price2digits.toString() + currency  + " " + getString(R.string.per_month))
+
+        builder.setMessage(getString(R.string.totalPrice) + totalPricerice2digits.toString() + " " + currency + "\n" + price2digits.toString() + " " + currency  + " " + getString(R.string.per_month) + getString(
+                    R.string.for_years) + year + getString(R.string.years))
 
         builder.setPositiveButton(getString(R.string.ok)){ dialog, which ->
 
@@ -130,5 +125,18 @@ class SimulatorActivity : AppCompatActivity() {
         val dialog: AlertDialog = builder.create()
 
         dialog.show()
+    }
+
+   fun monthPrice(priceProperty: Float,taux:Float,apport:Float,dure:Float):Float{
+        var price = priceProperty + (priceProperty * (taux / 100))
+       price -= apport
+        var time = dure * 12
+
+       return price / time
+    }
+
+    fun totalPrice(priceProperty: Float,taux:Float):Float{
+        return priceProperty + (priceProperty * (taux / 100))
+
     }
 }

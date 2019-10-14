@@ -1,5 +1,8 @@
 package com.julien.realestatemanager
 
+import com.julien.realestatemanager.controller.activity.MapActivity
+import com.julien.realestatemanager.controller.activity.SettingActivity
+import com.julien.realestatemanager.controller.activity.SimulatorActivity
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -27,4 +30,25 @@ class ExampleUnitTest {
     fun dateFormat() {
         assertEquals("24/06/2019", Utils.getTodayDate())
     }
+
+    @Test
+    fun TestMonthPrice(){
+        var result:Float
+        var price:Float = (100000F + (100000F * (5F / 100F)))
+        price -= 10000F
+        var time:Float = (1F * 12F)
+        result = price / time
+
+        assertEquals(result,SimulatorActivity().monthPrice(100000F,5F,10000F,1F))
+    }
+
+    @Test
+    fun testTotalPrice(){
+        var price:Float = (100000F + (100000F * (5F / 100F)))
+
+        assertEquals(price,SimulatorActivity().totalPrice(100000F,5F))
+
+    }
+
+
 }

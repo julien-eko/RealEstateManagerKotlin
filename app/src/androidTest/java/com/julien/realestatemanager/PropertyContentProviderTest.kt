@@ -45,7 +45,7 @@ class PropertyContentProviderTest {
         cursor.close()
     }
 
-  
+
     @Test
     fun insertAndGetProperty() {
         val propertyUri =

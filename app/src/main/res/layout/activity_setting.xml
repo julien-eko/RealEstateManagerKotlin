@@ -2,17 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
         tools:context=".controller.activity.SettingActivity"
         android:orientation="vertical">
 
-    <androidx.appcompat.widget.Toolbar
-            android:id="@+id/activity_setting_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:theme="@style/ToolBarStyle" />
+
 
     <LinearLayout
             android:layout_width="wrap_content"
@@ -36,6 +32,7 @@
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
         android:id="@+id/setting_button_validate"
         android:text="ok"/>
 

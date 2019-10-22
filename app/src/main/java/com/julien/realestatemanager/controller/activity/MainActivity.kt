@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import android.widget.Toast
 
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -20,6 +21,7 @@ import com.julien.realestatemanager.Utils
 import com.julien.realestatemanager.controller.fragment.PropertyListFragment
 import com.julien.realestatemanager.controller.fragment.SelectPropertyFragment
 import com.julien.realestatemanager.controller.fragment.SearchFragment
+import kotlinx.android.synthetic.main.drawer_header.*
 
 
 class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
@@ -44,6 +46,8 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         this.configureDrawerLayout()
 
         this.configureNavigationView()
+
+
 
         supportFragmentManager.inTransaction {
             add(R.id.frame_layout_property_list, propertyList)

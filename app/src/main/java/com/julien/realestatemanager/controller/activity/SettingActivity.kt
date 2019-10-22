@@ -21,7 +21,7 @@ class SettingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting)
 
-        configureToolbar()
+
 
         //Save in sharedPreference currency preference of user
         var preferences = PreferenceManager.getDefaultSharedPreferences(this)
@@ -55,14 +55,7 @@ class SettingActivity : AppCompatActivity() {
     }
 
 
-    private fun configureToolbar(){
-        setSupportActionBar(activity_setting_toolbar)
 
-        val actionBar = supportActionBar
-        actionBar?.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_white_24)
-        actionBar?.setDisplayHomeAsUpEnabled(true)
-        actionBar?.setTitle(getString(R.string.setting))
-    }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         onBackPressed()

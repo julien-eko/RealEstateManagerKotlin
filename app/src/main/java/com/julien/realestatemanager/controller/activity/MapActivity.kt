@@ -7,6 +7,7 @@ import android.location.Location
 import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -58,6 +59,8 @@ class MapActivity : AppCompatActivity() , OnMapReadyCallback {
 
         mMapView.getMapAsync(this)
 
+
+
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
         propertyViewModel = ViewModelProviders.of(this).get(PropertyViewModel::class.java)
@@ -77,6 +80,7 @@ class MapActivity : AppCompatActivity() , OnMapReadyCallback {
 
         })
     }
+
 
 
     override fun onMapReady(googleMap: GoogleMap?) {

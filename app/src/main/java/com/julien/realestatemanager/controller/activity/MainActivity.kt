@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             add(R.id.frame_layout_property_list, propertyList)
             val isTablet: Boolean = resources.getBoolean(R.bool.isTablet)
             if (isTablet) {
-                   add(R.id.frame_layout_property_detail,selectPropertyFragment)
+                   replace(R.id.frame_layout_property_detail,selectPropertyFragment)
 
             }
         }
@@ -182,5 +182,13 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             city,
             minRoom,
             maxRoom)
+
+        supportFragmentManager.inTransaction {
+            val isTablet: Boolean = resources.getBoolean(R.bool.isTablet)
+            if (isTablet) {
+                replace(R.id.frame_layout_property_detail,selectPropertyFragment)
+
+            }
+        }
     }
 }

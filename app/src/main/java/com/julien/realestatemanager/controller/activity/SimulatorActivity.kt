@@ -98,8 +98,8 @@ class SimulatorActivity : AppCompatActivity() {
 
     fun alertDialog(price: Float, totalPrice:Float, year:String){
         val builder = AlertDialog.Builder(this)
-        val price2digits:Double = String.format("%.2f", price).toDouble()
-        val totalPricerice2digits:Double = String.format("%.2f", totalPrice).toDouble()
+        val price2digits = String.format("%.2f", price)
+        val totalPricerice2digits = String.format("%.2f", totalPrice)
         
         var preferences = PreferenceManager.getDefaultSharedPreferences(this)
         var isUSD = preferences.getBoolean("isUSD",true)
@@ -112,7 +112,7 @@ class SimulatorActivity : AppCompatActivity() {
         builder.setTitle(getString(R.string.simulator))
 
 
-        builder.setMessage(getString(R.string.totalPrice) + totalPricerice2digits.toString() + " " + currency + "\n" + price2digits.toString() + " " + currency  + " " + getString(R.string.per_month) + getString(
+        builder.setMessage(getString(R.string.totalPrice) + totalPricerice2digits + " " + currency + "\n" + price2digits + " " + currency  + " " + getString(R.string.per_month) + getString(
                     R.string.for_years) + year + getString(R.string.years))
 
         builder.setPositiveButton(getString(R.string.ok)){ dialog, which ->

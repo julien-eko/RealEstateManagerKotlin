@@ -34,22 +34,22 @@ class PropertyActivity : AppCompatActivity() {
 
     var photo = ""
 
-    lateinit var city:String
-    lateinit var type:String
+    var city:String = ""
+    var type:String = ""
     var price:Int = 0
     var area:Int = 0
     var numberOfRooms:Int = 0
-    lateinit var description:String
-    lateinit var adress:String
-    lateinit var placeNearby:String
-    lateinit var status:String
+    var description:String = ""
+    var adress:String = ""
+    var placeNearby:String = ""
+    var status:String = ""
     var createdDate:Long = 0
-    lateinit var realEstateAgent:String
+    var realEstateAgent:String = ""
     var numberOfBathrooms:Int = 0
     var numberOfBedrooms:Int =0
-    lateinit var additionAdress:String
-    lateinit var postalCode:String
-    lateinit var country:String
+    var additionAdress:String = ""
+    var postalCode:String = ""
+    var country:String = ""
     var dateOfSale:Long = 0
     var latitude = 0.0
     var longitude = 0.0
@@ -61,12 +61,17 @@ class PropertyActivity : AppCompatActivity() {
         setContentView(R.layout.activity_create_property)
         this.setFinishOnTouchOutside(false)
 
+        if (savedInstanceState != null) {
+            rotation(savedInstanceState)
+        }
+
         propertyViewModel = ViewModelProviders.of(this).get(PropertyViewModel::class.java)
 
         if (!intent.getBooleanExtra("isNewProperty",true)){
 
             loadProperty()
         }
+
 
     }
 
@@ -169,4 +174,74 @@ class PropertyActivity : AppCompatActivity() {
             }
         })
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("city",city)
+        outState.putString("type",type)
+        outState.putString("description",description)
+        outState.putString("adress",adress)
+        outState.putString("placeNearby",placeNearby)
+        outState.putString("status",status)
+        outState.putString("realEstateAgent",realEstateAgent)
+        outState.putString("additionAdress",additionAdress)
+        outState.putString("country",country)
+        outState.putString("postalCode",postalCode)
+        outState.putInt("price",price)
+        outState.putInt("area",area)
+        outState.putInt("numberOfRooms",numberOfRooms)
+        outState.putInt("numberOfBedrooms",numberOfBedrooms)
+        outState.putInt("numberOfBathrooms",numberOfBathrooms)
+        outState.putLong("createdDate",createdDate)
+        outState.putLong("dateOfSale",dateOfSale)
+        outState.putDouble("latitude",latitude)
+        outState.putDouble("longitude",longitude)
+        outState.putString("photo",photo)
+
+
+
+    }
+
+    private fun rotation(savedInstanceState: Bundle?){
+        city = savedInstanceState!!.getString("city")
+
+        type = savedInstanceState!!.getString("type")
+
+        description= savedInstanceState!!.getString("description")
+
+        adress= savedInstanceState!!.getString("adress")
+
+        placeNearby= savedInstanceState!!.getString("placeNearby")
+
+        status= savedInstanceState!!.getString("status")
+
+        realEstateAgent= savedInstanceState!!.getString("realEstateAgent")
+
+        additionAdress=savedInstanceState!!.getString("additionAdress")
+
+        country= savedInstanceState!!.getString("country")
+
+        postalCode=savedInstanceState!!.getString("postalCode")
+
+        price= savedInstanceState!!.getInt("price")
+
+        area= savedInstanceState!!.getInt("area")
+
+        numberOfRooms= savedInstanceState!!.getInt("numberOfRooms")
+
+        numberOfBedrooms= savedInstanceState!!.getInt("numberOfBedrooms")
+
+        numberOfBathrooms= savedInstanceState!!.getInt("numberOfBathrooms")
+
+        createdDate=savedInstanceState!!.getLong("createdDate")
+
+        dateOfSale= savedInstanceState!!.getLong("dateOfSale")
+
+        latitude=savedInstanceState!!.getDouble("latitude")
+
+        longitude=savedInstanceState!!.getDouble("longitude")
+
+        photo = savedInstanceState!!.getString("photo")
+    }
+
 }

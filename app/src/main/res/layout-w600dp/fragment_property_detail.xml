@@ -1,81 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".controller.fragment.PropertyDetailFragment"
-            android:orientation="vertical">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".controller.fragment.PropertyDetailFragment">
 
 
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:orientation="vertical">
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/media"
-            android:textSize="20dp"
-            android:textStyle="bold"/>
-
-
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_media"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-
-
-
-    </LinearLayout>
-
-<LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_margin="10dp"
-    android:orientation="vertical">
-
-
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/description"
-            android:textSize="20dp"
-            android:textStyle="bold"/>
-
-    <TextView android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/description_text_view"></TextView>
-
-
-</LinearLayout>
-
-<LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-    android:orientation="horizontal">
-
-
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="1">
-
-        <RelativeLayout
-                android:layout_width="match_parent"
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp">
+                android:text="@string/media"
+                android:textSize="20dp"
+                android:textStyle="bold"/>
 
-            <ImageView
-                    android:id="@+id/image_area"
-                    android:layout_width="wrap_content"
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_media"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/description"
+                android:textSize="20dp"
+                android:textStyle="bold"/>
+
+        <TextView android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:id="@+id/description_text_view"></TextView>
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1">
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/baseline_settings_overscan_black_24">
+                    android:layout_margin="10dp">
 
-            </ImageView>
+                <ImageView
+                        android:id="@+id/image_area"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/baseline_settings_overscan_black_24">
+
+                </ImageView>
 
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                         android:id="@+id/area_text"
@@ -88,24 +69,24 @@
                         android:id="@+id/area_text_view"
                         android:layout_below="@+id/area_text"
                         android:layout_alignLeft="@+id/area_text"
-                        android:text="@string/test_m"/>
+                        android:text="test m²"/>
 
 
-        </RelativeLayout>
+            </RelativeLayout>
 
 
-        <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp">
-
-            <ImageView
-                    android:id="@+id/image_number_rooms"
-                    android:layout_width="wrap_content"
+            <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/baseline_home_black_24">
+                    android:layout_margin="10dp">
 
-            </ImageView>
+                <ImageView
+                        android:id="@+id/image_number_rooms"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/baseline_home_black_24">
+
+                </ImageView>
 
 
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -122,21 +103,21 @@
                         android:text="9"/>
 
 
-        </RelativeLayout>
+            </RelativeLayout>
 
 
-        <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp">
-
-            <ImageView
-                    android:layout_width="wrap_content"
+            <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/image_number_of_batthrooms"
-                    android:src="@drawable/baseline_bathtub_black_24">
+                    android:layout_margin="10dp">
 
-            </ImageView>
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/image_number_of_batthrooms"
+                        android:src="@drawable/baseline_bathtub_black_24">
+
+                </ImageView>
 
 
 
@@ -154,20 +135,20 @@
                         android:text="9"/>
 
 
-        </RelativeLayout>
+            </RelativeLayout>
 
-        <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp">
-
-            <ImageView
-                    android:layout_width="wrap_content"
+            <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/image_bedrooms"
-                    android:src="@drawable/baseline_king_bed_black_24">
+                    android:layout_margin="10dp">
 
-            </ImageView>
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/image_bedrooms"
+                        android:src="@drawable/baseline_king_bed_black_24">
+
+                </ImageView>
 
 
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -183,93 +164,85 @@
                         android:layout_alignLeft="@+id/bedrooms_text"
                         android:text="9"/>
 
-        </RelativeLayout>
+            </RelativeLayout>
 
 
-
-    </LinearLayout>
-
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_margin="10dp"
-            android:layout_weight="1">
-
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="3"
-                    android:src="@drawable/baseline_where_to_vote_black_24">
-
-            </ImageView>
-
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_gravity="center"
-                   android:text="@string/location"/>
 
         </LinearLayout>
 
 
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_margin="10dp"
+                android:layout_weight="1">
 
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:id="@+id/adress_text_view"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="50dp"
-                android:text="5 rue du test"/>
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:id="@+id/additional_adress_text_view"
-                android:layout_marginLeft="50dp"
-                android:text="App 4"/>
+                <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:src="@drawable/baseline_where_to_vote_black_24">
 
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:id="@+id/city_text_view"
-                android:layout_marginLeft="50dp"
-                android:text="Paris"/>
+                </ImageView>
 
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:id="@+id/postal_code_text_view"
-                android:layout_marginLeft="50dp"
-                android:text="75000"/>
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/location"/>
 
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:id="@+id/country_text_view"
-                android:layout_marginLeft="50dp"
-                android:text="France"/>
+            </LinearLayout>
+
+
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:id="@+id/adress_text_view"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:text="5 rue du test"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:id="@+id/additional_adress_text_view"
+                    android:layout_marginLeft="20dp"
+                    android:text="App 4"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:id="@+id/city_text_view"
+                    android:layout_marginLeft="20dp"
+                    android:text="Paris"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:id="@+id/postal_code_text_view"
+                    android:layout_marginLeft="20dp"
+                    android:text="75000"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:id="@+id/country_text_view"
+                    android:layout_marginLeft="20dp"
+                    android:text="France"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:gravity="center">
+
+
+            <com.google.android.gms.maps.MapView
+                    android:id="@+id/mapView"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"/>
+
+        </LinearLayout>
+
 
     </LinearLayout>
-
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:gravity="center">
-
-
-        <com.google.android.gms.maps.MapView
-                android:id="@+id/mapView"
-                android:layout_width="150dp"
-                android:layout_height="150dp"/>
-
-    </LinearLayout>
-
-
-
-
-
-
-</LinearLayout>
-
-
-
-</LinearLayout>
+</ScrollView>

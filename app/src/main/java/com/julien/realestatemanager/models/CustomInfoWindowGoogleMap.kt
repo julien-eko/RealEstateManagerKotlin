@@ -16,8 +16,8 @@ class CustomInfoWindowGoogleMap(val context: Context) : GoogleMap.InfoWindowAdap
         var mInfoWindow: InfoWindowData? = p0?.tag as InfoWindowData?
 
         mInfoView.marker_type.text = mInfoWindow?.mType
-        mInfoView.marker_area.text =  mInfoWindow?.mArea
-        mInfoView.marker_price.text =  mInfoWindow?.mPrice
+        mInfoView.marker_area.text =  mInfoWindow?.mArea + " m²"
+        mInfoView.marker_price.text =  mInfoWindow?.mPrice + " $"
         mInfoView.marker_real_estate_agent.text = "Real estate agent: " + mInfoWindow?.mRealEstateAgent
         mInfoView.marker_statut.text =  mInfoWindow?.mStatut
 

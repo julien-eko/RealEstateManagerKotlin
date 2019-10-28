@@ -65,20 +65,7 @@ class MapActivity : AppCompatActivity() , OnMapReadyCallback {
 
         propertyViewModel = ViewModelProviders.of(this).get(PropertyViewModel::class.java)
 
-        //add marker for properties with a valid address
-        propertyViewModel.getAllProperty().observe(this, Observer { properties ->
-            // Update the cached copy of the words in the adapter.
-            properties?.let {
 
-               for (i in properties){
-                   if (i.latitude != 0.0 && i.longitude != 0.0){
-                       addMarker(i.longitude,i.latitude,i)
-                   }
-               }
-            }
-
-
-        })
     }
 
 
@@ -86,6 +73,21 @@ class MapActivity : AppCompatActivity() , OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap?) {
         mMap = googleMap!!
         checkPermitionLocation()
+
+        //add marker for properties with a valid address
+        propertyViewModel.getAllProperty().observe(this, Observer { properties ->
+            // Update the cached copy of the words in the adapter.
+            properties?.let {
+
+                for (i in properties){
+                    if (i.latitude != 0.0 && i.longitude != 0.0){
+                        addMarker(i.longitude,i.latitude,i)
+                    }
+                }
+            }
+
+
+        })
 
     }
 

@@ -32,13 +32,13 @@
                 android:layout_height="match_parent">
             <FrameLayout
                     android:id="@+id/frame_layout_property_list"
-                    android:layout_weight="35"
+                    android:layout_weight="25"
                     android:layout_width="0px"
                     android:layout_height="match_parent"
             />
             <FrameLayout
                     android:id="@+id/frame_layout_property_detail"
-                    android:layout_weight="65"
+                    android:layout_weight="75"
                     android:layout_width="0px"
                     android:layout_height="match_parent"
             />

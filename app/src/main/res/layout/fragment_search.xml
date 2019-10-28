@@ -288,9 +288,10 @@
     </LinearLayout>
 
     <LinearLayout
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:padding="10dp"
             android:id="@+id/reserach_button"
             android:layout_margin="10sp"
             android:background="@color/colorPrimary"
@@ -313,7 +314,8 @@
     <LinearLayout
             android:id="@+id/cancel_button"
             android:layout_gravity="center"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
+            android:padding="10dp"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             android:layout_margin="10dp">

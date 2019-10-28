@@ -2,14 +2,9 @@ package com.julien.realestatemanager.controller.activity
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.graphics.*
-import android.location.Location
-import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -21,29 +16,23 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
 import com.julien.realestatemanager.R
 import com.julien.realestatemanager.models.CustomInfoWindowGoogleMap
 import com.julien.realestatemanager.models.InfoWindowData
-import com.julien.realestatemanager.models.Property
-import com.julien.realestatemanager.models.PropertyViewModel
+import com.julien.realestatemanager.Database.Property
+import com.julien.realestatemanager.Database.PropertyViewModel
 import kotlinx.android.synthetic.main.activity_map.*
-import kotlinx.android.synthetic.main.fragment_property_detail.*
-import java.io.File
 
 private const val MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 100
 
-class MapActivity : AppCompatActivity() , OnMapReadyCallback {
+class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var mMapView: MapView
     private lateinit var propertyViewModel: PropertyViewModel
-    private lateinit var mFusedLocationProviderClient:FusedLocationProviderClient
-
+    private lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,7 +58,6 @@ class MapActivity : AppCompatActivity() , OnMapReadyCallback {
     }
 
 
-
     override fun onMapReady(googleMap: GoogleMap?) {
         mMap = googleMap!!
         checkPermitionLocation()
@@ -79,9 +67,9 @@ class MapActivity : AppCompatActivity() , OnMapReadyCallback {
             // Update the cached copy of the words in the adapter.
             properties?.let {
 
-                for (i in properties){
-                    if (i.latitude != 0.0 && i.longitude != 0.0){
-                        addMarker(i.longitude,i.latitude,i)
+                for (i in properties) {
+                    if (i.latitude != 0.0 && i.longitude != 0.0) {
+                        addMarker(i.longitude, i.latitude, i)
                     }
                 }
             }
@@ -91,7 +79,7 @@ class MapActivity : AppCompatActivity() , OnMapReadyCallback {
 
     }
 
-    private fun configureToolbar(){
+    private fun configureToolbar() {
         setSupportActionBar(activity_map_toolbar)
 
         val actionBar = supportActionBar
@@ -106,11 +94,12 @@ class MapActivity : AppCompatActivity() , OnMapReadyCallback {
     }
 
     //add a custom marker
-    private fun addMarker(longitude:Double, latitude:Double, property: Property){
-        val location = LatLng(latitude,longitude)
+    private fun addMarker(longitude: Double, latitude: Double, property: Property) {
+        val location = LatLng(latitude, longitude)
         val markerOptions = MarkerOptions()
         markerOptions.position(location)
-        val info = InfoWindowData(property.type, property.area.toString(),
+        val info = InfoWindowData(
+            property.type, property.area.toString(),
             property.price.toString(),
             property.realEstateAgent,
             property.status
@@ -127,16 +116,20 @@ class MapActivity : AppCompatActivity() , OnMapReadyCallback {
     }
 
 
+    fun checkPermitionLocation() {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+            != PackageManager.PERMISSION_GRANTED
+        ) {
 
-    fun checkPermitionLocation(){
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED) {
 
-
-            ActivityCompat.requestPermissions(this,
+            ActivityCompat.requestPermissions(
+                this,
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
+                MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
+            )
 
 
         } else {
@@ -145,16 +138,14 @@ class MapActivity : AppCompatActivity() , OnMapReadyCallback {
             getDeviceLocation()
 
 
-
-
-
-
         }
     }
 
 
-    override fun onRequestPermissionsResult(requestCode: Int,
-                                            permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>, grantResults: IntArray
+    ) {
         when (requestCode) {
             MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION -> {
 
@@ -166,7 +157,8 @@ class MapActivity : AppCompatActivity() , OnMapReadyCallback {
 
                 } else {
 
-                    Toast.makeText(this,getString(R.string.permission_denied),Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.permission_denied), Toast.LENGTH_SHORT)
+                        .show()
 
                 }
                 return
@@ -178,13 +170,20 @@ class MapActivity : AppCompatActivity() , OnMapReadyCallback {
     }
 
 
-    fun getDeviceLocation(){
+    fun getDeviceLocation() {
         var locationResult = mFusedLocationProviderClient.lastLocation
         locationResult.addOnCompleteListener { p0 ->
-            if(p0.isSuccessful){
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(p0.result!!.latitude,p0.result!!.longitude),18.0f))
+            if (p0.isSuccessful) {
+                mMap.moveCamera(
+                    CameraUpdateFactory.newLatLngZoom(
+                        LatLng(
+                            p0.result!!.latitude,
+                            p0.result!!.longitude
+                        ), 18.0f
+                    )
+                )
 
-            }else{
+            } else {
 
             }
         }

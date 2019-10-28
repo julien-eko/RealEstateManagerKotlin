@@ -1,16 +1,12 @@
-package com.julien.realestatemanager
+package com.julien.realestatemanager.Notification
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
-import android.content.res.Resources
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat.getSystemService
-import com.julien.realestatemanager.controller.activity.MainActivity
+import com.julien.realestatemanager.R
 
 
 private const val CHANNEL_ID = "notification_channel_id"
@@ -19,15 +15,20 @@ private const val CHANNEL_ID = "notification_channel_id"
 class Notification {
 
 
-
-     fun createNotification(context: Context,notificationTitle:String,notificationDescription:String) {
+    fun createNotification(
+        context: Context,
+        notificationTitle: String,
+        notificationDescription: String
+    ) {
 
         createNotificationChannel(context)
 
 
-
-        val builder = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(R.drawable.property)
+        val builder = NotificationCompat.Builder(
+            context,
+            CHANNEL_ID
+        )
+            .setSmallIcon(R.drawable.realestateicon)
             .setContentTitle(notificationTitle)
             .setContentText(notificationDescription)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)

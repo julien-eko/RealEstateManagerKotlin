@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.TextView
 import android.widget.Toast
 
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -17,21 +16,23 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.navigation.NavigationView
 import com.julien.realestatemanager.R
-import com.julien.realestatemanager.Utils
+import com.julien.realestatemanager.models.Utils
 import com.julien.realestatemanager.controller.fragment.PropertyListFragment
 import com.julien.realestatemanager.controller.fragment.SelectPropertyFragment
 import com.julien.realestatemanager.controller.fragment.SearchFragment
-import kotlinx.android.synthetic.main.drawer_header.*
+import android.text.TextUtils
+import android.provider.Settings.SettingNotFoundException
+import android.os.Build
+import android.provider.Settings
 
 
-class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var propertyList: PropertyListFragment
     private lateinit var selectPropertyFragment: SelectPropertyFragment
-    private lateinit var toolbar:Toolbar
+    private lateinit var toolbar: Toolbar
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navigationView: NavigationView
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,7 +54,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             add(R.id.frame_layout_property_list, propertyList)
             val isTablet: Boolean = resources.getBoolean(R.bool.isTablet)
             if (isTablet) {
-                   replace(R.id.frame_layout_property_detail,selectPropertyFragment)
+                replace(R.id.frame_layout_property_detail, selectPropertyFragment)
 
             }
         }
@@ -68,61 +69,71 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.activity_main_toolbar,menu)
+        menuInflater.inflate(R.menu.activity_main_toolbar, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         var itemid = item?.itemId
 
-        if (itemid == R.id.action_add){
+        if (itemid == R.id.action_add) {
             val intent = Intent(this, PropertyActivity::class.java)
-            intent.putExtra("isNewProperty",true)
+            intent.putExtra("isNewProperty", true)
             startActivity(intent)
         }
-        if (itemid == R.id.action_edit){
+        if (itemid == R.id.action_edit) {
 
-            val id:String = propertyList.idProperty
+            val id: String = propertyList.idProperty
 
-            if(id == "0"){
-                Toast.makeText(this,getString(R.string.choose_property),Toast.LENGTH_SHORT).show()
-            }else{
+            if (id == "0") {
+                Toast.makeText(this, getString(R.string.choose_property), Toast.LENGTH_SHORT).show()
+            } else {
                 val intent = Intent(this, PropertyActivity::class.java)
-                intent.putExtra("isNewProperty",false)
-                intent.putExtra("id",id)
+                intent.putExtra("isNewProperty", false)
+                intent.putExtra("id", id)
                 startActivity(intent)
             }
 
 
         }
-        if (itemid == R.id.action_search){
+        if (itemid == R.id.action_search) {
             val searchFragment = SearchFragment()
-            searchFragment.show(supportFragmentManager,"test")
+            searchFragment.show(supportFragmentManager, "test")
 
         }
 
         return super.onOptionsItemSelected(item)
     }
+
     override fun onNavigationItemSelected(p0: MenuItem): Boolean {
         var itemid = p0?.itemId
 
-        if (itemid == R.id.activity_main_drawer_map){
-            if (Utils.isInternetAvailable(this)){
-                val intent = Intent(this, MapActivity::class.java)
-                startActivity(intent)
-            }else{
-                Toast.makeText(this,getString(R.string.no_connection), Toast.LENGTH_SHORT).show()
+        if (itemid == R.id.activity_main_drawer_map) {
+            if (Utils.isInternetAvailable(this)) {
+                if (isLocationEnabled(this)) {
+                    val intent = Intent(this, MapActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(
+                        this,
+                        getString(R.string.actived_localization),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+            } else {
+                Toast.makeText(this, getString(R.string.no_connection), Toast.LENGTH_SHORT).show()
             }
 
         }
-        if (itemid == R.id.activity_main_drawer_settings){
+        if (itemid == R.id.activity_main_drawer_settings) {
             val intent = Intent(this, SettingActivity::class.java)
             startActivity(intent)
         }
-        if (itemid == R.id.activity_main_drawer_simulator){
-            val id:String = propertyList.idProperty
+        if (itemid == R.id.activity_main_drawer_simulator) {
+            val id: String = propertyList.idProperty
             val intent = Intent(this, SimulatorActivity::class.java)
-            intent.putExtra("id",id)
+            intent.putExtra("id", id)
             startActivity(intent)
         }
 
@@ -130,46 +141,56 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     }
 
     override fun onBackPressed() {
-        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
-        }else{
+        } else {
             super.onBackPressed()
         }
 
     }
-    private fun configureToolBar(){
+
+    private fun configureToolBar() {
         toolbar = findViewById(R.id.activity_main_toolbar)
         setSupportActionBar(toolbar)
     }
 
-    private  fun configureDrawerLayout(){
+    private fun configureDrawerLayout() {
         drawerLayout = findViewById(R.id.activity_main_drawer_layout)
         toolbar = findViewById(R.id.activity_main_toolbar)
-        var toggle = ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close)
+        var toggle = ActionBarDrawerToggle(
+            this,
+            drawerLayout,
+            toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
+        )
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
     }
 
-    private fun configureNavigationView(){
+    private fun configureNavigationView() {
         navigationView = findViewById(R.id.activity_main_nav_view)
         navigationView.setNavigationItemSelectedListener(this)
     }
 
     //displays the properties matching the search criteria
-    fun updateList(typeProperty: String,
-                   minArea: Int,
-                   maxArea: Int,
-                   minPrice: Int,
-                   maxPrice: Int,
-                   minDateOfSale: Long,
-                   maxDateOfSale: Long,
-                   statut: String,
-                   minDateOfCreated: Long,
-                   maxDateOfCreated: Long,
-                   city:String,
-                   minRoom: Int,
-                   maxRoom: Int){
-        propertyList.searchProperties(typeProperty,
+    fun updateList(
+        typeProperty: String,
+        minArea: Int,
+        maxArea: Int,
+        minPrice: Int,
+        maxPrice: Int,
+        minDateOfSale: Long,
+        maxDateOfSale: Long,
+        statut: String,
+        minDateOfCreated: Long,
+        maxDateOfCreated: Long,
+        city: String,
+        minRoom: Int,
+        maxRoom: Int
+    ) {
+        propertyList.searchProperties(
+            typeProperty,
             minArea,
             maxArea,
             minPrice,
@@ -181,14 +202,42 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             maxDateOfCreated,
             city,
             minRoom,
-            maxRoom)
+            maxRoom
+        )
 
         supportFragmentManager.inTransaction {
             val isTablet: Boolean = resources.getBoolean(R.bool.isTablet)
             if (isTablet) {
-                replace(R.id.frame_layout_property_detail,selectPropertyFragment)
+                replace(R.id.frame_layout_property_detail, selectPropertyFragment)
 
             }
         }
+    }
+
+    fun isLocationEnabled(context: Context): Boolean {
+        var locationMode = 0
+        val locationProviders: String
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            try {
+                locationMode =
+                    Settings.Secure.getInt(context.contentResolver, Settings.Secure.LOCATION_MODE)
+
+            } catch (e: SettingNotFoundException) {
+                e.printStackTrace()
+                return false
+            }
+
+            return locationMode != Settings.Secure.LOCATION_MODE_OFF
+
+        } else {
+            locationProviders = Settings.Secure.getString(
+                context.contentResolver,
+                Settings.Secure.LOCATION_PROVIDERS_ALLOWED
+            )
+            return !TextUtils.isEmpty(locationProviders)
+        }
+
+
     }
 }

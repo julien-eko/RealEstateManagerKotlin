@@ -1,7 +1,6 @@
 package com.julien.realestatemanager.controller.fragment
 
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,49 +10,22 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.julien.realestatemanager.R
-import com.julien.realestatemanager.models.Property
-import com.julien.realestatemanager.models.PropertyViewModel
+import com.julien.realestatemanager.Database.PropertyViewModel
 import kotlinx.android.synthetic.main.fragment_property_detail.*
-import android.graphics.BitmapFactory
-import android.graphics.Bitmap
 import android.location.Address
 import android.location.Geocoder
-import android.net.Uri
-import android.provider.MediaStore
-import android.util.Log
-import android.widget.ImageView
 import android.widget.Toast
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.maps.*
-import java.io.ByteArrayOutputStream
-import java.util.*
-import kotlin.collections.ArrayList
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
 import com.google.android.gms.maps.MapView
-import com.julien.realestatemanager.Utils
+import com.julien.realestatemanager.models.Utils
 import com.julien.realestatemanager.controller.activity.FullScreenActivity
-import com.julien.realestatemanager.controller.activity.PropertyDetailActivity
 import com.julien.realestatemanager.view.MediaAdaptater
-import com.openclassrooms.realestatemanager.views.PropertyAdaptater
-import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.fragment_property_list.*
-import java.io.File
 
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- *
- */
 class PropertyDetailFragment : androidx.fragment.app.Fragment(), OnMapReadyCallback {
 
 
@@ -122,7 +94,6 @@ class PropertyDetailFragment : androidx.fragment.app.Fragment(), OnMapReadyCallb
             propertyViewModel.getMedia(tag!!.toString()).observe(this, Observer { media ->
                 // Update the cached copy of the words in the adapter.
                 media?.let {
-                    //Log.e("size media", media.size.toString())
                     adapter.setMedia(media)
 
 

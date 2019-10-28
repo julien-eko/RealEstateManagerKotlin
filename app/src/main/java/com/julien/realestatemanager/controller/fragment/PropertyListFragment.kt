@@ -1,38 +1,22 @@
 package com.julien.realestatemanager.controller.fragment
 
 
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.provider.MediaStore
-import android.util.Log
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.julien.realestatemanager.Database.PropertyViewModel
 import com.julien.realestatemanager.R
-import com.julien.realestatemanager.controller.activity.MainActivity
 import com.julien.realestatemanager.controller.activity.PropertyDetailActivity
-import com.julien.realestatemanager.models.*
 import com.openclassrooms.realestatemanager.views.PropertyAdaptater
-import com.openclassrooms.realestatemanager.views.PropertyViewHolder
 import kotlinx.android.synthetic.main.fragment_property_list.*
-import kotlinx.android.synthetic.main.fragment_property_list_item.*
-import java.io.ByteArrayOutputStream
-
 
 
 /**
@@ -49,18 +33,16 @@ class PropertyListFragment : androidx.fragment.app.Fragment() {
 
     private lateinit var propertyViewModel: PropertyViewModel
 
-    private lateinit var lastId:String
+    private lateinit var lastId: String
 
 
     lateinit var idProperty: String
 
-    //private lateinit var photo:ByteArray
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //recycler_view_property?.layoutManager = LinearLayoutManager(context)
 
 
         return inflater.inflate(R.layout.fragment_property_list, container, false)
@@ -80,9 +62,9 @@ class PropertyListFragment : androidx.fragment.app.Fragment() {
 
 
         var preferences = PreferenceManager.getDefaultSharedPreferences(context)
-        var isUSD = preferences.getBoolean("isUSD",true)
+        var isUSD = preferences.getBoolean("isUSD", true)
 
-        adapter = PropertyAdaptater(listOf(), idProperty,isUSD)
+        adapter = PropertyAdaptater(listOf(), idProperty, isUSD)
         recycler_view_property.adapter = adapter
 
         propertyViewModel = ViewModelProviders.of(this).get(PropertyViewModel::class.java)
@@ -105,7 +87,6 @@ class PropertyListFragment : androidx.fragment.app.Fragment() {
     //click
     fun listener() {
         adapter.listener = { id ->
-            // do something here
 
 
             this.idProperty = id
@@ -115,19 +96,16 @@ class PropertyListFragment : androidx.fragment.app.Fragment() {
                 propertyDetail = PropertyDetailFragment()
                 propertyList = PropertyListFragment()
                 activity?.supportFragmentManager?.inTransaction {
-                    //replace(R.id.frame_layout_property_list, propertyList, id)
                     replace(R.id.frame_layout_property_detail, propertyDetail, id)
 
                 }
 
             } else {
 
-                if (lastId == id){
+                if (lastId == id) {
                     val intent = Intent(context, PropertyDetailActivity::class.java)
                     intent.putExtra("id", id)
-                    // start your next activity
                     startActivity(intent)
-                    //Toast.makeText(context, pos.toString(), Toast.LENGTH_SHORT).show()
                 }
                 lastId = id
             }
@@ -143,30 +121,29 @@ class PropertyListFragment : androidx.fragment.app.Fragment() {
     }
 
 
-
     fun displayAllProperties() {
         propertyViewModel.allProperties.observe(this, Observer { property ->
-            // Update the cached copy of the words in the adapter.
             property?.let {
-                //adapter.setWords(it)
                 adapter.setProperties(property)
             }
         })
     }
 
-    fun searchProperties(typeProperty: String,
-                         minArea: Int,
-                         maxArea: Int,
-                         minPrice: Int,
-                         maxPrice: Int,
-                         minDateOfSale: Long,
-                         maxDateOfSale: Long,
-                         statut: String,
-                         minDateOfCreated: Long,
-                         maxDateOfCreated: Long,
-                         city:String,
-                         minRoom: Int,
-                         maxRoom: Int) {
+    fun searchProperties(
+        typeProperty: String,
+        minArea: Int,
+        maxArea: Int,
+        minPrice: Int,
+        maxPrice: Int,
+        minDateOfSale: Long,
+        maxDateOfSale: Long,
+        statut: String,
+        minDateOfCreated: Long,
+        maxDateOfCreated: Long,
+        city: String,
+        minRoom: Int,
+        maxRoom: Int
+    ) {
         val propertyViewModel = ViewModelProviders.of(this).get(PropertyViewModel::class.java)
         propertyViewModel.getPropertyResearch(
             typeProperty,
@@ -183,11 +160,9 @@ class PropertyListFragment : androidx.fragment.app.Fragment() {
             minRoom,
             maxRoom
         ).observe(this, Observer { property ->
-            // Update the cached copy of the words in the adapter.
             property?.let {
 
-                //adapter.setWords(it)
-                cancel_search_button.visibility =View.VISIBLE
+                cancel_search_button.visibility = View.VISIBLE
                 adapter.setProperties(property)
             }
         })

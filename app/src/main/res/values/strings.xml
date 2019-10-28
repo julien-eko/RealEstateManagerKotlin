@@ -92,6 +92,7 @@
     <string name="totalPrice">"Total price : "</string>
     <string name="map">Map</string>
     <string name="settings">settings</string>
+    <string name="actived_localization">Activate localization</string>
 
     <string-array name="statut_arrays">
         <item>Dispo</item>

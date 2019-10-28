@@ -24,12 +24,11 @@ class FullScreenActivity : AppCompatActivity() {
         Picasso.get().load(file).into(full_screen_image)
 
 
-
     }
 
     //configure toolbar
     //toolbar title: description of the photo
-    private fun configureToolbar(){
+    private fun configureToolbar() {
         setSupportActionBar(activity_full_screen_toolbar)
 
         val actionBar = supportActionBar

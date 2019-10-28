@@ -1,10 +1,9 @@
-package com.julien.realestatemanager.models
+package com.julien.realestatemanager.Database
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import java.io.FileDescriptor
 
 @Entity(foreignKeys = arrayOf(
     ForeignKey(

@@ -1,10 +1,8 @@
-package com.julien.realestatemanager.models
+package com.julien.realestatemanager.Database
 
 import android.database.Cursor
-import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import java.util.*
 
 @Dao
 interface PropertyDao {
@@ -41,17 +39,6 @@ interface PropertyDao {
     @Query("SELECT * FROM property WHERE id = :propertyId")
     fun getPropertyWithCursor(propertyId: String):Cursor
 
-
-
-    //@Query("SELECT * FROM user WHERE first_name LIKE :first AND " +
-    //        "last_name LIKE :last LIMIT 1")
-    //fun findByName(first: String, last: String): Property
-
-    //@Insert
-    //fun insertAll(vararg propertys: Property)
-
-    //@Insert
-    //fun insertProperty(property: Property)
 
     @Insert
     fun insert(property: Property):Long

@@ -1,8 +1,7 @@
 package com.julien.realestatemanager
 
-import com.julien.realestatemanager.controller.activity.MapActivity
-import com.julien.realestatemanager.controller.activity.SettingActivity
 import com.julien.realestatemanager.controller.activity.SimulatorActivity
+import com.julien.realestatemanager.models.Utils
 import org.junit.Test
 
 import org.junit.Assert.*

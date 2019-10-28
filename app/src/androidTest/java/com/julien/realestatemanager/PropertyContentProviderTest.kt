@@ -3,14 +3,9 @@ package com.julien.realestatemanager
 import android.content.ContentResolver
 import android.content.ContentUris
 import android.content.ContentValues
-import android.content.Context
 import androidx.room.Room
-import androidx.test.espresso.matcher.ViewMatchers.assertThat
-import com.julien.realestatemanager.models.Property
-import com.julien.realestatemanager.models.RealEstateManagerDatabase
+import com.julien.realestatemanager.Database.RealEstateManagerDatabase
 import com.julien.realestatemanager.provider.PropertyContentProvider
-import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test

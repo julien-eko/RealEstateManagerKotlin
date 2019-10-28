@@ -1,4 +1,4 @@
-package com.julien.realestatemanager.models
+package com.julien.realestatemanager.Database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*

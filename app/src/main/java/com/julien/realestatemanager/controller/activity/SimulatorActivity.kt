@@ -7,10 +7,9 @@ import android.preference.PreferenceManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.julien.realestatemanager.R
-import com.julien.realestatemanager.Utils
-import com.julien.realestatemanager.models.PropertyViewModel
+import com.julien.realestatemanager.models.Utils
+import com.julien.realestatemanager.Database.PropertyViewModel
 import kotlinx.android.synthetic.main.activity_simulator.*
-import java.time.Year
 
 class SimulatorActivity : AppCompatActivity() {
 
@@ -108,6 +107,7 @@ class SimulatorActivity : AppCompatActivity() {
             "$"
         }else{
             "€"
+
         }
         builder.setTitle(getString(R.string.simulator))
 

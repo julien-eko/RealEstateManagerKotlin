@@ -7,9 +7,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.julien.realestatemanager.R
 import com.julien.realestatemanager.controller.fragment.PropertyDetailFragment
-import kotlinx.android.synthetic.main.activity_map.*
 import kotlinx.android.synthetic.main.activity_property_detail.*
-import kotlinx.android.synthetic.main.fragment_property_detail.*
 
 class PropertyDetailActivity : AppCompatActivity() {
 
@@ -25,13 +23,17 @@ class PropertyDetailActivity : AppCompatActivity() {
         configureToolbar()
 
         supportFragmentManager.inTransaction {
-            add(R.id.frame_layout_property_detail, propertyDetail,intent.getStringExtra("id").toString())
+            replace(
+                R.id.frame_layout_property_detail,
+                propertyDetail,
+                intent.getStringExtra("id").toString()
+            )
         }
 
     }
 
 
-    private fun configureToolbar(){
+    private fun configureToolbar() {
         setSupportActionBar(activity_detail_toolbar)
 
         val actionBar = supportActionBar
